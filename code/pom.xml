@@ -8,6 +8,9 @@
     <artifactId>data-fusion-application</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>work-bench</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
