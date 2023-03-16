@@ -9,7 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>work-bench</module>
+        <module>data-management-service</module>
+        <module>platform-management-service</module>
+        <module>data-element-serivice</module>
+        <module>decision-element-service</module>
     </modules>
 
     <parent>

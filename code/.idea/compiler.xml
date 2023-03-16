@@ -6,18 +6,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="work-bench" />
+        <module name="data-element-serivice" />
+        <module name="platfrom-management-service" />
+        <module name="data-management-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="algorithms" target="8" />
       <module name="dfa-registry" target="8" />
+      <module name="platform-management-service" target="8" />
+      <module name="work-bench" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="algorithms" options="-parameters" />
+      <module name="data-element-serivice" options="-parameters" />
+      <module name="data-management-service" options="-parameters" />
       <module name="dfa-registry" options="-parameters" />
+      <module name="platform-management-service" options="-parameters" />
+      <module name="platfrom-management-service" options="-parameters" />
       <module name="work-bench" options="-parameters" />
     </option>
   </component>
