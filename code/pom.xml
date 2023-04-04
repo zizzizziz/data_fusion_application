@@ -13,6 +13,7 @@
         <module>platform-management-service</module>
         <module>data-element-serivice</module>
         <module>decision-element-service</module>
+        <module>quick-started</module>
     </modules>
 
     <parent>
