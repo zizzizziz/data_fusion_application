@@ -5,12 +5,14 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/platform-management-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/algorithms/pom.xml" />
+        <option value="$PROJECT_DIR$/data-element-serivice/pom.xml" />
+        <option value="$PROJECT_DIR$/data-management-service/pom.xml" />
+        <option value="$PROJECT_DIR$/decision-element-service/pom.xml" />
         <option value="$PROJECT_DIR$/dfa-registry/pom.xml" />
         <option value="$PROJECT_DIR$/work-bench/pom.xml" />
       </set>

@@ -1,11 +1,11 @@
-package ldn.cs.data.element;
+package ldn.cs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DataElementApplication {
+public class DataServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DataElementApplication.class, args);
+        SpringApplication.run(DataServiceApplication.class, args);
     }
 }
