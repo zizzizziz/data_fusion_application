@@ -1,5 +1,6 @@
-package ldn.cs.fusion.pojo;
+package ldn.cs.fusion.pojo.staff;
 
+import ldn.cs.fusion.pojo.staff.Staff;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

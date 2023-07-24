@@ -1,12 +1,12 @@
 package ldn.cs.fusion.service;
 
 import ldn.cs.fusion.dao.StaffDao;
-import ldn.cs.fusion.pojo.Staff;
-import ldn.cs.fusion.pojo.StaffInfo;
+import ldn.cs.fusion.pojo.staff.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StaffService {
@@ -14,8 +14,24 @@ public class StaffService {
     private StaffDao staff;
 
     public int addStaffInfos(List<Staff> staffs) {
+        long updateTime = System.currentTimeMillis();
+        staffs.forEach(staff -> staff.setUpdateTime(updateTime));
         return staff.addStaffInfos(staffs);
     }
+
+    public int addPersonInfos(List<Person> persons) {
+        return staff.addPersonInfos(persons);
+    }
+
+    public int addPositionInfos(List<Position> positions) {
+        return staff.addPositionInfos(positions);
+    }
+
+    public int addSkillInfos(List<Skill> skills) {
+        return staff.addSkillInfos(skills);
+    }
+
+
 
     public StaffInfo getStaffInfos(String statement, int types, int limit, int offset) {
         StaffInfo staffInfo = new StaffInfo();
@@ -26,4 +42,17 @@ public class StaffService {
         staffInfo.setTotal(total);
         return staffInfo;
     }
+
+    public Map<String, List<Position>> getPositionInfos(int time, int granularity) {
+        return staff.getPositionInfos(time, granularity).stream().collect(Collectors.groupingBy(Position::getCorporation));
+    }
+
+    public Map<String, List<Person>> getPersonInfos(int time, int granularity) {
+        return staff.getPersonInfos(time, granularity).stream().collect(Collectors.groupingBy(Person::getCorporation));
+    }
+
+    public Map<String, List<Skill>> getSkillInfos(int time, int granularity) {
+        return staff.getSkillInfos(time, granularity).stream().collect(Collectors.groupingBy(Skill::getCorporation));
+    }
+
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ldn.cs.fusion.dao.StaffDao">
+<mapper namespace="ldn.cs.fusion.dao.WealthDao">
 
     <!-- 新增StaffInofs报表数据 -->
     <insert id="addStaffInfos" parameterType="ldn.cs.fusion.pojo.staff.Staff">
@@ -55,24 +55,6 @@
         </foreach>
     </insert>
 
-    <!-- 新增Position数据 -->
-    <insert id="addPositionInfos" parameterType="ldn.cs.fusion.pojo.staff.Position">
-        INSERT INTO tbl_staff_position_info(corporation,position, eventTime, updateTime)
-        VALUES
-        <foreach collection="positions" item="position" separator=",">
-            (#{position.corporation}, #{position.position}, #{position.eventTime}, #{position.updateTime})
-        </foreach>
-    </insert>
-
-    <!-- 新增Skill数据 -->
-    <insert id="addSkillInfos" parameterType="ldn.cs.fusion.pojo.staff.Skill">
-        INSERT INTO tbl_staff_skill_info(corporation,skill, eventTime, updateTime)
-        VALUES
-        <foreach collection="skills" item="skill" separator=",">
-            (#{skill.corporation}, #{skill.skill}, #{skill.eventTime}, #{skill.updateTime})
-        </foreach>
-    </insert>
-
     <!-- 查询Person数据 -->
     <select id="getPersonInfos" resultType="ldn.cs.fusion.pojo.staff.Person">
         select * from tbl_staff_person_info
@@ -93,43 +75,4 @@
         </where>
     </select>
 
-    <!-- 查询Position数据 -->
-    <select id="getPositionInfos" resultType="ldn.cs.fusion.pojo.staff.Position">
-        select * from tbl_staff_position_info
-        <where>
-            <if test="granularity != null and granularity != ''">
-                <choose>
-                    <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
-                    </when>
-                    <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
-                    </when>
-                    <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
-                    </when>
-                </choose>
-            </if>
-        </where>
-    </select>
-
-    <!-- 查询Skill数据 -->
-    <select id="getSkillInfos" resultType="ldn.cs.fusion.pojo.staff.Skill">
-        select * from tbl_staff_skill_info
-        <where>
-            <if test="granularity != null and granularity != ''">
-                <choose>
-                    <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
-                    </when>
-                    <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
-                    </when>
-                    <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
-                    </when>
-                </choose>
-            </if>
-        </where>
-    </select>
 </mapper>

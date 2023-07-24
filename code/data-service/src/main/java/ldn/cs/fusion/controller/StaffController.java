@@ -1,7 +1,7 @@
 package ldn.cs.fusion.controller;
 
-import ldn.cs.fusion.pojo.Staff;
-import ldn.cs.fusion.pojo.StaffInfo;
+import ldn.cs.fusion.pojo.staff.Position;
+import ldn.cs.fusion.pojo.staff.StaffInfo;
 import ldn.cs.fusion.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rest/data/fusion/staff")
@@ -17,8 +18,12 @@ public class StaffController {
     StaffService staffService;
 
     @GetMapping("/query")
-    public StaffInfo query() {
-        return staffService.getStaffInfos("byd", 1, 10, 0);
+    public StaffInfo query(String statement, int types, int limit, int offset) {
+        return staffService.getStaffInfos(statement, types, limit, offset);
     }
 
+    @GetMapping("/position")
+    public Map<String, List<Position>> getPositons(){
+        return staffService.getPositionInfos(2022,1);
+    }
 }
