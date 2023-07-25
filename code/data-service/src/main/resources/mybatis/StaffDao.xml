@@ -6,7 +6,7 @@
 
     <!-- 新增StaffInofs报表数据 -->
     <insert id="addStaffInfos" parameterType="ldn.cs.fusion.pojo.staff.Staff">
-        INSERT INTO tbl_staff_info_original(corporation, categories, position, skill, eventTime, updateTime)
+        INSERT INTO tbl_staff_info(corporation, categories, position, skill, eventTime, updateTime)
         VALUES
         <foreach collection="staffs" item="staff" separator=",">
             (#{staff.corporation}, #{staff.categories}, #{staff.position}, #{staff.skill}, #{staff.eventTime}, #{staff.updateTime})
@@ -15,7 +15,7 @@
 
     <!-- 查询StaffInfos报表 -->
     <select id="getStaffInfos" resultType="ldn.cs.fusion.pojo.staff.Staff">
-        select * from tbl_staff_info_original
+        select * from tbl_staff_info
         <where>
             1=1
             <if test="statement != null and statement != ''">
@@ -27,12 +27,13 @@
                 </if>
             </if>
         </where>
+        order by updateTime DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <!-- 查询StaffInfos报表Total -->
     <select id="getTotalStaff" resultType="int">
-        select count(1) from tbl_staff_info_original
+        select count(1) from tbl_staff_info
         <where>
             1=1
             <if test="statement != null and statement != ''">

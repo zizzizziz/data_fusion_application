@@ -4,18 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ldn.cs.fusion.dao.WealthDao">
 
-    <!-- 新增StaffInofs报表数据 -->
-    <insert id="addStaffInfos" parameterType="ldn.cs.fusion.pojo.staff.Staff">
-        INSERT INTO tbl_staff_info_original(corporation, categories, position, skill, eventTime, updateTime)
+    <!-- 新增WealthInfos报表数据 -->
+    <insert id="addWealthInfos" parameterType="ldn.cs.fusion.pojo.wealth.Wealth">
+        INSERT INTO tbl_wealth_info(corporation, research, device, production, storage, materiel, transportation, salary, revenue, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
         VALUES
-        <foreach collection="staffs" item="staff" separator=",">
-            (#{staff.corporation}, #{staff.categories}, #{staff.position}, #{staff.skill}, #{staff.eventTime}, #{staff.updateTime})
+        <foreach collection="wealths" item="wealth" separator=",">
+            (#{wealth.corporation}, #{wealth.research}, #{wealth.device}, #{wealth.production}, #{wealth.storage}, #{wealth.materiel}, #{wealth.transportation}, #{wealth.salary}, #{wealth.revenue}, #{wealth.profit}, #{wealth.fixedAssets}, #{wealth.cashAssets}, #{wealth.finance}, #{wealth.eventTime}, #{wealth.updateTime})
         </foreach>
     </insert>
 
-    <!-- 查询StaffInfos报表 -->
-    <select id="getStaffInfos" resultType="ldn.cs.fusion.pojo.staff.Staff">
-        select * from tbl_staff_info_original
+    <!-- 查询WealthInfos报表 -->
+    <select id="getWealthInfos" resultType="ldn.cs.fusion.pojo.wealth.Wealth">
+        select * from tbl_wealth_info
         <where>
             1=1
             <if test="statement != null and statement != ''">
@@ -30,9 +30,9 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
-    <!-- 查询StaffInfos报表Total -->
-    <select id="getTotalStaff" resultType="int">
-        select count(1) from tbl_staff_info_original
+    <!-- 查询WealthInfos报表Total -->
+    <select id="getTotalWealth" resultType="int">
+        select count(1) from tbl_wealth_info
         <where>
             1=1
             <if test="statement != null and statement != ''">
@@ -46,18 +46,18 @@
         </where>
     </select>
 
-    <!-- 新增Person数据 -->
-    <insert id="addPersonInfos" parameterType="ldn.cs.fusion.pojo.staff.Person">
-        INSERT INTO tbl_staff_person_info(corporation,categories, eventTime, updateTime)
+    <!-- 新增Finance数据 -->
+    <insert id="addFinanceInfos" parameterType="ldn.cs.fusion.pojo.wealth.Finance">
+        INSERT INTO tbl_wealth_finance_info(corporation, research, device, production, storage, materiel, transportation, salary, revenue, eventTime, updateTime)
         VALUES
-        <foreach collection="persons" item="person" separator=",">
-            (#{person.corporation}, #{person.categories}, #{person.eventTime}, #{person.updateTime})
+        <foreach collection="finances" item="finance" separator=",">
+            (#{finance.corporation}, #{finance.research}, #{finance.device}, #{finance.production}, #{finance.storage}, #{finance.materiel}, #{finance.transportation}, #{finance.salary}, #{finance.revenue}, #{finance.eventTime}, #{finance.updateTime})
         </foreach>
     </insert>
 
-    <!-- 查询Person数据 -->
-    <select id="getPersonInfos" resultType="ldn.cs.fusion.pojo.staff.Person">
-        select * from tbl_staff_person_info
+    <!-- 查询Asset数据 -->
+    <select id="getAssetInfos" resultType="ldn.cs.fusion.pojo.wealth.Asset">
+        select * from tbl_wealth_asset_info
         <where>
             <if test="granularity != null and granularity != ''">
                 <choose>
@@ -75,4 +75,32 @@
         </where>
     </select>
 
+    <!-- 新增Asset数据 -->
+    <insert id="addAssetInfos" parameterType="ldn.cs.fusion.pojo.wealth.Asset">
+        INSERT INTO tbl_wealth_asset_info(corporation, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
+        VALUES
+        <foreach collection="assets" item="asset" separator=",">
+            (#{asset.corporation}, #{asset.profit}, #{asset.fixedAssets}, #{asset.cashAssets}, #{asset.finance}, #{asset.eventTime}, #{asset.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Finance数据 -->
+    <select id="getFinanceInfos" resultType="ldn.cs.fusion.pojo.wealth.Finance">
+        select * from tbl_wealth_finance_info
+        <where>
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                    <when test="granularity == 2">
+                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                    <when test="granularity == 3">
+                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
 </mapper>

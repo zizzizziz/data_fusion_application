@@ -20,18 +20,22 @@ public class StaffService {
     }
 
     public int addPersonInfos(List<Person> persons) {
+        long updateTime = System.currentTimeMillis();
+        persons.forEach(staff -> staff.setUpdateTime(updateTime));
         return staff.addPersonInfos(persons);
     }
 
     public int addPositionInfos(List<Position> positions) {
+        long updateTime = System.currentTimeMillis();
+        positions.forEach(staff -> staff.setUpdateTime(updateTime));
         return staff.addPositionInfos(positions);
     }
 
     public int addSkillInfos(List<Skill> skills) {
+        long updateTime = System.currentTimeMillis();
+        skills.forEach(staff -> staff.setUpdateTime(updateTime));
         return staff.addSkillInfos(skills);
     }
-
-
 
     public StaffInfo getStaffInfos(String statement, int types, int limit, int offset) {
         StaffInfo staffInfo = new StaffInfo();

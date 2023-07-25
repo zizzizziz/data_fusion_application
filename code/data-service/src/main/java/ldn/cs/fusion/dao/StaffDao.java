@@ -24,7 +24,7 @@ public interface StaffDao {
 
     List<Staff> getStaffInfos(@Param("statement") String statement, @Param("types") int types, @Param("limit") int limit, @Param("offset") int offset);
 
-    int getTotalStaff(@Param("statement") String statement, int types);
+    int getTotalStaff(@Param("statement") String statement, @Param("types") int types);
 
     List<Person> getPersonInfos(@Param("time")int time,@Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
