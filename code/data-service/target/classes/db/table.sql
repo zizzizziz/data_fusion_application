@@ -92,3 +92,43 @@ create table if not exists tbl_wealth_asset_info(
     PRIMARY KEY (id),
     INDEX (corporation)
     ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+--convey
+create table if not exists tbl_convey_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    corporation varchar(255),
+    type tinyint,
+    goods varchar(255),
+    quantity bigint,
+    inventory bigint,
+    mileage bigint,
+    cost bigint,
+    eventTime bigint,
+    updateTime bigint,
+    PRIMARY KEY (id),
+    INDEX (corporation)
+    ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+create table if not exists tbl_convey_traffic_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    corporation varchar(255),
+    type tinyint,
+    mileage bigint,
+    cost bigint,
+    eventTime bigint,
+    updateTime bigint,
+    PRIMARY KEY (id),
+    INDEX (corporation)
+    ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+create table if not exists tbl_convey_inventory_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    corporation varchar(255),
+    goods varchar(255),
+    quantity bigint,
+    inventory bigint,
+    eventTime bigint,
+    updateTime bigint,
+    PRIMARY KEY (id),
+    INDEX (corporation)
+    ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
