@@ -40,8 +40,7 @@ public class ConveyDaoTest extends BaseTest {
         Traffic traffic = new Traffic();
         traffic.setCorporation("test");
         traffic.setCost(10000);
-        traffic.setEventTime(20231112001L);
-        traffic.setUpdateTime(202307172250L);
+        traffic.setEventTime(1690185315000L);
         List<Traffic> traffics = new ArrayList<>();
         traffics.add(traffic);
 

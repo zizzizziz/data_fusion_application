@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.fusion.dao.ProductionDao">
+
+    <!-- 新增ProductionInfos报表数据 -->
+    <insert id="addProductionInfos" parameterType="ldn.cs.fusion.pojo.production.Production">
+        INSERT INTO tbl_production_info(corporation, categories, types, quantity, cost, province, country, quality,
+        eventTime, updateTime)
+        VALUES
+        <foreach collection="productions" item="production" separator=",">
+            (#{production.corporation}, #{production.categories}, #{production.types}, #{production.quantity},
+            #{production.cost}, #{production.province}, #{production.country}, #{production.quality},
+            #{production.eventTime}, #{production.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询ProductionInfos报表 -->
+    <select id="getProductionInfos" resultType="ldn.cs.fusion.pojo.production.Production">
+        select * from tbl_production_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+        order by updateTime DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询ProductionInfos报表Total -->
+    <select id="getTotalProduction" resultType="int">
+        select count(1) from tbl_production_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增Yield数据 -->
+    <insert id="addYieldInfos" parameterType="ldn.cs.fusion.pojo.production.Yield">
+        INSERT INTO tbl_production_yield_info(corporation, categories, types, quantity, eventTime, updateTime)
+        VALUES
+        <foreach collection="yields" item="yield" separator=",">
+            (#{yield.corporation}, #{yield.categories}, #{yield.types}, #{yield.quantity}, #{yield.eventTime},
+            #{yield.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 新增Birth数据 -->
+    <insert id="addBirthInfos" parameterType="ldn.cs.fusion.pojo.production.Birth">
+        INSERT INTO tbl_production_birth_info(corporation, categories, types, quantity, province, country, eventTime,
+        updateTime)
+        VALUES
+        <foreach collection="births" item="birth" separator=",">
+            (#{birth.corporation}, #{birth.categories}, #{birth.types}, #{birth.quantity}, #{birth.province},
+            #{birth.country}, #{birth.eventTime}, #{birth.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Yield数据 -->
+    <select id="getYieldInfos" resultType="ldn.cs.fusion.pojo.production.Yield">
+        select * from tbl_production_yield_info
+        <where>
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                    <when test="granularity == 2">
+                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                    <when test="granularity == 3">
+                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询Birth数据 -->
+    <select id="getBirthInfos" resultType="ldn.cs.fusion.pojo.production.Birth">
+        select corporation, categories, types, sum(quantity) as quantity, province, country
+        from tbl_production_birth_info
+        <where>
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                    <when test="granularity == 2">
+                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                    <when test="granularity == 3">
+                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                    </when>
+                </choose>
+            </if>
+        </where>
+        group by corporation, categories, types, country, province
+    </select>
+</mapper>

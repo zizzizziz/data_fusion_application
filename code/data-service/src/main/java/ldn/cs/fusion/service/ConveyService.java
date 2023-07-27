@@ -5,10 +5,6 @@ import ldn.cs.fusion.pojo.convey.Convey;
 import ldn.cs.fusion.pojo.convey.ConveyInfo;
 import ldn.cs.fusion.pojo.convey.Inventory;
 import ldn.cs.fusion.pojo.convey.Traffic;
-import ldn.cs.fusion.pojo.wealth.Asset;
-import ldn.cs.fusion.pojo.wealth.Finance;
-import ldn.cs.fusion.pojo.wealth.Wealth;
-import ldn.cs.fusion.pojo.wealth.WealthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +24,10 @@ public class ConveyService {
     }
 
     public int addTrafficInfos(List<Traffic> traffics) {
-        long updateTime = System.currentTimeMillis();
-        traffics.forEach(traffic -> traffic.setUpdateTime(updateTime));
         return conveyDao.addTrafficInfos(traffics);
     }
 
     public int addInventoryInfos(List<Inventory> inventories) {
-        long updateTime = System.currentTimeMillis();
-        inventories.forEach(inventory -> inventory.setUpdateTime(updateTime));
         return conveyDao.addInventoryInfos(inventories);
     }
 

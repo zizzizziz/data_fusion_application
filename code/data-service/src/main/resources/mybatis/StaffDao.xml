@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ldn.cs.fusion.dao.StaffDao">
 
-    <!-- 新增StaffInofs报表数据 -->
+    <!-- 新增StaffInfos报表数据 -->
     <insert id="addStaffInfos" parameterType="ldn.cs.fusion.pojo.staff.Staff">
-        INSERT INTO tbl_staff_info(corporation, categories, position, skill, eventTime, updateTime)
+        INSERT INTO tbl_staff_info(corporation, categories, positions, skill, amount, eventTime, updateTime)
         VALUES
         <foreach collection="staffs" item="staff" separator=",">
-            (#{staff.corporation}, #{staff.categories}, #{staff.position}, #{staff.skill}, #{staff.eventTime}, #{staff.updateTime})
+            (#{staff.corporation}, #{staff.categories}, #{staff.positions}, #{staff.skill}, #{staff.amount}, #{staff.eventTime}, #{staff.updateTime})
         </foreach>
     </insert>
 
@@ -49,28 +49,28 @@
 
     <!-- 新增Person数据 -->
     <insert id="addPersonInfos" parameterType="ldn.cs.fusion.pojo.staff.Person">
-        INSERT INTO tbl_staff_person_info(corporation,categories, eventTime, updateTime)
+        INSERT INTO tbl_staff_person_info(corporation, categories, amount, eventTime, updateTime)
         VALUES
         <foreach collection="persons" item="person" separator=",">
-            (#{person.corporation}, #{person.categories}, #{person.eventTime}, #{person.updateTime})
+            (#{person.corporation}, #{person.categories}, #{person.amount}, #{person.eventTime}, #{person.updateTime})
         </foreach>
     </insert>
 
     <!-- 新增Position数据 -->
     <insert id="addPositionInfos" parameterType="ldn.cs.fusion.pojo.staff.Position">
-        INSERT INTO tbl_staff_position_info(corporation,position, eventTime, updateTime)
+        INSERT INTO tbl_staff_position_info(corporation, positions, amount, eventTime, updateTime)
         VALUES
         <foreach collection="positions" item="position" separator=",">
-            (#{position.corporation}, #{position.position}, #{position.eventTime}, #{position.updateTime})
+            (#{position.corporation}, #{position.positions}, #{position.amount}, #{position.eventTime}, #{position.updateTime})
         </foreach>
     </insert>
 
     <!-- 新增Skill数据 -->
     <insert id="addSkillInfos" parameterType="ldn.cs.fusion.pojo.staff.Skill">
-        INSERT INTO tbl_staff_skill_info(corporation,skill, eventTime, updateTime)
+        INSERT INTO tbl_staff_skill_info(corporation,skill, amount, eventTime, updateTime)
         VALUES
         <foreach collection="skills" item="skill" separator=",">
-            (#{skill.corporation}, #{skill.skill}, #{skill.eventTime}, #{skill.updateTime})
+            (#{skill.corporation}, #{skill.skill}, #{skill.amount}, #{skill.eventTime}, #{skill.updateTime})
         </foreach>
     </insert>
 

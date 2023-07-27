@@ -12,7 +12,9 @@ public class Position {
 
     private String corporation;
 
-    private int position;
+    private int positions;
+
+    private long amount;
 
     private long eventTime;
 

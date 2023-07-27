@@ -22,6 +22,6 @@ public class UserDemoServiceTest extends BaseTest {
     @Test
     public void query_all_user_info_test() {
         List<UserDemo> userInfos = userInfo.queryAll();
-        Assert.assertEquals(2, userInfos.size());
+        Assert.assertEquals(3, userInfos.size());
     }
 }

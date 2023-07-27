@@ -14,6 +14,8 @@ public class Skill {
 
     private String skill;
 
+    private long amount;
+
     private long eventTime;
 
     private long updateTime;

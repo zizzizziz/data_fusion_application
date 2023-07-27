@@ -14,9 +14,11 @@ public class Staff {
 
     private int categories;
 
-    private int position;
+    private int positions;
 
     private String skill;
+
+    private long amount;
 
     private long eventTime;
 

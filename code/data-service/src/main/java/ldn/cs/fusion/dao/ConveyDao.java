@@ -3,8 +3,6 @@ package ldn.cs.fusion.dao;
 import ldn.cs.fusion.pojo.convey.Convey;
 import ldn.cs.fusion.pojo.convey.Inventory;
 import ldn.cs.fusion.pojo.convey.Traffic;
-import ldn.cs.fusion.pojo.staff.Person;
-import ldn.cs.fusion.pojo.staff.Staff;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

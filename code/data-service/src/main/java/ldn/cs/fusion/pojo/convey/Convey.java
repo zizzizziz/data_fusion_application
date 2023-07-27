@@ -12,7 +12,7 @@ public class Convey {
 
     private String corporation;
 
-    private int type;
+    private int types;
 
     private String goods;
 

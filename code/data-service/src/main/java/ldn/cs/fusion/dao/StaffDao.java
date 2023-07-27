@@ -14,21 +14,22 @@ import java.util.Map;
 @Repository
 @Mapper
 public interface StaffDao {
-    int addStaffInfos(@Param("staffs")List<Staff> staffs);
+    int addStaffInfos(@Param("staffs") List<Staff> staffs);
 
-    int addPersonInfos(@Param("persons")List<Person> persons);
+    int addPersonInfos(@Param("persons") List<Person> persons);
 
-    int addPositionInfos(@Param("positions")List<Position> positions);
+    int addPositionInfos(@Param("positions") List<Position> positions);
 
-    int addSkillInfos(@Param("skills")List<Skill> skills);
+    int addSkillInfos(@Param("skills") List<Skill> skills);
 
     List<Staff> getStaffInfos(@Param("statement") String statement, @Param("types") int types, @Param("limit") int limit, @Param("offset") int offset);
 
     int getTotalStaff(@Param("statement") String statement, @Param("types") int types);
 
-    List<Person> getPersonInfos(@Param("time")int time,@Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    //granularity: 1、年 2、季度 3、月
+    List<Person> getPersonInfos(@Param("time") int time, @Param("granularity") int granularity);
 
-    List<Position> getPositionInfos(@Param("time")int time,@Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Position> getPositionInfos(@Param("time") int time, @Param("granularity") int granularity);
 
-    List<Skill> getSkillInfos(@Param("time")int time,@Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Skill> getSkillInfos(@Param("time") int time, @Param("granularity") int granularity);
 }

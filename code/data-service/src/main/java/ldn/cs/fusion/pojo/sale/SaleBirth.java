@@ -1,4 +1,4 @@
-package ldn.cs.fusion.pojo.staff;
+package ldn.cs.fusion.pojo.sale;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,16 +7,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
-    private int id;
-
+public class SaleBirth {
     private String corporation;
 
     private int categories;
 
-    private long amount;
+    private int types;
+
+    private long quantity;
+
+    private String province;
+
+    private String country;
 
     private long eventTime;
-
-    private long updateTime;
 }

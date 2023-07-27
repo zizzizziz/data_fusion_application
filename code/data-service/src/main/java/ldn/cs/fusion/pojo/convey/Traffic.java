@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Traffic {
-    private int id;
-
     private String corporation;
 
-    private int type;
+    private int types;
 
     private long mileage;
 
@@ -20,5 +18,4 @@ public class Traffic {
 
     private long eventTime;
 
-    private long updateTime;
 }

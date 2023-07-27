@@ -23,7 +23,7 @@ public class StaffDaoTest extends BaseTest {
         Staff staff = new Staff();
         staff.setCategories(1);
         staff.setCorporation("test");
-        staff.setPosition(1);
+        staff.setPositions(1);
         staff.setSkill("测试");
         staff.setEventTime(20231112001L);
         staff.setUpdateTime(202307172250L);
@@ -52,7 +52,7 @@ public class StaffDaoTest extends BaseTest {
     public void addPositionInfos() {
         Position position = new Position();
         position.setCorporation("test");
-        position.setPosition(1);
+        position.setPositions(1);
         position.setEventTime(1690185315000L);
         List<Position> positions = new ArrayList<>();
         positions.add(position);

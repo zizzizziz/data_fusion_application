@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ldn.cs.fusion.dao.ConveyDao">
+<mapper namespace="ldn.cs.fusion.dao.SaleDao">
 
     <!-- 新增ConveyInofs报表数据 -->
     <insert id="addConveyInfos" parameterType="ldn.cs.fusion.pojo.convey.Convey">
