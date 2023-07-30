@@ -1,11 +1,21 @@
 package ldn.cs.decision.alghthrims.sale;
 
 import ldn.cs.decision.alghthrims.Predictor;
+import ldn.cs.decision.alghthrims.convey.ConveyPrediction;
 import ldn.cs.decision.pojo.sale.Sale;
 
 import java.util.*;
 
 public class SalePrediction {
+    private static final SalePrediction instance = new SalePrediction();
+
+    private SalePrediction() {
+    }
+
+    public static SalePrediction getInstance() {
+        return instance;
+    }
+
     public Sale getNextSale(List<Sale> historySale, Sale nowSale, long nextTime) {
         List<Long> eventTimes = new ArrayList<>();
         List<Long> quantityValues = new ArrayList<>();

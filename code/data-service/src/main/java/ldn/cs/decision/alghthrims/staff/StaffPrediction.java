@@ -1,6 +1,7 @@
 package ldn.cs.decision.alghthrims.staff;
 
 import ldn.cs.decision.alghthrims.Predictor;
+import ldn.cs.decision.alghthrims.sale.SalePrediction;
 import ldn.cs.decision.pojo.staff.Staff;
 
 
@@ -10,6 +11,15 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class StaffPrediction {
+    private static final StaffPrediction instance = new StaffPrediction();
+
+    private StaffPrediction() {
+    }
+
+    public static StaffPrediction getInstance() {
+        return instance;
+    }
+
     private static final List<BiConsumer<Staff, Long>> SETTERS = Collections.singletonList(
             Staff::setAmount);
 

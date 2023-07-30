@@ -9,6 +9,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProductionPrediction {
+    private static final ProductionPrediction instance = new ProductionPrediction();
+
+    private ProductionPrediction() {
+    }
+
+    public static ProductionPrediction getInstance() {
+        return instance;
+    }
+
     private static final List<BiConsumer<Production, Long>> SETTERS = Arrays.asList(
             Production::setQuantity, Production::setCost);
 

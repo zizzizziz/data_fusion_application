@@ -9,6 +9,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ConveyPrediction {
+    private static final ConveyPrediction instance = new ConveyPrediction();
+
+    private ConveyPrediction() {
+    }
+
+    public static ConveyPrediction getInstance() {
+        return instance;
+    }
+
     private static final List<BiConsumer<Convey, Long>> SETTERS = Arrays.asList(
             Convey::setQuantity, Convey::setInventory, Convey::setMileage, Convey::setCost);
 

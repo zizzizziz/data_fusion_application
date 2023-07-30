@@ -1,11 +1,21 @@
 package ldn.cs.decision.alghthrims.wealth;
 
 import ldn.cs.decision.alghthrims.Predictor;
+import ldn.cs.decision.alghthrims.staff.StaffPrediction;
 import ldn.cs.decision.pojo.wealth.Wealth;
 import java.util.*;
 import java.util.function.*;
 
 public class WealthPrediction {
+    private static final WealthPrediction instance = new WealthPrediction();
+
+    private WealthPrediction() {
+    }
+
+    public static WealthPrediction getInstance() {
+        return instance;
+    }
+
     private static final List<BiConsumer<Wealth, Long>> SETTERS = Arrays.asList(
             Wealth::setResearch, Wealth::setDevice, Wealth::setProduction,
             Wealth::setStorage, Wealth::setMateriel, Wealth::setTransportation,
