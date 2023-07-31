@@ -52,6 +52,9 @@ public class SaleDaoTest extends BaseTest{
 
     @Test
     public void getSaleTrendInfos() {
+        List<SaleTrend> saleTrends = saleDao.getSaleTrendInfos(2022);//2022-01-01 00:00:00
+        Map<String, List<SaleTrend>> collect = saleTrends.stream().collect(Collectors.groupingBy(SaleTrend::getCorporation));
+        System.out.println("");
     }
 
     @Test

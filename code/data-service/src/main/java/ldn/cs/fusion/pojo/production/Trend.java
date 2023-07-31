@@ -18,7 +18,13 @@ public class Trend {
 
     private String corporation;
 
-    private Date months; //mysql里month()会返回int
+    private int categories;
+
+    private int types;
+
+    private long quantity;
+
+    private int months;
 
     private long eventTime;
 

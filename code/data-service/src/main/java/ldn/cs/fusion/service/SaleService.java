@@ -1,6 +1,7 @@
 package ldn.cs.fusion.service;
 
 import ldn.cs.fusion.dao.SaleDao;
+import ldn.cs.fusion.pojo.production.Trend;
 import ldn.cs.fusion.pojo.sale.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class SaleService {
         return saleDao.addProfitInfos(profits);
     }
 
+    public int addSaleTrendInfos(List<SaleTrend> saleTrends){
+        return saleDao.addSaleTrendInfos(saleTrends);
+    }
+
     public int addSaleInfos(List<Sale> sales){
         long updateTime = System.currentTimeMillis();
         sales.forEach(sale -> sale.setUpdateTime(updateTime));
@@ -44,6 +49,10 @@ public class SaleService {
         saleInfo.setSales(sales);
         saleInfo.setTotal(total);
         return saleInfo;
+    }
+
+    public Map<String, List<SaleTrend>> getSaleTrendInfos(int time) {
+        return saleDao.getSaleTrendInfos(time).stream().collect(Collectors.groupingBy(SaleTrend::getCorporation));
     }
 
     public Map<String, List<SaleBirth>> getSaleBirthInfos(long time, int granularity) {

@@ -11,13 +11,28 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/rest/data/fusion/staff")
+@RequestMapping("/rest/data/element/staff")
 public class StaffController {
     @Autowired
     StaffService staffService;
 
-    @GetMapping("/query")
-    public StaffInfo query(String statement, int types, int limit, int offset) {
+    @GetMapping("/fusion/query")
+    public StaffInfo getStaffInfos(String statement, int types, int limit, int offset) {
         return staffService.getStaffInfos(statement, types, limit, offset);
+    }
+
+    @GetMapping("/perception/position/query")
+    public Map<String, List<Position>> getPositionInfos(long time, int granularity) {
+        return staffService.getPositionInfos(time / 1000, granularity);
+    }
+
+    @GetMapping("/perception/skill/query")
+    public Map<String, List<Skill>> getSkillInfos(long time, int granularity) {
+        return staffService.getSkillInfos(time / 1000, granularity);
+    }
+
+    @GetMapping("/perception/person/query")
+    public Map<String, List<Person>> getPersonInfos(long time, int granularity) {
+        return staffService.getPersonInfos(time / 1000, granularity);
     }
 }

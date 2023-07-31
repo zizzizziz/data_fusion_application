@@ -47,6 +47,28 @@
         </where>
     </select>
 
+    <!-- 新增Trend数据 -->
+    <insert id="addSaleTrendInfos" parameterType="ldn.cs.fusion.pojo.sale.SaleTrend">
+        INSERT INTO tbl_sale_trend_info(corporation, categories, types, quantity, eventTime)
+        VALUES
+        <foreach collection="saleTrends" item="saleTrend" separator=",">
+            (#{saleTrend.corporation}, #{saleTrend.categories}, #{saleTrend.types}, #{saleTrend.quantity}, #{saleTrend.eventTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Trend数据 -->
+    <select id="getSaleTrendInfos" resultType="ldn.cs.fusion.pojo.sale.SaleTrend">
+        select corporation, categories, types, sum(quantity) as quantity ,MONTH(FROM_UNIXTIME(eventTime / 1000)) as months
+        from tbl_sale_trend_info
+        <where>
+            1=1
+            <if test="time != null and time != ''">
+                AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+            </if>
+        </where>
+        group by corporation, categories, types ,months
+    </select>
+
     <!-- 新增SaleCount数据 -->
     <insert id="addSaleCountInfos" parameterType="ldn.cs.fusion.pojo.sale.SaleCount">
         INSERT INTO tbl_sale_count_info(corporation, categories, types, quantity, eventTime)

@@ -32,7 +32,7 @@ public interface SaleDao {
 
     List<SaleCount> getSaleCountInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<SaleTrend> getSaleTrendInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<SaleTrend> getSaleTrendInfos(@Param("time")int time);//granularity: 1、年 2、季度 3、月
 
     List<SaleBirth> getSaleBirthInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 }

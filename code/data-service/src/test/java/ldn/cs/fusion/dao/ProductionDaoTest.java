@@ -45,6 +45,15 @@ public class ProductionDaoTest extends BaseTest {
 
     @Test
     public void addTrendInfos() {
+        Trend trend = new Trend();
+        trend.setCorporation("test");
+        trend.setQuantity(1000);
+        trend.setEventTime(20231112001L);
+        List<Trend> trends = new ArrayList<>();
+        trends.add(trend);
+
+        int count = productionDao.addTrendInfos(trends);
+        Assert.assertEquals(1, count);
     }
 
     @Test

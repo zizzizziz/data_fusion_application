@@ -15,7 +15,6 @@ public class WealthService {
     private WealthDao wealth;
 
 
-
     public int addWealthInfos(List<Wealth> wealths) {
         long updateTime = System.currentTimeMillis();
         wealths.forEach(wealth -> wealth.setUpdateTime(updateTime));
