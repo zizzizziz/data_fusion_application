@@ -52,7 +52,7 @@ public class StaffService {
     }
 
     // 查询员工分布
-    public Map<String, List<Person>> getPersonInfos(int time, int granularity) {
+    public Map<String, List<Person>> getPersonInfos(long time, int granularity) {
         return staffDao.getPersonInfos(time, granularity).stream().collect(Collectors.groupingBy(Person::getCorporation));
     }
 
@@ -64,7 +64,7 @@ public class StaffService {
     }
 
     // 查询职位信息
-    public Map<String, List<Position>> getPositionInfos(int time, int granularity) {
+    public Map<String, List<Position>> getPositionInfos(long time, int granularity) {
         return staffDao.getPositionInfos(time, granularity).stream().collect(Collectors.groupingBy(Position::getCorporation));
     }
 
@@ -76,7 +76,7 @@ public class StaffService {
     }
 
     // 查询技能信息
-    public Map<String, List<Skill>> getSkillInfos(int time, int granularity) {
+    public Map<String, List<Skill>> getSkillInfos(long time, int granularity) {
         return staffDao.getSkillInfos(time, granularity).stream().collect(Collectors.groupingBy(Skill::getCorporation));
     }
 

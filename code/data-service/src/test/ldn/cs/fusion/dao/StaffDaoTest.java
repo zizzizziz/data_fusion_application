@@ -1,10 +1,8 @@
 package ldn.cs.fusion.dao;
 
 import ldn.cs.fusion.BaseTest;
-import ldn.cs.fusion.pojo.staff.Person;
-import ldn.cs.fusion.pojo.staff.Position;
-import ldn.cs.fusion.pojo.staff.Skill;
-import ldn.cs.fusion.pojo.staff.Staff;
+import ldn.cs.fusion.pojo.staff.*;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,21 +89,21 @@ public class StaffDaoTest extends BaseTest {
 
     @Test
     public void getPositionInfos() {
-        List<Position> positions = staffDao.getPositionInfos(1,2);
+        List<Position> positions = staffDao.getPositionInfos(1640966400L,3);//2022-01-01 00:00:00
         Map<String, List<Position>> collect = positions.stream().collect(Collectors.groupingBy(Position::getCorporation));
         System.out.println("");
     }
 
     @Test
     public void getPersonInfos() {
-        List<Person> persons = staffDao.getPersonInfos(1,2);
+        List<Person> persons = staffDao.getPersonInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Person>> collect = persons.stream().collect(Collectors.groupingBy(Person::getCorporation));
         System.out.println("");
     }
 
     @Test
     public void getSkillInfos() {
-        List<Skill> skills = staffDao.getSkillInfos(1,2);
+        List<Skill> skills = staffDao.getSkillInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Skill>> collect = skills.stream().collect(Collectors.groupingBy(Skill::getCorporation));
         System.out.println("");
     }

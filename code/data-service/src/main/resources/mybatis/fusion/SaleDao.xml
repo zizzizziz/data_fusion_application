@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.fusion.dao.SaleDao">
+
+    <!-- 新增SaleInfos报表数据 -->
+    <insert id="addSaleInfos" parameterType="ldn.cs.fusion.pojo.sale.Sale">
+        INSERT INTO tbl_sale_info(corporation, categories, types, quantity, income, cost, province, country, inventory, score, eventTime, updateTime)
+        VALUES
+        <foreach collection="sales" item="sale" separator=",">
+            (#{sale.corporation}, #{sale.types}, #{convey.quantity},#{sale.income}, #{sale.cost}, #{sale.province},  #{sale.country}, #{sale.inventory}, #{sale.score}, #{sale.eventTime}, #{sale.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询SaleInfos报表 -->
+    <select id="getSaleInfos" resultType="ldn.cs.fusion.pojo.sale.Sale">
+        select * from tbl_sale_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+        order by updateTime DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询SaleInfos报表Total -->
+    <select id="getTotalSale" resultType="int">
+        select count(1) from tbl_sale_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增SaleCount数据 -->
+    <insert id="addSaleCountInfos" parameterType="ldn.cs.fusion.pojo.sale.SaleCount">
+        INSERT INTO tbl_sale_count_info(corporation, categories, types, quantity, eventTime)
+        VALUES
+        <foreach collection="saleCounts" item="saleCount" separator=",">
+            (#{saleCount.corporation}, #{saleCount.categories}, #{saleCount.types}, #{saleCount.quantity}, #{saleCount.eventTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询SaleCount数据 -->
+    <select id="getSaleCountInfos" resultType="ldn.cs.fusion.pojo.sale.SaleCount">
+        select corporation, categories, types, sum(quantity) as quantity
+        from tbl_sale_count_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        group by corporation, categories, types
+    </select>
+
+    <!-- 新增SaleBirth数据 -->
+    <insert id="addSaleBirthInfos" parameterType="ldn.cs.fusion.pojo.sale.SaleBirth">
+        INSERT INTO tbl_sale_birth_info(corporation, categories, types, quantity, province, country, eventTime)
+        VALUES
+        <foreach collection="saleBirths" item="saleBirth" separator=",">
+            (#{saleBirth.corporation}, #{saleBirth.categories}, #{saleBirth.types}, #{saleBirth.quantity}, #{saleBirth.province},#{saleBirth.country}, #{saleBirth.eventTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询SaleBirth数据 -->
+    <select id="getSaleBirthInfos" resultType="ldn.cs.fusion.pojo.sale.SaleBirth">
+        select corporation, categories, types, sum(quantity) as quantity, province, country
+        from tbl_sale_birth_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        group by corporation, categories, types, country, province
+    </select>
+
+    <!-- 新增Profit数据 -->
+    <insert id="addProfitInfos" parameterType="ldn.cs.fusion.pojo.sale.Profit">
+        INSERT INTO tbl_sale_profit_info(corporation, categories, types, income, eventTime)
+        VALUES
+        <foreach collection="profits" item="profit" separator=",">
+            (#{profit.corporation}, #{profit.categories}, #{profit.types}, #{profit.income}, #{profit.eventTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Profit数据 -->
+    <select id="getProfitInfos" resultType="ldn.cs.fusion.pojo.sale.Profit">
+        select corporation, categories, types, sum(income) as income
+        from tbl_sale_profit_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        group by corporation, categories, types
+    </select>
+
+    <!-- 新增Export数据 -->
+    <insert id="addExportInfos" parameterType="ldn.cs.fusion.pojo.sale.Export">
+        INSERT INTO tbl_sale_export_info(corporation, categories, types, quantity, country, eventTime)
+        VALUES
+        <foreach collection="exports" item="export" separator=",">
+            (#{export.corporation}, #{export.categories}, #{export.types}, #{export.quantity}, #{export.country}, #{export.eventTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Export数据 -->
+    <select id="getExportInfos" resultType="ldn.cs.fusion.pojo.sale.Export">
+        select corporation, categories, types, sum(quantity) as quantity, country
+        from tbl_sale_export_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        group by corporation, categories, types, country
+    </select>
+</mapper>

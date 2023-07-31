@@ -19,6 +19,4 @@ public class Profit {
     private long income;
 
     private long eventTime;
-
-    private long updateTime;
 }

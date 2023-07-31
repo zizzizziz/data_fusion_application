@@ -1,10 +1,7 @@
 package ldn.cs.fusion.service;
 
 import ldn.cs.fusion.dao.ConveyDao;
-import ldn.cs.fusion.pojo.convey.Convey;
-import ldn.cs.fusion.pojo.convey.ConveyInfo;
-import ldn.cs.fusion.pojo.convey.Inventory;
-import ldn.cs.fusion.pojo.convey.Traffic;
+import ldn.cs.fusion.pojo.convey.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +20,6 @@ public class ConveyService {
         return conveyDao.addConveyInfos(conveys);
     }
 
-    public int addTrafficInfos(List<Traffic> traffics) {
-        return conveyDao.addTrafficInfos(traffics);
-    }
-
-    public int addInventoryInfos(List<Inventory> inventories) {
-        return conveyDao.addInventoryInfos(inventories);
-    }
-
     public ConveyInfo getConveyInfos(String statement, int types, int limit, int offset) {
         ConveyInfo conveyInfo = new ConveyInfo();
         List<Convey> conveys = conveyDao.getConveyInfos(statement, types, limit, offset);
@@ -41,11 +30,19 @@ public class ConveyService {
         return conveyInfo;
     }
 
-    public Map<String, List<Traffic>> getTrafficInfos(int time, int granularity) {
+    public int addTrafficInfos(List<Traffic> traffics) {
+        return conveyDao.addTrafficInfos(traffics);
+    }
+
+    public Map<String, List<Traffic>> getTrafficInfos(long time, int granularity) {
         return conveyDao.getTrafficInfos(time, granularity).stream().collect(Collectors.groupingBy(Traffic::getCorporation));
     }
 
-    public Map<String, List<Inventory>> getInventoryInfos(int time, int granularity) {
+    public int addInventoryInfos(List<Inventory> inventories) {
+        return conveyDao.addInventoryInfos(inventories);
+    }
+
+    public Map<String, List<Inventory>> getInventoryInfos(long time, int granularity) {
         return conveyDao.getInventoryInfos(time, granularity).stream().collect(Collectors.groupingBy(Inventory::getCorporation));
     }
 }

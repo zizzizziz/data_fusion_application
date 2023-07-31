@@ -25,9 +25,9 @@ public interface ProductionDao {
 
     int getTotalProduction(@Param("statement") String statement, @Param("types") int types);
 
-    List<Trend> getTrendInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Trend> getTrendInfos(@Param("time")int time);
 
-    List<Birth> getBirthInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Birth> getBirthInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<Yield> getYieldInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Yield> getYieldInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 }

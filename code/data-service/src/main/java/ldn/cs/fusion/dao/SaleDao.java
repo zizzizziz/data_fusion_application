@@ -26,13 +26,13 @@ public interface SaleDao {
 
     int getTotalSale(@Param("statement") String statement, @Param("types") int types);
 
-    List<Export> getExportInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Export> getExportInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<Profit> getProfitInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Profit> getProfitInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<SaleCount> getSaleCountInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<SaleCount> getSaleCountInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<SaleTrend> getSaleTrendInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<SaleTrend> getSaleTrendInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<SaleBirth> getSaleBirthInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<SaleBirth> getSaleBirthInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 }

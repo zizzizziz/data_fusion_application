@@ -78,16 +78,19 @@
     <select id="getPersonInfos" resultType="ldn.cs.fusion.pojo.staff.Person">
         select * from tbl_staff_person_info
         <where>
+            1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
@@ -98,16 +101,19 @@
     <select id="getPositionInfos" resultType="ldn.cs.fusion.pojo.staff.Position">
         select * from tbl_staff_position_info
         <where>
+            1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
@@ -118,16 +124,19 @@
     <select id="getSkillInfos" resultType="ldn.cs.fusion.pojo.staff.Skill">
         select * from tbl_staff_skill_info
         <where>
+            1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>

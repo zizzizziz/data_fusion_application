@@ -76,14 +76,14 @@ class WealthDaoTest extends BaseTest {
 
     @Test
     void getAssetInfos() {
-        List<Asset> assets = wealthDao.getAssetInfos(2023,1);
+        List<Asset> assets = wealthDao.getAssetInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Asset>> collect = assets.stream().collect(Collectors.groupingBy(Asset::getCorporation));
         System.out.println("");
     }
 
     @Test
     void getFinanceInfos() {
-        List<Finance> finances = wealthDao.getFinanceInfos(2023,1);
+        List<Finance> finances = wealthDao.getFinanceInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Finance>> collect = finances.stream().collect(Collectors.groupingBy(Finance::getCorporation));
         System.out.println("");
     }

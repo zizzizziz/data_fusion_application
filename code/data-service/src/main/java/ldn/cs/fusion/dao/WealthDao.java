@@ -22,8 +22,8 @@ public interface WealthDao {
 
     int getTotalWealth(@Param("statement") String statement, @Param("types") int types);
 
-    List<Asset> getAssetInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Asset> getAssetInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<Finance> getFinanceInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Finance> getFinanceInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
 }

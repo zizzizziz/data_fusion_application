@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 @Mapper
+/**
+ * H2传输参数time时可能有长度限制，在MySQL中重新测试是否有限制
+ */
 public interface ConveyDao {
     int addConveyInfos(@Param("conveys") List<Convey> conveys);
 
@@ -22,7 +25,7 @@ public interface ConveyDao {
 
     int getTotalConvey(@Param("statement") String statement, @Param("types") int types);
 
-    List<Traffic> getTrafficInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Traffic> getTrafficInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 
-    List<Inventory> getInventoryInfos(@Param("time")int time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
+    List<Inventory> getInventoryInfos(@Param("time")long time, @Param("granularity")int granularity);//granularity: 1、年 2、季度 3、月
 }

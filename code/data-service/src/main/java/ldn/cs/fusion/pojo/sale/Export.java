@@ -18,11 +18,7 @@ public class Export {
 
     private long quantity;
 
-    private String province;
-
     private String country;
 
     private long eventTime;
-
-    private long updateTime;
 }

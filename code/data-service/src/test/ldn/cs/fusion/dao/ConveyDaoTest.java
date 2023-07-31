@@ -79,14 +79,14 @@ public class ConveyDaoTest extends BaseTest {
 
     @Test
     public void getTrafficInfos() {
-        List<Traffic> traffics = conveyDao.getTrafficInfos(2023,1);
+        List<Traffic> traffics = conveyDao.getTrafficInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Traffic>> collect = traffics.stream().collect(Collectors.groupingBy(Traffic::getCorporation));
         System.out.println("");
     }
 
     @Test
     public void getInventoryInfos() {
-        List<Inventory> inventories = conveyDao.getInventoryInfos(2023,1);
+        List<Inventory> inventories = conveyDao.getInventoryInfos(1640966400L,3);//2022-01-01 00:00:00
         Map<String, List<Inventory>> collect = inventories.stream().collect(Collectors.groupingBy(Inventory::getCorporation));
         System.out.println("");
     }

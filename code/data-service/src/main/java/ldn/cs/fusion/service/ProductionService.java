@@ -14,22 +14,6 @@ public class ProductionService {
     @Autowired
     private ProductionDao productionDao;
 
-    public int addBirthInfos(List<Birth> births){
-        return productionDao.addBirthInfos(births);
-    }
-
-    public int addYieldInfos(List<Yield> yields){
-        long updateTime = System.currentTimeMillis();
-        yields.forEach(yield -> yield.setUpdateTime(updateTime));
-        return productionDao.addYieldInfos(yields);
-    }
-
-    public int addTrendInfos(List<Trend> trends){
-        long updateTime = System.currentTimeMillis();
-        trends.forEach(trend -> trend.setUpdateTime(updateTime));
-        return productionDao.addTrendInfos(trends);
-    }
-
     public int addProductionInfos(List<Production> productions){
         long updateTime = System.currentTimeMillis();
         productions.forEach(production -> production.setUpdateTime(updateTime));
@@ -46,15 +30,27 @@ public class ProductionService {
         return productionInfo;
     }
 
-    public Map<String, List<Birth>> getBirthInfos(int time, int granularity) {
+    public int addBirthInfos(List<Birth> births){
+        return productionDao.addBirthInfos(births);
+    }
+
+    public Map<String, List<Birth>> getBirthInfos(long time, int granularity) {
         return productionDao.getBirthInfos(time, granularity).stream().collect(Collectors.groupingBy(Birth::getCorporation));
     }
 
-    public Map<String, List<Yield>> getYieldInfos(int time, int granularity) {
+    public int addYieldInfos(List<Yield> yields){
+        return productionDao.addYieldInfos(yields);
+    }
+
+    public Map<String, List<Yield>> getYieldInfos(long time, int granularity) {
         return productionDao.getYieldInfos(time, granularity).stream().collect(Collectors.groupingBy(Yield::getCorporation));
     }
 
-    public Map<String, List<Trend>> getTrendInfos(int time, int granularity) {
-        return productionDao.getTrendInfos(time, granularity).stream().collect(Collectors.groupingBy(Trend::getCorporation));
+    public int addTrendInfos(List<Trend> trends){
+        return productionDao.addTrendInfos(trends);
+    }
+
+    public Map<String, List<Trend>> getTrendInfos(int time) {
+        return productionDao.getTrendInfos(time).stream().collect(Collectors.groupingBy(Trend::getCorporation));
     }
 }

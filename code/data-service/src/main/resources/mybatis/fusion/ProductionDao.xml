@@ -50,45 +50,69 @@
         </where>
     </select>
 
+    <!-- 新增Trend数据 -->
+    <insert id="addTrendInfos" parameterType="ldn.cs.fusion.pojo.production.Trend">
+        INSERT INTO tbl_production_trend_info(corporation, categories, types, quantity, eventTime)
+        VALUES
+        <foreach collection="trends" item="trend" separator=",">
+            (#{trend.corporation}, #{trend.categories}, #{trend.types}, #{trend.quantity}, #{trend.eventTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Trend数据 -->
+    <select id="getTrendInfos" resultType="ldn.cs.fusion.pojo.production.Trend">
+        select corporation, categories, types, sum(quantity) as quantity ,FROM_UNIXTIME(eventTime / 1000) as months
+        from tbl_production_trend_info
+        <where>
+            1=1
+            <if test="time != null and time != ''">
+                            AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+            </if>
+        </where>
+        group by corporation, categories, types ,months
+    </select>
+
     <!-- 新增Yield数据 -->
     <insert id="addYieldInfos" parameterType="ldn.cs.fusion.pojo.production.Yield">
-        INSERT INTO tbl_production_yield_info(corporation, categories, types, quantity, eventTime, updateTime)
+        INSERT INTO tbl_production_yield_info(corporation, categories, types, quantity, eventTime)
         VALUES
         <foreach collection="yields" item="yield" separator=",">
-            (#{yield.corporation}, #{yield.categories}, #{yield.types}, #{yield.quantity}, #{yield.eventTime},
-            #{yield.updateTime})
+            (#{yield.corporation}, #{yield.categories}, #{yield.types}, #{yield.quantity}, #{yield.eventTime})
         </foreach>
     </insert>
 
     <!-- 新增Birth数据 -->
     <insert id="addBirthInfos" parameterType="ldn.cs.fusion.pojo.production.Birth">
-        INSERT INTO tbl_production_birth_info(corporation, categories, types, quantity, province, country, eventTime,
-        updateTime)
+        INSERT INTO tbl_production_birth_info(corporation, categories, types, quantity, province, country, eventTime)
         VALUES
         <foreach collection="births" item="birth" separator=",">
-            (#{birth.corporation}, #{birth.categories}, #{birth.types}, #{birth.quantity}, #{birth.province},
-            #{birth.country}, #{birth.eventTime}, #{birth.updateTime})
+            (#{birth.corporation}, #{birth.categories}, #{birth.types}, #{birth.quantity}, #{birth.province},#{birth.country}, #{birth.eventTime})
         </foreach>
     </insert>
 
     <!-- 查询Yield数据 -->
     <select id="getYieldInfos" resultType="ldn.cs.fusion.pojo.production.Yield">
-        select * from tbl_production_yield_info
+        select corporation, categories, types, sum(quantity) as quantity
+        from tbl_production_yield_info
         <where>
+            1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
         </where>
+        group by corporation, categories, types
     </select>
 
     <!-- 查询Birth数据 -->
@@ -96,16 +120,19 @@
         select corporation, categories, types, sum(quantity) as quantity, province, country
         from tbl_production_birth_info
         <where>
+            1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>

@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Yield {
-    private int id;
-
     private String corporation;
 
     private int categories;
@@ -19,6 +17,4 @@ public class Yield {
     private long quantity;
 
     private long eventTime;
-
-    private long updateTime;
 }

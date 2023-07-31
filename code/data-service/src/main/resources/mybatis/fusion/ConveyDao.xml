@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ldn.cs.fusion.dao.SaleDao">
+<mapper namespace="ldn.cs.fusion.dao.ConveyDao">
 
-    <!-- 新增ConveyInofs报表数据 -->
+    <!-- 新增ConveyInfos报表数据 -->
     <insert id="addConveyInfos" parameterType="ldn.cs.fusion.pojo.convey.Convey">
         INSERT INTO tbl_convey_info(corporation, types, goods, quantity, inventory, mileage, cost, eventTime, updateTime)
         VALUES
@@ -71,21 +71,24 @@
         select corporation, types, SUM(mileage) AS mileage, SUM(cost) AS cost
         from tbl_convey_traffic_info
         <where>
+        1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
         </where>
-        GROUP BY types
+        GROUP BY corporation,types
     </select>
 
     <!-- 查询Inventory数据 -->
@@ -93,20 +96,23 @@
         select corporation, goods, SUM(quantity) AS quantity, SUM(inventory) AS inventory
         from tbl_convey_inventory_info
         <where>
+        1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
         </where>
-        GROUP BY goods
+        GROUP BY corporation,goods
     </select>
 </mapper>

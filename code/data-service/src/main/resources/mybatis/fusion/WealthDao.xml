@@ -59,16 +59,19 @@
     <select id="getAssetInfos" resultType="ldn.cs.fusion.pojo.wealth.Asset">
         select * from tbl_wealth_asset_info
         <where>
+            1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
@@ -88,16 +91,19 @@
     <select id="getFinanceInfos" resultType="ldn.cs.fusion.pojo.wealth.Finance">
         select * from tbl_wealth_finance_info
         <where>
+            1=1
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        QUARTER(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        MONTH(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
