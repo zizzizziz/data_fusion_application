@@ -17,11 +17,12 @@ public class ConveyController {
     ConveyService conveyService;
 
     /**
-     *数据融合 -- 物流链查询
+     * 数据融合 -- 物流链查询
+     *
      * @param statement 查询条件
-     * @param types    条件类型 ：1为按企业查询，2为按更新时间查询
-     * @param limit   单页限制 这里要让前台记得乘以limit 要不然会重复
-     * @param offset 偏移量
+     * @param types     条件类型 ：1为按企业查询，2为按更新时间查询
+     * @param limit     单页限制 这里要让前台记得乘以limit 要不然会重复
+     * @param offset    偏移量
      * @return 物流链报表数据ConveyInfo
      */
     @GetMapping("/fusion/query")
@@ -31,23 +32,25 @@ public class ConveyController {
 
     /**
      * 数据感知 -- 企业运输类型分布可视化查询
-     * @param time 查询条件时间戳（毫秒级）
+     *
+     * @param time        查询条件时间戳（毫秒级）
      * @param granularity 条件类型：1-按年份 2-按季度 3-按月份
      * @return key-企业，value-对象列表
      */
     @GetMapping("/perception/traffic/query")
     public Map<String, List<Traffic>> getTrafficInfo(long time, int granularity) {
-        return conveyService.getTrafficInfos(time / 1000, granularity);
+        return conveyService.getTrafficInfos(time, granularity);
     }
 
     /**
      * 数据感知 -- 企业货物库存分布可视化查询
-     * @param time 查询条件时间戳（毫秒级）
+     *
+     * @param time        查询条件时间戳（毫秒级）
      * @param granularity 条件类型：1-按年份 2-按季度 3-按月份
      * @return key-企业，value-对象列表
      */
     @GetMapping("/perception/inventory/query")
     public Map<String, List<Inventory>> getInventoryInfos(long time, int granularity) {
-        return conveyService.getInventoryInfos(time / 1000, granularity);
+        return conveyService.getInventoryInfos(time, granularity);
     }
 }
