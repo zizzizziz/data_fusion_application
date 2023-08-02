@@ -12,9 +12,9 @@ public class Convey {
 
     private String corporation;
 
-    private int types;
+    private int categories;
 
-    private String goods;
+    private int types;
 
     private long quantity;
 

@@ -33,7 +33,7 @@ public class ConveyPrediction {
         Convey predictedConvey = new Convey();
         predictedConvey.setCorporation(nowConvey.getCorporation());
         predictedConvey.setTypes(nowConvey.getTypes());
-        predictedConvey.setGoods(nowConvey.getGoods());
+        predictedConvey.setCategories(nowConvey.getCategories());
 
         for (int i = 0; i < GETTERS.size(); i++) {
             List<Long> values = historyConvey.stream()

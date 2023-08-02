@@ -25,7 +25,10 @@ public class ConveyDaoTest extends BaseTest {
     public void addConveyInfos() {
         Convey convey = new Convey();
         convey.setCorporation("test");
-        convey.setGoods("test");
+        convey.setCategories(1);
+        convey.setTypes(1);
+        convey.setQuantity(100);
+        convey.setMileage(50000L);
         convey.setEventTime(20231112001L);
         convey.setUpdateTime(202307172250L);
         List<Convey> conveys = new ArrayList<>();
@@ -52,7 +55,7 @@ public class ConveyDaoTest extends BaseTest {
     public void addInventoryInfos() {
         Inventory inventory = new Inventory();
         inventory.setCorporation("test");
-        inventory.setGoods("服务器");
+        inventory.setTypes(1);
         inventory.setEventTime(20231112001L);
         inventory.setUpdateTime(202307172250L);
         List<Inventory> inventories = new ArrayList<>();

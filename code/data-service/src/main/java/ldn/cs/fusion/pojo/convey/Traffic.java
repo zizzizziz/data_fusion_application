@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Traffic {
     private String corporation;
 
-    private int types;
+    private int categories;
 
     private long mileage;
 

@@ -12,7 +12,7 @@ public class Inventory {
 
     private String corporation;
 
-    private String goods;
+    private int types;
 
     private long quantity;
 

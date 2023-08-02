@@ -14,7 +14,7 @@ public class StaffService {
     private StaffDao staffDao;
 
     /**
-     * 数据融合--人力链新增
+     * 数据融合 --人力链数据新增
      *
      * @param staffs 人力链信息
      * @return 新增条数
@@ -26,7 +26,7 @@ public class StaffService {
     }
 
     /**
-     * 数据融合--人力链查询
+     * 数据融合 --人力链查询
      *
      * @param statement 查询条件
      * @param types     条件类型
@@ -44,6 +44,11 @@ public class StaffService {
         return staffInfo;
     }
 
+    /**
+     * 数据感知 -- 企业员工分布数据新增
+     * @param persons 企业员工分布信息
+     * @return 新增条数
+     */
     // 员工分布
     public int addPersonInfos(List<Person> persons) {
         long updateTime = System.currentTimeMillis();
@@ -56,10 +61,15 @@ public class StaffService {
         return staffDao.getPersonInfos(time, granularity).stream().collect(Collectors.groupingBy(Person::getCorporation));
     }
 
+    /**
+     * 数据感知 -- 企业员工职位分布数据新增
+     * @param positions 企业员工职位分布信息
+     * @return 新增条数
+     */
     // 职位分布
     public int addPositionInfos(List<Position> positions) {
         long updateTime = System.currentTimeMillis();
-        positions.forEach(staff -> staff.setUpdateTime(updateTime));
+        positions.forEach(position -> position.setUpdateTime(updateTime));
         return staffDao.addPositionInfos(positions);
     }
 
@@ -68,10 +78,15 @@ public class StaffService {
         return staffDao.getPositionInfos(time, granularity).stream().collect(Collectors.groupingBy(Position::getCorporation));
     }
 
+    /**
+     * 数据感知 -- 企业员工技能分布数据新增
+     * @param skills 企业员工技能分布信息
+     * @return 新增条数
+     */
     // 技能分布
     public int addSkillInfos(List<Skill> skills) {
         long updateTime = System.currentTimeMillis();
-        skills.forEach(staff -> staff.setUpdateTime(updateTime));
+        skills.forEach(skill -> skill.setUpdateTime(updateTime));
         return staffDao.addSkillInfos(skills);
     }
 

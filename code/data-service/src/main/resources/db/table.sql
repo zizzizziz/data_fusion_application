@@ -106,8 +106,8 @@ create table if not exists tbl_wealth_asset_info(
 create table if not exists tbl_convey_info(
     id int(11) NOT NULL AUTO_INCREMENT,
     corporation varchar(255),   -- 企业名称
-    types tinyint,              -- 运输工具
-    goods varchar(255),         -- 运输货物
+    categories tinyint,         -- 运输工具
+    types tinyint,              -- 运输货物
     quantity bigint,            -- 运输量
     inventory bigint,           -- 运输剩余库存
     mileage bigint,             -- 运输里程数
@@ -122,7 +122,7 @@ create table if not exists tbl_convey_info(
 create table if not exists tbl_convey_traffic_info(
     id int(11) NOT NULL AUTO_INCREMENT,
     corporation varchar(255),   -- 企业名称
-    types tinyint,              -- 运输工具
+    categories tinyint,         -- 运输工具
     mileage bigint,             -- 运输里程数
     cost bigint,                -- 运输费用
     eventTime bigint,           -- 事件时间
@@ -135,7 +135,7 @@ create table if not exists tbl_convey_traffic_info(
 create table if not exists tbl_convey_inventory_info(
     id int(11) NOT NULL AUTO_INCREMENT,
     corporation varchar(255),   -- 企业名称
-    goods varchar(255),         -- 运输货物
+    types tinyint,              -- 运输货物
     quantity bigint,            -- 运输量
     inventory bigint,           -- 运输剩余库存
     eventTime bigint,           -- 事件时间
