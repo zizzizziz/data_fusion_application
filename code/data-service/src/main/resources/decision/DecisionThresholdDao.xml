@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.decision.dao.DecisionThresholdDao">
+    <select id="getDecisionThreshold" resultType="ldn.cs.decision.pojo.threshold.DecisionThreshold">
+        SELECT id, categories, attributes, attributesValue, updateTime FROM tbl_decision_threshold_info
+        WHERE categories = #{categories}
+    </select>
+</mapper>

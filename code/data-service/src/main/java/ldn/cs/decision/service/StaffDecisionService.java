@@ -26,4 +26,15 @@ public class StaffDecisionService {
         return new StaffInfo(staffDecisionDao.getStaffPredictionInfos(time, granularity, limit, offset),
                 staffDecisionDao.getTotalPredictionStaff(time, granularity));
     }
+
+    /**
+     * 决策元 -- 人力链查询对应时间的所有数据
+     *
+     * @param time        查询时间
+     * @param granularity 1-->年 2-->季度 3-->月
+     * @return 人力链列表
+     */
+    public List<Staff> getStaffWarningInfo(long time, int granularity) {
+        return staffDecisionDao.getStaffPredictionInfos(time, granularity, -1, -1);
+    }
 }

@@ -36,5 +36,8 @@ public class StaffDecisionDaoTest extends BaseTest {
 
         List<Staff> getStaffInfoByMonth = staffDecisionDao.getStaffPredictionInfos(1690946777L, 2, 5, 0);
         Assert.assertEquals(5, getStaffInfoByMonth.size());
+
+        List<Staff> getAllStaffInfoByMonth = staffDecisionDao.getStaffPredictionInfos(1690946777L, 1, -1, -1);
+        Assert.assertEquals(27, getAllStaffInfoByMonth.size());
     }
 }

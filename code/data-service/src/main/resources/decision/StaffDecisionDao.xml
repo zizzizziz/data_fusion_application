@@ -35,7 +35,9 @@
             </if>
         </where>
         order by updateTime DESC
-        LIMIT #{limit} OFFSET #{offset}
+        <if test="limit >= 0 and offset >= 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
     </select>
 
     <!-- 查询人力链返回总数  -->
