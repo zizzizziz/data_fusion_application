@@ -48,7 +48,7 @@ public class ConveyPrediction {
         }
 
         predictedConvey.setEventTime(nextTime);
-        predictedConvey.setUpdateTime(System.currentTimeMillis());
+        predictedConvey.setUpdateTime(System.currentTimeMillis() / 1000);
 
         return predictedConvey;
     }

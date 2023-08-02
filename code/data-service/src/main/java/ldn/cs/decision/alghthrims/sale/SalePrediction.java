@@ -66,7 +66,7 @@ public class SalePrediction {
         predictedSale.setInventory(inventoryPredictor.predict(nextTime));
         predictedSale.setScore((int) scorePredictor.predict(nextTime));
         predictedSale.setEventTime(nextTime);
-        predictedSale.setUpdateTime(System.currentTimeMillis());
+        predictedSale.setUpdateTime(System.currentTimeMillis() / 1000);
 
         return predictedSale;
     }

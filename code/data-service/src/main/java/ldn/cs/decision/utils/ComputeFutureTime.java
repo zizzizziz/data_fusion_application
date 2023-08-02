@@ -23,8 +23,8 @@ public class ComputeFutureTime {
             LocalDate end = start.plusMonths(3).minusDays(1);
 
             List<Long> startAndEndTimestamps = Arrays.asList(
-                    start.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli(),
-                    end.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+                    start.atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond(),
+                    end.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant().getEpochSecond());
 
             quartersTimestamps.put(i, startAndEndTimestamps);
         }
@@ -45,8 +45,8 @@ public class ComputeFutureTime {
             LocalDate end = start.plusMonths(1).minusDays(1);
 
             List<Long> startAndEndTimestamps = Arrays.asList(
-                    start.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli(),
-                    end.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+                    start.atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond(),
+                    end.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant().getEpochSecond());
 
             monthsTimestamps.put(i, startAndEndTimestamps);
         }
@@ -66,8 +66,8 @@ public class ComputeFutureTime {
             LocalDate end = start.plusYears(1).minusDays(1);
 
             List<Long> startAndEndTimestamps = Arrays.asList(
-                    start.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli(),
-                    end.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+                    start.atStartOfDay(ZoneId.systemDefault()).toInstant().getEpochSecond(),
+                    end.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant().getEpochSecond());
 
             yearsTimestamps.put(year + i, startAndEndTimestamps);
         }

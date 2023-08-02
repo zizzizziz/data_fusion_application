@@ -51,7 +51,7 @@ public class StaffPrediction {
         }
 
         predictedStaff.setEventTime(nextTime);
-        predictedStaff.setUpdateTime(System.currentTimeMillis());
+        predictedStaff.setUpdateTime(System.currentTimeMillis() / 1000);
 
         return predictedStaff;
     }

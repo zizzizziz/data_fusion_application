@@ -50,7 +50,7 @@ public class ProductionPrediction {
         }
 
         predictedProduction.setEventTime(nextTime);
-        predictedProduction.setUpdateTime(System.currentTimeMillis());
+        predictedProduction.setUpdateTime(System.currentTimeMillis() / 1000);
 
         return predictedProduction;
     }

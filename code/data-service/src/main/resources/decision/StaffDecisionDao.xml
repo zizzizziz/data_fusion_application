@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.decision.dao.StaffDecisionDao">
+
+    <!-- 新增人力链预测数据 -->
+    <insert id="addStaffPredictionInfos" parameterType="ldn.cs.decision.pojo.staff.Staff">
+        INSERT INTO tbl_staff_prediction_info(corporation, categories, positions, skill, amount, eventTime, updateTime)
+        VALUES
+        <foreach collection="staffs" item="staff" separator=",">
+            (#{staff.corporation}, #{staff.categories}, #{staff.positions}, #{staff.skill}, #{staff.amount}, #{staff.eventTime}, #{staff.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询人力链预测数据 -->
+    <select id="getStaffPredictionInfos" resultType="ldn.cs.decision.pojo.staff.Staff">
+        select * from tbl_staff_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        order by updateTime DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询人力链返回总数  -->
+    <select id="getTotalPredictionStaff" resultType="int">
+        select count(1) from tbl_staff_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+</mapper>

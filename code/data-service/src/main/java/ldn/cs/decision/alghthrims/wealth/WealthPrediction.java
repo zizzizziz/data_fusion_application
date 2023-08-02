@@ -52,7 +52,7 @@ public class WealthPrediction {
         }
 
         wealth.setEventTime(nextTime);
-        wealth.setUpdateTime(System.currentTimeMillis());
+        wealth.setUpdateTime(System.currentTimeMillis() / 1000);
         return wealth;
     }
 }
