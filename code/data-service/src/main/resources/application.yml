@@ -19,6 +19,10 @@ spring:
       ddl-auto: update
     generate-ddl: false
     open-in-view: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      auto-offset-reset: latest
 
 mybatis:
-  mapper-locations: classpath:/mybatis/*.xml
+  mapper-locations: classpath:/fusion/*.xml, classpath:/decision/*.xml, classpath:/access/*.xml

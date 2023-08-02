@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.fusion.dao.ConveyDao">
+
+    <!-- 新增ConveyInfos报表数据 -->
+    <insert id="addConveyInfos" parameterType="ldn.cs.fusion.pojo.convey.Convey">
+        INSERT INTO tbl_convey_info(corporation,categories, types, quantity, inventory, mileage, cost, eventTime, updateTime)
+        VALUES
+        <foreach collection="conveys" item="convey" separator=",">
+            (#{convey.corporation}, #{convey.categories}, #{convey.types}, #{convey.quantity}, #{convey.inventory}, #{convey.mileage}, #{convey.cost}, #{convey.eventTime}, #{convey.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询ConveyInfos报表 -->
+    <select id="getConveyInfos" resultType="ldn.cs.fusion.pojo.convey.Convey">
+        select * from tbl_convey_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+        order by updateTime DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询ConveyInfos报表Total -->
+    <select id="getTotalConvey" resultType="int">
+        select count(1) from tbl_convey_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增Traffic数据 -->
+    <insert id="addTrafficInfos" parameterType="ldn.cs.fusion.pojo.convey.Traffic">
+        INSERT INTO tbl_convey_traffic_info(corporation, categories, mileage, cost, eventTime)
+        VALUES
+        <foreach collection="traffics" item="traffic" separator=",">
+            (#{traffic.corporation}, #{traffic.categories}, #{traffic.mileage}, #{traffic.cost}, #{traffic.eventTime})
+        </foreach>
+    </insert>
+
+    <!-- 新增Inventory数据 -->
+    <insert id="addInventoryInfos" parameterType="ldn.cs.fusion.pojo.convey.Inventory">
+        INSERT INTO tbl_convey_inventory_info(corporation, types, quantity, inventory, eventTime)
+        VALUES
+        <foreach collection="inventories" item="inventory" separator=",">
+            (#{inventory.corporation}, #{inventory.types}, #{inventory.quantity}, #{inventory.inventory}, #{inventory.eventTime})
+        </foreach>
+    </insert>
+
+
+    <!-- 查询Traffic数据 -->
+    <select id="getTrafficInfos" resultType="ldn.cs.fusion.pojo.convey.Traffic">
+        select corporation, categories, SUM(mileage) AS mileage, SUM(cost) AS cost
+        from tbl_convey_traffic_info
+        <where>
+        1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        GROUP BY corporation,categories
+    </select>
+
+    <!-- 查询Inventory数据 -->
+    <select id="getInventoryInfos" resultType="ldn.cs.fusion.pojo.convey.Inventory">
+        select corporation, types, SUM(quantity) AS quantity, SUM(inventory) AS inventory
+        from tbl_convey_inventory_info
+        <where>
+        1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        GROUP BY corporation,types
+    </select>
+</mapper>

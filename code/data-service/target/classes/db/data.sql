@@ -1,3 +1,0 @@
-INSERT INTO tbl_staff_info_original(id,corporation,categories,position,skill,eventTime, updateTime) VALUES(1, 'byd',1,1,'后台开发' ,20231112001,202307172250);
-INSERT INTO tbl_staff_info_original(id,corporation,categories,position,skill,eventTime, updateTime) VALUES(2, 'byd',1,1,'后台开发' ,20231112001,202307172250);
-INSERT INTO tbl_staff_info_original(id,corporation,categories,position,skill,eventTime, updateTime) VALUES(3, 'byd',1,1,'后台开发' ,20231112001,202307172250);

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.fusion.dao.StaffDao">
+
+    <!-- 新增StaffInfos报表数据 -->
+    <insert id="addStaffInfos" parameterType="ldn.cs.fusion.pojo.staff.Staff">
+        INSERT INTO tbl_staff_info(corporation, categories, positions, skill, amount, eventTime, updateTime)
+        VALUES
+        <foreach collection="staffs" item="staff" separator=",">
+            (#{staff.corporation}, #{staff.categories}, #{staff.positions}, #{staff.skill}, #{staff.amount}, #{staff.eventTime}, #{staff.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询StaffInfos报表 -->
+    <select id="getStaffInfos" resultType="ldn.cs.fusion.pojo.staff.Staff">
+        select * from tbl_staff_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+        order by updateTime DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询StaffInfos报表Total -->
+    <select id="getTotalStaff" resultType="int">
+        select count(1) from tbl_staff_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增Person数据 -->
+    <insert id="addPersonInfos" parameterType="ldn.cs.fusion.pojo.staff.Person">
+        INSERT INTO tbl_staff_person_info(corporation, categories, amount, eventTime, updateTime)
+        VALUES
+        <foreach collection="persons" item="person" separator=",">
+            (#{person.corporation}, #{person.categories}, #{person.amount}, #{person.eventTime}, #{person.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 新增Position数据 -->
+    <insert id="addPositionInfos" parameterType="ldn.cs.fusion.pojo.staff.Position">
+        INSERT INTO tbl_staff_position_info(corporation, positions, amount, eventTime, updateTime)
+        VALUES
+        <foreach collection="positions" item="position" separator=",">
+            (#{position.corporation}, #{position.positions}, #{position.amount}, #{position.eventTime}, #{position.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 新增Skill数据 -->
+    <insert id="addSkillInfos" parameterType="ldn.cs.fusion.pojo.staff.Skill">
+        INSERT INTO tbl_staff_skill_info(corporation,skill, amount, eventTime, updateTime)
+        VALUES
+        <foreach collection="skills" item="skill" separator=",">
+            (#{skill.corporation}, #{skill.skill}, #{skill.amount}, #{skill.eventTime}, #{skill.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Person数据 -->
+    <select id="getPersonInfos" resultType="ldn.cs.fusion.pojo.staff.Person">
+        select * from tbl_staff_person_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询Position数据 -->
+    <select id="getPositionInfos" resultType="ldn.cs.fusion.pojo.staff.Position">
+        select * from tbl_staff_position_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询Skill数据 -->
+    <select id="getSkillInfos" resultType="ldn.cs.fusion.pojo.staff.Skill">
+        select * from tbl_staff_skill_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+</mapper>

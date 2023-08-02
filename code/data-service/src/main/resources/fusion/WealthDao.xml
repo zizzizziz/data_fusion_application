@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.fusion.dao.WealthDao">
+
+    <!-- 新增WealthInfos报表数据 -->
+    <insert id="addWealthInfos" parameterType="ldn.cs.fusion.pojo.wealth.Wealth">
+        INSERT INTO tbl_wealth_info(corporation, research, device, production, storage, materiel, transportation, salary, revenue, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
+        VALUES
+        <foreach collection="wealths" item="wealth" separator=",">
+            (#{wealth.corporation}, #{wealth.research}, #{wealth.device}, #{wealth.production}, #{wealth.storage}, #{wealth.materiel}, #{wealth.transportation}, #{wealth.salary}, #{wealth.revenue}, #{wealth.profit}, #{wealth.fixedAssets}, #{wealth.cashAssets}, #{wealth.finance}, #{wealth.eventTime}, #{wealth.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询WealthInfos报表 -->
+    <select id="getWealthInfos" resultType="ldn.cs.fusion.pojo.wealth.Wealth">
+        select * from tbl_wealth_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询WealthInfos报表Total -->
+    <select id="getTotalWealth" resultType="int">
+        select count(1) from tbl_wealth_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND corporation = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND updateTime = #{statement}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增Finance数据 -->
+    <insert id="addFinanceInfos" parameterType="ldn.cs.fusion.pojo.wealth.Finance">
+        INSERT INTO tbl_wealth_finance_info(corporation, research, device, production, storage, materiel, transportation, salary, revenue, eventTime, updateTime)
+        VALUES
+        <foreach collection="finances" item="finance" separator=",">
+            (#{finance.corporation}, #{finance.research}, #{finance.device}, #{finance.production}, #{finance.storage}, #{finance.materiel}, #{finance.transportation}, #{finance.salary}, #{finance.revenue}, #{finance.eventTime}, #{finance.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Asset数据 -->
+    <select id="getAssetInfos" resultType="ldn.cs.fusion.pojo.wealth.Asset">
+        select * from tbl_wealth_asset_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增Asset数据 -->
+    <insert id="addAssetInfos" parameterType="ldn.cs.fusion.pojo.wealth.Asset">
+        INSERT INTO tbl_wealth_asset_info(corporation, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
+        VALUES
+        <foreach collection="assets" item="asset" separator=",">
+            (#{asset.corporation}, #{asset.profit}, #{asset.fixedAssets}, #{asset.cashAssets}, #{asset.finance}, #{asset.eventTime}, #{asset.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Finance数据 -->
+    <select id="getFinanceInfos" resultType="ldn.cs.fusion.pojo.wealth.Finance">
+        select * from tbl_wealth_finance_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+</mapper>
