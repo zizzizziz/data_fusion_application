@@ -75,15 +75,15 @@
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
-                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
-                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>
@@ -100,15 +100,15 @@
             <if test="granularity != null and granularity != ''">
                 <choose>
                     <when test="granularity == 1">
-                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 2">
-                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
-                        AND QUARTER(FROM_UNIXTIME(eventTime / 1000)) = QUARTER(FROM_UNIXTIME(#{time}))
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
                     </when>
                     <when test="granularity == 3">
-                        AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = YEAR(FROM_UNIXTIME(#{time}))
-                        AND MONTH(FROM_UNIXTIME(eventTime / 1000)) = MONTH(FROM_UNIXTIME(#{time}))
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
                     </when>
                 </choose>
             </if>

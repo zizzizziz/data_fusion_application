@@ -1,10 +1,6 @@
 package ldn.cs.fusion.controller;
 
-import ldn.cs.fusion.pojo.production.Birth;
-import ldn.cs.fusion.pojo.production.ProductionInfo;
-import ldn.cs.fusion.pojo.production.Trend;
-import ldn.cs.fusion.pojo.production.Yield;
-import ldn.cs.fusion.pojo.sale.*;
+import ldn.cs.fusion.pojo.production.*;
 import ldn.cs.fusion.service.ProductionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +50,7 @@ public class ProductionController {
      */
     @GetMapping("/perception/yield/query")
     public Map<String, List<Yield>> getYieldInfos(long time, int granularity) {
-        return productionService.getYieldInfos(time / 1000, granularity);
+        return productionService.getYieldInfos(time, granularity);
     }
 
     /**
@@ -66,7 +62,7 @@ public class ProductionController {
      */
     @GetMapping("/perception/birth/query")
     public Map<String, List<Birth>> getBirthInfos(long time, int granularity) {
-        return productionService.getBirthInfos(time / 1000, granularity);
+        return productionService.getBirthInfos(time, granularity);
     }
 }
 

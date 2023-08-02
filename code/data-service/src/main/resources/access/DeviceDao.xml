@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.access.dao.DeviceDao">
+
+    <!-- 新增Device数据 -->
+    <insert id="addDevices" parameterType="ldn.cs.access.pojo.Device">
+        INSERT INTO tbl_device_info(ip, port, updateTime)
+        VALUES
+        <foreach collection="devices" item="device" separator=",">
+            (#{device.ip}, #{device.port}, #{device.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 删除Device数据 -->
+    <delete id="deleteDevices">
+        DELETE FROM tbl_device_info
+        WHERE (ip, port) IN
+        <foreach collection="devices" item="device" separator=",">
+            #{device.ip}, #{device.port}
+        </foreach>
+    </delete>
+
+    <!-- 查询DeviceInfos报表 -->
+    <select id="getDevices" resultType="ldn.cs.access.pojo.Device">
+        select * from tbl_device_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND ip = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND port= #{statement}
+                </if>
+            </if>
+        </where>
+        order by updateTime DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询DeviceInfos报表Total -->
+    <select id="getTotalDevice" resultType="int">
+        select count(1) from tbl_device_info
+        <where>
+            1=1
+            <if test="statement != null and statement != ''">
+                <if test="types == 1">
+                    AND ip = #{statement}
+                </if>
+                <if test="types == 2">
+                    AND port = #{statement}
+                </if>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

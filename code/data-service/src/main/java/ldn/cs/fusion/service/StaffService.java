@@ -49,13 +49,18 @@ public class StaffService {
      * @param persons 企业员工分布信息
      * @return 新增条数
      */
-    // 员工分布
     public int addPersonInfos(List<Person> persons) {
         long updateTime = System.currentTimeMillis();
         persons.forEach(staff -> staff.setUpdateTime(updateTime));
         return staffDao.addPersonInfos(persons);
     }
 
+    /**
+     * 数据感知 -- 企业员工分布可视化查询功能
+     * @param time 查询条件时间戳（毫秒级）
+     * @param granularity 条件类型：1-按年份 2-按季度 3-按月份
+     * @return key-企业，value-对象列表
+     */
     // 查询员工分布
     public Map<String, List<Person>> getPersonInfos(long time, int granularity) {
         return staffDao.getPersonInfos(time, granularity).stream().collect(Collectors.groupingBy(Person::getCorporation));
@@ -66,14 +71,18 @@ public class StaffService {
      * @param positions 企业员工职位分布信息
      * @return 新增条数
      */
-    // 职位分布
     public int addPositionInfos(List<Position> positions) {
         long updateTime = System.currentTimeMillis();
         positions.forEach(position -> position.setUpdateTime(updateTime));
         return staffDao.addPositionInfos(positions);
     }
 
-    // 查询职位信息
+    /**
+     * 数据感知 -- 企业员工职位分布可视化查询功能
+     * @param time 查询条件时间戳（毫秒级）
+     * @param granularity 条件类型：1-按年份 2-按季度 3-按月份
+     * @return key-企业，value-对象列表
+     */
     public Map<String, List<Position>> getPositionInfos(long time, int granularity) {
         return staffDao.getPositionInfos(time, granularity).stream().collect(Collectors.groupingBy(Position::getCorporation));
     }
@@ -83,14 +92,18 @@ public class StaffService {
      * @param skills 企业员工技能分布信息
      * @return 新增条数
      */
-    // 技能分布
     public int addSkillInfos(List<Skill> skills) {
         long updateTime = System.currentTimeMillis();
         skills.forEach(skill -> skill.setUpdateTime(updateTime));
         return staffDao.addSkillInfos(skills);
     }
 
-    // 查询技能信息
+    /**
+     * 数据感知 -- 企业员工技能分布可视化查询功能
+     * @param time 查询条件时间戳（毫秒级）
+     * @param granularity 条件类型：1-按年份 2-按季度 3-按月份
+     * @return key-企业，value-对象列表
+     */
     public Map<String, List<Skill>> getSkillInfos(long time, int granularity) {
         return staffDao.getSkillInfos(time, granularity).stream().collect(Collectors.groupingBy(Skill::getCorporation));
     }

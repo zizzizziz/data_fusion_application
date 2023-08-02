@@ -56,8 +56,6 @@ public class ConveyDaoTest extends BaseTest {
         Inventory inventory = new Inventory();
         inventory.setCorporation("test");
         inventory.setTypes(1);
-        inventory.setEventTime(20231112001L);
-        inventory.setUpdateTime(202307172250L);
         List<Inventory> inventories = new ArrayList<>();
         inventories.add(inventory);
 
