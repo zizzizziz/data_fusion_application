@@ -6,6 +6,7 @@ import ldn.cs.decision.alghthrims.staff.StaffPrediction;
 import ldn.cs.decision.dao.StaffDecisionDao;
 import ldn.cs.decision.pojo.staff.Staff;
 import ldn.cs.decision.utils.ComputeFutureTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Service
 public class StaffConsumer {
+    @Autowired
     private StaffDecisionDao staffDecisionDao;
 
     // 历史数据, 等待生成
