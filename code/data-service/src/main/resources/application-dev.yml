@@ -22,4 +22,4 @@ spring:
     open-in-view: false
 
 mybatis:
-  mapper-locations: classpath:/mybatis/fusion/*.xml, classpath:/decision/*.xml
+  mapper-locations: classpath:/fusion/*.xml, classpath:/decision/*.xml
