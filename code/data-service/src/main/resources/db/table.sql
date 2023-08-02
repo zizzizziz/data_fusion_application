@@ -1,3 +1,12 @@
+-- 设备
+create table if not exists tbl_device_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    ip varchar(32) NOT NULL,
+    port int NOT NULL,
+    updateTime bigint,
+    PRIMARY KEY (ip, port)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
 -- 人力链报表
 create table if not exists tbl_staff_info(
     id int(11) NOT NULL AUTO_INCREMENT,
