@@ -11,9 +11,9 @@ import java.util.TreeMap;
 
 public class ComputeFutureTime {
     // 获取本年度剩余季度
-    public static Map<Integer, List<Long>> getRemainingQuartersTimestamps(long eventTime) {
+    public static Map<Integer, List<Long>> getRemainingQuartersTimestamps(long millils) {
         Map<Integer, List<Long>> quartersTimestamps = new TreeMap<>();
-        LocalDate now = Instant.ofEpochMilli(eventTime).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate now = Instant.ofEpochSecond(millils).atZone(ZoneId.systemDefault()).toLocalDate();
 
         int quarter = (now.getMonthValue() - 1) / 3 + 1;
         int year = now.getYear();
@@ -35,7 +35,7 @@ public class ComputeFutureTime {
     // 获取本年度剩余月数
     public static Map<Integer, List<Long>> getRemainingMonthsTimestamps(long millis) {
         Map<Integer, List<Long>> monthsTimestamps = new TreeMap<>();
-        LocalDate now = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate now = Instant.ofEpochSecond(millis).atZone(ZoneId.systemDefault()).toLocalDate();
 
         int month = now.getMonthValue();
         int year = now.getYear();
@@ -57,7 +57,7 @@ public class ComputeFutureTime {
     // 获取未来四年（包括本年）的时间
     public static Map<Integer, List<Long>> getNextFourYearsTimestamps(long millis) {
         Map<Integer, List<Long>> yearsTimestamps = new TreeMap<>();
-        LocalDate now = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate now = Instant.ofEpochSecond(millis).atZone(ZoneId.systemDefault()).toLocalDate();
 
         int year = now.getYear();
 
