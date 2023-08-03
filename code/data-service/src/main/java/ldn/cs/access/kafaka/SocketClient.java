@@ -10,6 +10,8 @@ import java.util.Map;
 public class SocketClient {
     public static SocketClient instance = new SocketClient();
 
+    private final String TOPIC = "mygroup";
+
     private SocketClient() {
 
     }
@@ -36,7 +38,7 @@ public class SocketClient {
                 try {
                     String message;
                     while ((message = reader.readLine()) != null) {
-                        kafkaProducer.sendMessage(message);
+                        KafkaProducer.getInstance().sendMessage(TOPIC, message);
                     }
                 } catch (IOException e) {
                     System.err.println("Error while reading from server: " + e.getMessage());
