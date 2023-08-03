@@ -1,7 +1,7 @@
 package ldn.cs.access.service;
 
 import ldn.cs.access.dao.DeviceDao;
-import ldn.cs.access.kafaka.SocketClient;
+import ldn.cs.access.Socket.SocketClient;
 import ldn.cs.access.pojo.Device;
 import ldn.cs.access.pojo.DeviceInfo;
 import org.springframework.beans.factory.annotation.Autowired;
