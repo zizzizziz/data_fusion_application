@@ -1,7 +1,7 @@
 package ldn.cs.access.service;
 
 import ldn.cs.access.dao.DeviceDao;
-import ldn.cs.access.kafaka.SocketClient;
+import ldn.cs.access.Socket.SocketClient;
 import ldn.cs.access.pojo.Device;
 import ldn.cs.access.pojo.DeviceInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import java.util.List;
 public class DeviceService {
     @Autowired
     private DeviceDao deviceDao;
-    private SocketClient socketClient;
 
     /**
      * 数据接入 -- 设备数据新增
@@ -28,7 +27,7 @@ public class DeviceService {
         int count = deviceDao.addDevices(devices);
         // 2. 启动对应的Socket连接
         if (count != 0) {
-            devices.forEach(req -> socketClient.connectAndListen(req.getIp(), req.getPort()));
+            devices.forEach(req -> SocketClient.getInstance().connectAndListen(req.getIp(), req.getPort()));
         }
 
         return count;
@@ -45,7 +44,7 @@ public class DeviceService {
         int count = deviceDao.deleteDevices(devices);
         // 2. 关闭对应的Socket连接
         if (count != 0) {
-            devices.forEach(req -> socketClient.closeConnection(req.getIp(), req.getPort()));
+            devices.forEach(req -> SocketClient.getInstance().closeConnection(req.getIp(), req.getPort()));
         }
         return count;
     }

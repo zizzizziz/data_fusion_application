@@ -888,5 +888,5 @@ VALUES (1, '小丫家电', 1, 2, '后台开发',100, 1690946777, 1690946777),
        (34,'BYD', 2, 1, '前端开发',0, 1690946777, 1690946777);
 
 REPLACE INTO tbl_decision_threshold_info(id, categories, attributes, attributesValue, updateTime)
-VALUES (1, 1, 'amount', 100, 1690946777),
+VALUES (1, 1, '人员数量', 100, 1690946777),
        (2, 2, '物料支出', 500, 1690946777);

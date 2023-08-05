@@ -18,5 +18,5 @@ public interface DeviceDao {
 
     List<Device> getDevices(@Param("statement") String statement, @Param("types") int types, @Param("limit") int limit, @Param("offset") int offset);
 
-    int getTotalDevices(@Param("statement") String statement, @Param("types") int types);//granularity: 1、IP地址 2、端口号
+    int getTotalDevices(@Param("statement") String statement, @Param("types") int types);
 }

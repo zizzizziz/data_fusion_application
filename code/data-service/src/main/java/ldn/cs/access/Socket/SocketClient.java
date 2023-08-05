@@ -1,4 +1,6 @@
-package ldn.cs.access.kafaka;
+package ldn.cs.access.Socket;
+
+import ldn.cs.access.kafaka.KafkaProducer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +12,8 @@ import java.util.Map;
 public class SocketClient {
     public static SocketClient instance = new SocketClient();
 
+    private final String TOPIC = "mygroup";
+
     private SocketClient() {
 
     }
@@ -20,8 +24,6 @@ public class SocketClient {
 
     // 使用静态Map存储已连接的Socket对象
     private static final Map<String, Socket> socketObject = new HashMap<>();
-
-    private KafkaProducer kafkaProducer;
 
     public void connectAndListen(String serverIP, int serverPort) {
         try {
@@ -36,7 +38,7 @@ public class SocketClient {
                 try {
                     String message;
                     while ((message = reader.readLine()) != null) {
-                        kafkaProducer.sendMessage(message);
+                        KafkaProducer.getInstance().sendMessage(TOPIC, message);
                     }
                 } catch (IOException e) {
                     System.err.println("Error while reading from server: " + e.getMessage());

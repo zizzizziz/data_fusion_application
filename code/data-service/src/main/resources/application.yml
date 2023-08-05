@@ -4,8 +4,6 @@ spring:
     url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
     username: ldncs
     password: 66666
-    data: classpath:db/data.sql
-    schema: classpath:db/table.sql
   h2:
     console:
       settings:
@@ -23,6 +21,10 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       auto-offset-reset: latest
+  sql:
+    init:
+      schema-locations: classpath:db/table.sql
+      data-locations: classpath:db/data.sql
 
 mybatis:
   mapper-locations: classpath:/fusion/*.xml, classpath:/decision/*.xml, classpath:/access/*.xml

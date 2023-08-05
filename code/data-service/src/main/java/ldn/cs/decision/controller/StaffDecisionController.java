@@ -1,6 +1,7 @@
 package ldn.cs.decision.controller;
 
 import ldn.cs.decision.dao.DecisionThresholdDao;
+import ldn.cs.decision.enums.DecisionThresholdEnum;
 import ldn.cs.decision.pojo.staff.Staff;
 import ldn.cs.decision.pojo.staff.StaffMeasureInfo;
 import ldn.cs.decision.pojo.staff.StaffInfo;
@@ -47,8 +48,8 @@ public class StaffDecisionController {
      * @return 预警数据
      */
     @GetMapping("/warning/query")
-    public Map<String, List<StaffWarningInfo>> getStaffWarningInfo(long time, int granularity) {
-        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity);
+    public Map<String, List<StaffWarningInfo>> getStaffWarningInfo(long time, int granularity, int types) {
+        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, types);
 
         return warningInfos.stream()
                 .collect(Collectors.groupingBy(StaffWarningInfo::getCorporation));
@@ -62,8 +63,8 @@ public class StaffDecisionController {
      * @return 决策数据
      */
     @GetMapping("/measure/query")
-    public Map<String, List<StaffMeasureInfo>> getStaffMeasureInfo(long time, int granularity) {
-        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity);
+    public Map<String, List<StaffMeasureInfo>> getStaffMeasureInfo(long time, int granularity, int types) {
+        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, types);
 
         Map<Integer, String> levelToMeasureMapForUpperThreshold = new HashMap<Integer, String>() {{
             put(1, "灵活用工"); // 灵活用工
@@ -90,13 +91,14 @@ public class StaffDecisionController {
     }
 
 
-    private List<StaffWarningInfo> getStaffWarningInfos(long time, int granularity) {
+    private List<StaffWarningInfo> getStaffWarningInfos(long time, int granularity, int types) {
         List<Staff> staffs = staffDecisionService.getStaffWarningInfo(time, granularity);
         List<DecisionThreshold> thresholds = decisionThresholdDao.getDecisionThreshold(1);
 
         Map<String, DecisionThreshold> categoryToThresholdMap = new HashMap<>();
         for (DecisionThreshold threshold : thresholds) {
-            if ("amount".equals(threshold.getAttributes())) {
+            String attributes = DecisionThresholdEnum.getThresholdAttributes(types);
+            if (attributes != null && attributes.equals(threshold.getAttributes())) {
                 categoryToThresholdMap.put(threshold.getAttributes(), threshold);
             }
         }
@@ -113,7 +115,7 @@ public class StaffDecisionController {
         List<StaffWarningInfo> warningInfos = new ArrayList<>();
 
         for (Staff staff : staffs) {
-            DecisionThreshold threshold = categoryToThresholdMap.get("amount");
+            DecisionThreshold threshold = categoryToThresholdMap.get(DecisionThresholdEnum.getThresholdAttributes(types));
             if (threshold != null) {
                 StaffWarningInfo warningInfo = new StaffWarningInfo();
                 BeanUtils.copyProperties(staff, warningInfo);
