@@ -309,6 +309,28 @@ create table if not exists tbl_staff_prediction_info(
     INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
+-- 财务链预测报表
+create table if not exists tbl_wealth_prediction_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    corporation varchar(255),   -- 企业名称
+    research bigint,            -- 研发支出
+    device bigint,              -- 设备支出
+    production bigint,          -- 生产支出
+    storage bigint,             -- 仓储支出
+    materiel bigint,            -- 物料支出
+    transportation bigint,      -- 运输支出
+    salary bigint,              -- 人员工资支出
+    revenue bigint,             -- 总收入
+    profit bigint,              -- 利润
+    fixedAssets bigint,         -- 固定资产
+    cashAssets bigint,          -- 流动资产
+    finance bigint,             -- 融资
+    eventTime bigint,           -- 事件时间
+    updateTime bigint,          -- 更新时间
+    PRIMARY KEY (id),
+    INDEX (corporation)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
 -- 决策元阈值管理模块
 create table if not exists tbl_decision_threshold_info(
     id int(11) NOT NULL AUTO_INCREMENT,
