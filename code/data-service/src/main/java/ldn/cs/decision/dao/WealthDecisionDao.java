@@ -15,4 +15,6 @@ public interface WealthDecisionDao {
     List<Wealth> getWealthPredictionInfos(@Param("time") long time, @Param("granularity") int granularity, @Param("limit") int limit, @Param("offset") int offset);
 
     int getTotalPredictionWealth(@Param("time") long time, @Param("granularity") int granularity);
+
+    List<Wealth> getWealthWarningInfos(@Param("time") long time, @Param("granularity") int granularity, @Param("limit") int limit, @Param("offset") int offset);
 }

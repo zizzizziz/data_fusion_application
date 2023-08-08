@@ -14,5 +14,5 @@ public class StaffWarningInfo extends Staff {
 
     private String causeType; // 根因
 
-    private int level; // 紧急程度
+    private int level; // 紧急程度 // 1 --> 一般, 2 --> 严重
 }

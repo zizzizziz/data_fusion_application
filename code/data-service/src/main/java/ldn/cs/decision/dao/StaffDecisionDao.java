@@ -15,4 +15,6 @@ public interface StaffDecisionDao {
     List<Staff> getStaffPredictionInfos(@Param("time") long time, @Param("granularity") int granularity, @Param("limit") int limit, @Param("offset") int offset);
 
     int getTotalPredictionStaff(@Param("time") long time, @Param("granularity") int granularity);
+
+    List<Staff> getStaffWarningInfos(@Param("time") long time, @Param("granularity") int granularity, @Param("limit") int limit, @Param("offset") int offset);
 }

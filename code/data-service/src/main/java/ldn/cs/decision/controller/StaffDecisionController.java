@@ -1,12 +1,12 @@
 package ldn.cs.decision.controller;
 
-import ldn.cs.decision.dao.DecisionThresholdDao;
 import ldn.cs.decision.enums.DecisionThresholdEnum;
 import ldn.cs.decision.pojo.staff.Staff;
 import ldn.cs.decision.pojo.staff.StaffMeasureInfo;
 import ldn.cs.decision.pojo.staff.StaffInfo;
 import ldn.cs.decision.pojo.staff.StaffWarningInfo;
 import ldn.cs.decision.pojo.threshold.DecisionThreshold;
+import ldn.cs.decision.service.DecisionThresholdService;
 import ldn.cs.decision.service.StaffDecisionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class StaffDecisionController {
     private StaffDecisionService staffDecisionService;
 
     @Autowired
-    private DecisionThresholdDao decisionThresholdDao;
+    private DecisionThresholdService decisionThresholdService;
 
     /**
      * 决策元 -- 人力链查询
@@ -66,6 +66,7 @@ public class StaffDecisionController {
     public Map<String, List<StaffMeasureInfo>> getStaffMeasureInfo(long time, int granularity, int types) {
         List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, types);
 
+        // 1 --> 一般, 2 --> 严重
         Map<Integer, String> levelToMeasureMapForUpperThreshold = new HashMap<Integer, String>() {{
             put(1, "灵活用工"); // 灵活用工
             put(2, "发展新业务，开拓新航道"); // 发展新业务，开拓新航道
@@ -92,8 +93,8 @@ public class StaffDecisionController {
 
 
     private List<StaffWarningInfo> getStaffWarningInfos(long time, int granularity, int types) {
-        List<Staff> staffs = staffDecisionService.getStaffWarningInfo(time, granularity);
-        List<DecisionThreshold> thresholds = decisionThresholdDao.getDecisionThreshold(1);
+        List<Staff> staffs = staffDecisionService.getStaffWarningInfos(time, granularity);
+        List<DecisionThreshold> thresholds = decisionThresholdService.getDecisionThreshold(1);
 
         Map<String, DecisionThreshold> categoryToThresholdMap = new HashMap<>();
         for (DecisionThreshold threshold : thresholds) {

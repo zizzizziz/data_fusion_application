@@ -34,7 +34,7 @@ public class WealthDecisionService {
      * @param granularity 1-->年 2-->季度 3-->月
      * @return 财务链列表
      */
-    public List<Wealth> getWealthWarningInfo(long time, int granularity) {
-        return wealthDecisionDao.getWealthPredictionInfos(time, granularity, -1, -1);
+    public List<Wealth> getWealthWarningInfos(long time, int granularity) {
+        return wealthDecisionDao.getWealthWarningInfos(time, granularity, -1, -1);
     }
 }
