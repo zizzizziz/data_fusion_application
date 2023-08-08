@@ -5,6 +5,6 @@
 <mapper namespace="ldn.cs.decision.dao.DecisionThresholdDao">
     <select id="getDecisionThreshold" resultType="ldn.cs.decision.pojo.threshold.DecisionThreshold">
         SELECT id, categories, attributes, attributesValue, updateTime FROM tbl_decision_threshold_info
-        WHERE categories = #{categories}
+        WHERE categories = #{categories} and attributes = #{attributes}
     </select>
 </mapper>

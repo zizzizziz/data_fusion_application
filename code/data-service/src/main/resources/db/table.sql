@@ -298,10 +298,10 @@ create table if not exists tbl_sale_profit_info(
 -- 决策元阈值管理模块
 create table if not exists tbl_decision_threshold_info(
     id int(11) NOT NULL AUTO_INCREMENT,
-    categories tinyint,         -- 类型, 1-5分别对应人财物产销
-    attributes varchar(255),    -- 阈值属性
-    attributesValue bigint,     -- 阈值
-    updateTime bigint,          -- 更新时间
+    categories tinyint,                 -- 类型, 1-5分别对应人财物产销
+    attributes varchar(255),            -- 阈值属性
+    attributesValue decimal(20, 2),     -- 阈值
+    updateTime bigint,                  -- 更新时间
     PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 

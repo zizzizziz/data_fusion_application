@@ -12,5 +12,5 @@ import java.util.*;
 public interface DecisionThresholdDao {
     int updateDecisionThreshold(@Param("thresholds") List<DecisionThreshold> thresholds);
 
-    List<DecisionThreshold> getDecisionThreshold(@Param("categories") int categories);
+    List<DecisionThreshold> getDecisionThreshold(@Param("categories") int categories, @Param("attributes") String attributes);
 }

@@ -14,7 +14,7 @@ public class DecisionThresholdService {
 
     // 差一个补充更新阈值的方法
 
-    public List<DecisionThreshold> getDecisionThreshold(int categories) {
-        return decisionThresholdDao.getDecisionThreshold(categories);
+    public List<DecisionThreshold> getDecisionThreshold(int categories, String attributes) {
+        return decisionThresholdDao.getDecisionThreshold(categories, attributes);
     }
 }
