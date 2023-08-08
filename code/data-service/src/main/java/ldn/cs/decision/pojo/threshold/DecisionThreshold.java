@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +16,7 @@ public class DecisionThreshold {
 
     private String attributes;
 
-    private long attributesValue;
+    private BigDecimal attributesValue;
 
     private long updateTime;
 }

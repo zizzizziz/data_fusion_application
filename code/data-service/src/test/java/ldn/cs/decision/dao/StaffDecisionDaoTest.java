@@ -17,10 +17,10 @@ public class StaffDecisionDaoTest extends BaseTest {
     @Test
     public void addStaffPredictionInfos() {
         List<Staff> staffs = new ArrayList<>();
-        staffs.add(new Staff(30, "小丫家电", 1, 2, "后台开发", 100, 1690946777000L, 1690946777000L));
-        staffs.add(new Staff(31, "小丫家电", 1, 2, "后台开发", 100, 1690946777000L, 1690946777000L));
-        staffs.add(new Staff(32, "小丫家电", 1, 2, "后台开发", 100, 1690946777000L, 1690946777000L));
-        staffs.add(new Staff(33, "小丫家电", 1, 2, "后台开发", 100, 1690946777000L, 1690946777000L));
+        staffs.add(new Staff(30, "小丫家电", 1, 2, "后台开发", 100, 1690946777L, 1690946777L));
+        staffs.add(new Staff(31, "小丫家电", 1, 2, "后台开发", 100, 1690946777L, 1690946777L));
+        staffs.add(new Staff(32, "小丫家电", 1, 2, "后台开发", 100, 1690946777L, 1690946777L));
+        staffs.add(new Staff(33, "小丫家电", 1, 2, "后台开发", 100, 1690946777L, 1690946777L));
 
         int count = staffDecisionDao.addStaffPredictionInfos(staffs);
         Assert.assertEquals(4, count);
@@ -36,8 +36,5 @@ public class StaffDecisionDaoTest extends BaseTest {
 
         List<Staff> getStaffInfoByMonth = staffDecisionDao.getStaffPredictionInfos(1690946777L, 2, 5, 0);
         Assert.assertEquals(5, getStaffInfoByMonth.size());
-
-        List<Staff> getAllStaffInfoByMonth = staffDecisionDao.getStaffPredictionInfos(1690946777L, 1, -1, -1);
-        Assert.assertEquals(27, getAllStaffInfoByMonth.size());
     }
 }

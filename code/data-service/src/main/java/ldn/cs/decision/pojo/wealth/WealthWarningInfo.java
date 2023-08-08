@@ -1,4 +1,5 @@
-package ldn.cs.decision.pojo.staff;
+package ldn.cs.decision.pojo.wealth;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StaffWarningInfo extends Staff {
+public class WealthWarningInfo extends Wealth {
     private int alarmType; // 告警类型 0->低于预警 1-->高于预警
 
     private String causeType; // 根因
 
-    private int level; // 紧急程度 // 1 --> 一般, 2 --> 严重
+    private int level; // 紧急程度
 }

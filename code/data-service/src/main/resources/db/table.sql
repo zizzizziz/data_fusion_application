@@ -4,6 +4,7 @@ create table if not exists tbl_device_info(
     ip varchar(32) NOT NULL,
     port int NOT NULL,
     updateTime bigint,
+    KEY (id),
     PRIMARY KEY (ip, port)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
@@ -295,6 +296,16 @@ create table if not exists tbl_sale_profit_info(
     INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
+-- 决策元阈值管理模块
+create table if not exists tbl_decision_threshold_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    categories tinyint,                 -- 类型, 1-5分别对应人财物产销
+    attributes varchar(255),            -- 阈值属性
+    attributesValue decimal(20, 2),     -- 阈值
+    updateTime bigint,                  -- 更新时间
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
 -- 人力链预测报表数据
 create table if not exists tbl_staff_prediction_info(
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -309,12 +320,43 @@ create table if not exists tbl_staff_prediction_info(
     INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
--- 决策元阈值管理模块
-create table if not exists tbl_decision_threshold_info(
+-- 财务链预测报表
+create table if not exists tbl_wealth_prediction_info(
     id int(11) NOT NULL AUTO_INCREMENT,
-    categories tinyint,         -- 类型, 1-5分别对应人财物产销
-    attributes varchar(255),    -- 阈值属性
-    attributesValue bigint,     -- 阈值
+    corporation varchar(255),   -- 企业名称
+    research bigint,            -- 研发支出
+    device bigint,              -- 设备支出
+    production bigint,          -- 生产支出
+    storage bigint,             -- 仓储支出
+    materiel bigint,            -- 物料支出
+    transportation bigint,      -- 运输支出
+    salary bigint,              -- 人员工资支出
+    revenue bigint,             -- 总收入
+    profit bigint,              -- 利润
+    fixedAssets bigint,         -- 固定资产
+    cashAssets bigint,          -- 流动资产
+    finance bigint,             -- 融资
+    eventTime bigint,           -- 事件时间
     updateTime bigint,          -- 更新时间
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    INDEX (corporation)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- 销售链预测报表
+create table if not exists tbl_sale_prediction_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    corporation varchar(255),   -- 企业名称
+    categories tinyint,         -- 产品类型
+    types tinyint,              -- 销售产品
+    quantity bigint,            -- 销量
+    income bigint,              -- 销售营收
+    cost bigint,                -- 销售支出
+    province varchar(255),      -- 销售省份
+    country varchar(255),       -- 销售国家
+    inventory bigint,           -- 销售库存
+    score int,                  -- 服务评价
+    eventTime bigint,           -- 事件时间
+    updateTime bigint,          -- 更新时间
+    PRIMARY KEY (id),
+    INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;

@@ -34,7 +34,7 @@ public class StaffDecisionService {
      * @param granularity 1-->年 2-->季度 3-->月
      * @return 人力链列表
      */
-    public List<Staff> getStaffWarningInfo(long time, int granularity) {
-        return staffDecisionDao.getStaffPredictionInfos(time, granularity, -1, -1);
+    public List<Staff> getStaffWarningInfos(long time, int granularity) {
+        return staffDecisionDao.getStaffWarningInfos(time, granularity, -1, -1);
     }
 }
