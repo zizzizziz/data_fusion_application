@@ -899,7 +899,7 @@ VALUES (1, '小丫家电', 1, 2, '后台开发',100, 1672629977, 1690946778),
        (45,'BYD', 2, 1, '前端开发',0, 1859340377, 1690946729),
        (46,'BYD', 2, 1, '前端开发',0, 1890876377, 1690946730);
 
-REPLACE INTO tbl_wealth_info(id, corporation, research, device, production, storage, materiel, transportation, salary,
+REPLACE INTO tbl_wealth_prediction_info(id, corporation, research, device, production, storage, materiel, transportation, salary,
                             revenue, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
 VALUES (1, '小丫家电', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,  1675308377, 1690946779),
        (2, '小丫家电', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,  1677727577, 1690946710),
