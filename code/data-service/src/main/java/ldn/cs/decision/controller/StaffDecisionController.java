@@ -1,6 +1,5 @@
 package ldn.cs.decision.controller;
 
-import ldn.cs.decision.enums.DecisionThresholdEnum;
 import ldn.cs.decision.pojo.staff.Staff;
 import ldn.cs.decision.pojo.staff.StaffMeasureInfo;
 import ldn.cs.decision.pojo.staff.StaffInfo;
@@ -95,7 +94,7 @@ public class StaffDecisionController {
 
     private List<StaffWarningInfo> getStaffWarningInfos(long time, int granularity, int categories, String attributes) {
         List<Staff> staffs = staffDecisionService.getStaffWarningInfos(time, granularity);
-        List<DecisionThreshold> thresholds = decisionThresholdService.getDecisionThreshold(1, attributes);
+        List<DecisionThreshold> thresholds = decisionThresholdService.getDecisionThreshold(categories, attributes);
 
         Map<Integer, String> levelToCauseMapForUpperThreshold = new HashMap<Integer, String>() {{
             put(1, "人员扩招"); // 人员扩招
