@@ -28,7 +28,7 @@ public class WealthConsumer {
     }
 
     @KafkaListener(topics = "topic_wealth_message", groupId = "topic_wealth_message_group")
-    public void consumeStaff(String message) {
+    public void consumeWealth(String message) {
         Wealth wealth = JSONObject.parseObject(message, Wealth.class);
         List<Wealth> predictionResult = new ArrayList<>();
         predictionResult.add(wealth);

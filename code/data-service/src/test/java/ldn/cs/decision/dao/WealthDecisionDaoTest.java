@@ -1,6 +1,5 @@
 package ldn.cs.decision.dao;
 
-import ldn.cs.decision.pojo.staff.Staff;
 import ldn.cs.decision.pojo.wealth.Wealth;
 import ldn.cs.fusion.BaseTest;
 import org.junit.Assert;
@@ -27,7 +26,7 @@ public class WealthDecisionDaoTest extends BaseTest {
     }
 
     @Test
-    public void getStaffPredictionInfos() {
+    public void getWealthPredictionInfos() {
         List<Wealth> getStaffInfoByYear = wealthDecisionDao.getWealthPredictionInfos(1690946777L, 1, 10, 0);
         Assert.assertEquals(10, getStaffInfoByYear.size());
 

@@ -341,3 +341,22 @@ create table if not exists tbl_wealth_prediction_info(
     PRIMARY KEY (id),
     INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- 销售链预测报表
+create table if not exists tbl_sale_prediction_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    corporation varchar(255),   -- 企业名称
+    categories tinyint,         -- 产品类型
+    types tinyint,              -- 销售产品
+    quantity bigint,            -- 销量
+    income bigint,              -- 销售营收
+    cost bigint,                -- 销售支出
+    province varchar(255),      -- 销售省份
+    country varchar(255),       -- 销售国家
+    inventory bigint,           -- 销售库存
+    score int,                  -- 服务评价
+    eventTime bigint,           -- 事件时间
+    updateTime bigint,          -- 更新时间
+    PRIMARY KEY (id),
+    INDEX (corporation)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;

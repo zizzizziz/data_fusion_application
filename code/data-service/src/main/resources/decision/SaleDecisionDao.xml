@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.decision.dao.SaleDecisionDao">
+
+    <!-- 新增销售链预测数据 -->
+    <insert id="addSalePredictionInfos" parameterType="ldn.cs.decision.pojo.sale.Sale">
+        INSERT INTO tbl_sale_prediction_info(corporation, categories, types, quantity, income, cost, province, country, inventory, score, eventTime, updateTime)
+        VALUES
+        <foreach collection="sales" item="sale" separator=",">
+            (#{sale.corporation}, #{sale.categories}, #{sale.types}, #{sale.quantity}, #{sale.income},
+             #{sale.cost}, #{sale.province}, #{sale.country},#{sale.inventory}, #{sale.score}, #{sale.eventTime}, #{sale.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询销售链预测数据 -->
+    <select id="getSalePredictionInfos" resultType="ldn.cs.decision.pojo.sale.Sale">
+        select * from tbl_sale_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) BETWEEN YEAR(FROM_UNIXTIME(#{time})) - 4
+                        AND YEAR(FROM_UNIXTIME(#{time})) + 4
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        order by updateTime DESC
+        <if test="limit >= 0 and offset >= 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <select id="getSaleWarningInfos" resultType="ldn.cs.decision.pojo.sale.Sale">
+        select * from tbl_sale_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        order by updateTime DESC
+        <if test="limit >= 0 and offset >= 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <!-- 查询销售链返回总数  -->
+    <select id="getTotalPredictionSale" resultType="int">
+        select count(1) from tbl_sale_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) BETWEEN YEAR(FROM_UNIXTIME(#{time})) - 4
+                        AND YEAR(FROM_UNIXTIME(#{time})) + 4
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+</mapper>
