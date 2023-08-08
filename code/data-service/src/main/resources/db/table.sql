@@ -4,6 +4,7 @@ create table if not exists tbl_device_info(
     ip varchar(32) NOT NULL,
     port int NOT NULL,
     updateTime bigint,
+    KEY (id),
     PRIMARY KEY (ip, port)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 

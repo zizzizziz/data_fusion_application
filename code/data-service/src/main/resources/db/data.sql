@@ -1,5 +1,10 @@
+-- Device
+REPLACE INTO tbl_device_info(ip, port, updateTime)
+VALUES ('192.168.110.1',8888,202307172250),
+       ('192.168.110.2',8889,202307172250);
+
 -- Staff
-INSERT INTO tbl_staff_info(corporation, categories, positions, skill, amount, eventTime, updateTime)
+REPLACE INTO tbl_staff_info(corporation, categories, positions, skill, amount, eventTime, updateTime)
 VALUES ('一汽', 1, 1, '车机系统开发', 100, 1690185315000, 202307172250),-- 2023-07-24
        ('一汽', 1, 2, '汽车设计', 200, 1688458879000, 202307172250),-- 2023-07-04
        ('一汽', 1, 3, '生产工程师', 200, 1672820479000, 202307172250),-- 2023-01-04
@@ -11,7 +16,7 @@ VALUES ('一汽', 1, 1, '车机系统开发', 100, 1690185315000, 202307172250),
        ('一汽', 2, 1, '车机系统开发', 100, 1651134079000, 202307172250),-- 2022-04-28
        ('一汽', 2, 6, '模块测试', 50, 1666945279000, 202307172250);-- 2022-10-28
 
-INSERT INTO tbl_staff_position_info(id, corporation, positions, amount, eventTime, updateTime)
+REPLACE INTO tbl_staff_position_info(id, corporation, positions, amount, eventTime, updateTime)
 VALUES (1, '小丫家电', 1, 100, 1690185315000, 202307172250),-- 2023-07-24
        (2, '小丫家电', 1, 200, 1688458879000, 202307172250),-- 2023-07-04
        (3, '小丫家电', 2, 200, 1672820479000, 202307172250),-- 2023-01-04
@@ -23,7 +28,7 @@ VALUES (1, '小丫家电', 1, 100, 1690185315000, 202307172250),-- 2023-07-24
        (9, '比亚迪', 1, 100, 1651134079000, 202307172250),-- 2022-04-28
        (10, '比亚迪', 1, 100, 1666945279000, 202307172250);-- 2022-10-28
 
-INSERT INTO tbl_staff_person_info(id, corporation, categories, amount, eventTime, updateTime)
+REPLACE INTO tbl_staff_person_info(id, corporation, categories, amount, eventTime, updateTime)
 VALUES (1, '小丫家电', 1, 100, 1690185315000, 202307172250),-- 2023-07-24
        (2, '小丫家电', 1, 200, 1688458879000, 202307172250),-- 2023-07-04
        (3, '小丫家电', 2, 200, 1672820479000, 202307172250),-- 2023-01-04
@@ -35,7 +40,7 @@ VALUES (1, '小丫家电', 1, 100, 1690185315000, 202307172250),-- 2023-07-24
        (9, '比亚迪', 1, 100, 1651134079000, 202307172250),-- 2022-04-28
        (10, '比亚迪', 1, 100, 1666945279000, 202307172250);-- 2022-10-28
 
-INSERT INTO tbl_staff_skill_info(id, corporation, skill, amount, eventTime, updateTime)
+REPLACE INTO tbl_staff_skill_info(id, corporation, skill, amount, eventTime, updateTime)
 VALUES (1, '小丫家电', '后台开发', 100, 1690185315000, 202307172250),-- 2023-07-24
        (2, '小丫家电', '后台开发', 200, 1688458879000, 202307172250),-- 2023-07-04
        (3, '小丫家电', '前端开发', 200, 1672820479000, 202307172250),-- 2023-01-04
@@ -48,7 +53,7 @@ VALUES (1, '小丫家电', '后台开发', 100, 1690185315000, 202307172250),-- 
        (10, '比亚迪', '后台开发', 100, 1666945279000, 202307172250);-- 2022-10-28
 
 -- Wealth
-INSERT INTO tbl_wealth_info(id, corporation, research, device, production, storage, materiel, transportation, salary,
+REPLACE INTO tbl_wealth_info(id, corporation, research, device, production, storage, materiel, transportation, salary,
                             revenue, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
 VALUES (1, '小丫家电', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1690185315000, 202307172250),
        (2, '比亚迪', 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 1690185315000, 202307172250),
@@ -60,7 +65,7 @@ VALUES (1, '小丫家电', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
        (8, '比亚迪', 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 1690185315000, 202307172250);
 
 
-INSERT INTO tbl_wealth_finance_info(id, corporation, research, device, production, storage, materiel, transportation,
+REPLACE INTO tbl_wealth_finance_info(id, corporation, research, device, production, storage, materiel, transportation,
                                     salary, revenue, eventTime, updateTime)
 VALUES (1, '小丫家电', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1690185315000, 202307172250),-- 2023-07-24
        (2, '比亚迪', 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 1688458879000, 202307172250),-- 2023-07-04
@@ -69,7 +74,7 @@ VALUES (1, '小丫家电', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 16901
        (5, '小丫家电', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1643010915000, 202307172250),-- 2022-01-24
        (6, '比亚迪', 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 1646036479000, 202307172250);-- 2022-02-28
 
-INSERT INTO tbl_wealth_asset_info(id, corporation, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
+REPLACE INTO tbl_wealth_asset_info(id, corporation, profit, fixedAssets, cashAssets, finance, eventTime, updateTime)
 VALUES (1, '小丫家电', 1000, 1000, 1000, 1000, 1690185315000, 202307172250),-- 2023-07-24
        (2, '比亚迪', 2000, 2000, 2000, 2000, 1688458879000, 202307172250),-- 2023-07-04
        (3, '小丫家电', 1000, 1000, 1000, 1000, 1672820479000, 202307172250),-- 2023-01-04
@@ -78,7 +83,7 @@ VALUES (1, '小丫家电', 1000, 1000, 1000, 1000, 1690185315000, 202307172250),
        (6, '比亚迪', 2000, 2000, 2000, 2000, 1646036479000, 202307172250);-- 2022-02-28
 
 -- Convey
-INSERT INTO tbl_convey_info(id, corporation, categories, types, quantity, inventory, mileage, cost, eventTime, updateTime)
+REPLACE INTO tbl_convey_info(id, corporation, categories, types, quantity, inventory, mileage, cost, eventTime, updateTime)
 VALUES (1, '小丫家电', 1, 1, 200, 500, 1000, 50000, 1690185315000, 202307172250),-- 2023-07-24
        (2, '小丫家电', 1, 2, 200, 500, 1000, 50000, 1688458879000, 202307172250),-- 2023-07-04
        (3, '小丫家电', 2, 1, 200, 500, 1000, 50000, 1672820479000, 202307172250),-- 2023-01-04
@@ -90,7 +95,7 @@ VALUES (1, '小丫家电', 1, 1, 200, 500, 1000, 50000, 1690185315000, 202307172
        (9, '比亚迪', 4, 2, 200, 500, 1000, 50000, 1651134079000, 202307172250),-- 2022-04-28
        (10, '比亚迪', 4,2, 200, 500, 1000, 50000, 1666945279000, 202307172250);-- 2022-10-28
 
-INSERT INTO tbl_convey_traffic_info(id, corporation, categories, mileage, cost, eventTime)
+REPLACE INTO tbl_convey_traffic_info(id, corporation, categories, mileage, cost, eventTime)
 VALUES (1, '小丫家电', 1, 1000, 50000, UNIX_TIMESTAMP('2023-08-01')),
        (2, '小丫家电', 1, 1000, 50000, UNIX_TIMESTAMP('2023-08-01')),
        (3, '小丫家电', 2, 1000, 50000, UNIX_TIMESTAMP('2023-08-01')),
@@ -102,7 +107,7 @@ VALUES (1, '小丫家电', 1, 1000, 50000, UNIX_TIMESTAMP('2023-08-01')),
        (9, '比亚迪', 4, 1000, 50000, UNIX_TIMESTAMP('2023-08-01')),
        (10, '比亚迪', 4, 1000, 50000,UNIX_TIMESTAMP('2023-08-01'));
 
-INSERT INTO tbl_convey_inventory_info(id, corporation, types, quantity, inventory, eventTime)
+REPLACE INTO tbl_convey_inventory_info(id, corporation, types, quantity, inventory, eventTime)
 VALUES (1, '小丫家电', 1, 200, 500, UNIX_TIMESTAMP('2023-08-01')),
        (2, '小丫家电', 1, 200, 500, UNIX_TIMESTAMP('2023-08-01')),
        (3, '小丫家电', 1, 200, 500, UNIX_TIMESTAMP('2023-08-01')),
@@ -115,7 +120,7 @@ VALUES (1, '小丫家电', 1, 200, 500, UNIX_TIMESTAMP('2023-08-01')),
        (10, '比亚迪',3, 200, 500, UNIX_TIMESTAMP('2023-08-01'));
 
 -- production表
-INSERT INTO tbl_production_info(corporation, categories, types, quantity, cost, province, country, quality, eventTime,
+REPLACE INTO tbl_production_info(corporation, categories, types, quantity, cost, province, country, quality, eventTime,
                                 updateTime)
 VALUES ('小丫家电', 1, 1, 200, 2000, '中国', '广东', 1, 1690185315000, 202307172250),-- 2023-07-24
        ('小丫家电', 1, 2, 230, 2000, '中国', '上海', 1, 1688458879000, 202307172250),-- 2023-07-04
@@ -125,7 +130,7 @@ VALUES ('小丫家电', 1, 1, 200, 2000, '中国', '广东', 1, 1690185315000, 2
        ('红旗', 2, 1, 200, 2000, '中国', '广东', 1, 1643010915000, 202307172250),-- 2022-01-24
        ('红旗', 2, 2, 200, 2000, '中国', '广东', 1, 1643358079000, 202307172250);-- 2022-01-28
 
-INSERT INTO tbl_production_trend_info(corporation, categories, types, quantity, eventTime)
+REPLACE INTO tbl_production_trend_info(corporation, categories, types, quantity, eventTime)
 VALUES ('小丫家电', 1, 1, 200, 1643010915000),-- 2022-01-24
        ('小丫家电', 1, 1, 230, 1644907928000),-- 2022-02-15
        ('小丫家电', 1, 1, 200, 1647327128000),-- 2022-03-15
@@ -144,7 +149,7 @@ VALUES ('小丫家电', 1, 1, 200, 1643010915000),-- 2022-01-24
        ('红旗', 2, 1, 200, 1643010915000),-- 2022-01-24
        ('红旗', 2, 2, 200, 1643358079000);-- 2022-01-28
 
-INSERT INTO tbl_production_birth_info(id, corporation, categories, types, quantity, province, country, eventTime)
+REPLACE INTO tbl_production_birth_info(id, corporation, categories, types, quantity, province, country, eventTime)
 VALUES (1, '小丫家电', 1, 1, 200, '中国', '广东', 1690185315000),-- 2023-07-24
        (2, '小丫家电', 2, 2, 230, '中国', '上海', 1688458879000),-- 2023-07-04
        (3, '小丫家电', 3, 3, 100, '中国', '福建', 1672820479000),-- 2023-01-04
@@ -156,7 +161,7 @@ VALUES (1, '小丫家电', 1, 1, 200, '中国', '广东', 1690185315000),-- 2023
        (9, '比亚迪', 2, 2, 200, '中国', '广东', 1690185315000),-- 2023-07-24
        (10, '比亚迪', 1, 1, 200, '中国', '广东', 1643010915000);-- 2022-01-24
 
-INSERT INTO tbl_production_yield_info(id, corporation, categories, types, quantity, eventTime)
+REPLACE INTO tbl_production_yield_info(id, corporation, categories, types, quantity, eventTime)
 VALUES (1, '小丫家电', 1, 1, 200, 1690185315000),-- 2023-07-24
        (2, '小丫家电', 1, 2, 230, 1688458879000),-- 2023-07-04
        (3, '苏泊尔', 1, 3, 100, 1672820479000),-- 2023-01-04
@@ -167,7 +172,7 @@ VALUES (1, '小丫家电', 1, 1, 200, 1690185315000),-- 2023-07-24
 -- 2022-01-28
 
 -- Sale
-INSERT INTO tbl_sale_info(corporation, categories, types, quantity, income, cost, province, country, inventory, score, eventTime, updateTime)
+REPLACE INTO tbl_sale_info(corporation, categories, types, quantity, income, cost, province, country, inventory, score, eventTime, updateTime)
 VALUES ('特斯拉', 1, 1, 100, 10000, 1000, '广东', '中国', 10, 95, 1640966400000, UNIX_TIMESTAMP('2023-08-01')),
        ('特斯拉', 1, 1, 100, 10000, 1000, '上海', '中国', 10, 92, 1640966400000, UNIX_TIMESTAMP('2023-08-01')),
        ('特斯拉', 1, 1, 100, 10000, 1000, '福建', '中国', 10, 98, 1640966400000, UNIX_TIMESTAMP('2023-08-01')),
@@ -457,7 +462,7 @@ VALUES ('特斯拉', 1, 1, 100, 10000, 1000, '广东', '中国', 10, 95, 1640966
        ('特斯拉', 1, 2, 100, 10000, 1000, '纽约', '美国', 10, 90, 1669824000000, UNIX_TIMESTAMP('2023-08-01')),
        ('特斯拉', 1, 3, 100, 10000, 1000, '纽约', '美国', 10, 88, 1669824000000, UNIX_TIMESTAMP('2023-08-01'));
 
-INSERT INTO tbl_sale_trend_info(corporation, categories, types, quantity, eventTime)
+REPLACE INTO tbl_sale_trend_info(corporation, categories, types, quantity, eventTime)
 VALUES ('特斯拉', 1, 1, 100, 1640966400000),
        ('特斯拉', 1, 1, 100, 1640966400000),
        ('特斯拉', 1, 1, 100, 1640966400000),
@@ -747,7 +752,7 @@ VALUES ('特斯拉', 1, 1, 100, 1640966400000),
        ('特斯拉', 1, 2, 100, 1669824000000),
        ('特斯拉', 1, 3, 100, 1669824000000);
 
-INSERT INTO tbl_sale_birth_info(corporation, categories, types, quantity, province, country, eventTime)
+REPLACE INTO tbl_sale_birth_info(corporation, categories, types, quantity, province, country, eventTime)
 VALUES ('特斯拉', 1, 1, 100, '广东', '中国', UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 100, '上海', '中国', UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 100, '福建', '中国', UNIX_TIMESTAMP('2022-08-01')),
@@ -773,7 +778,7 @@ VALUES ('特斯拉', 1, 1, 100, '广东', '中国', UNIX_TIMESTAMP('2022-08-01')
        ('特斯拉', 1, 2, 100, '纽约', '美国', UNIX_TIMESTAMP('2023-08-01')),
        ('特斯拉', 1, 3, 100, '纽约', '美国', UNIX_TIMESTAMP('2023-08-01'));
 
-INSERT INTO tbl_sale_count_info(corporation, categories, types, quantity, eventTime)
+REPLACE INTO tbl_sale_count_info(corporation, categories, types, quantity, eventTime)
 VALUES ('特斯拉', 1, 1, 100, UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 100, UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 100, UNIX_TIMESTAMP('2022-08-01')),
@@ -799,7 +804,7 @@ VALUES ('特斯拉', 1, 1, 100, UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 2, 100, UNIX_TIMESTAMP('2023-08-01')),
        ('特斯拉', 1, 3, 100, UNIX_TIMESTAMP('2023-08-01'));
 
-INSERT INTO tbl_sale_profit_info(corporation, categories, types, income, eventTime)
+REPLACE INTO tbl_sale_profit_info(corporation, categories, types, income, eventTime)
 VALUES ('特斯拉', 1, 1, 10000, UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 10000, UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 10000, UNIX_TIMESTAMP('2022-08-01')),
@@ -825,7 +830,7 @@ VALUES ('特斯拉', 1, 1, 10000, UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 2, 10000, UNIX_TIMESTAMP('2023-08-01')),
        ('特斯拉', 1, 3, 10000, UNIX_TIMESTAMP('2023-08-01'));
 
-INSERT INTO tbl_sale_export_info(corporation, categories, types, quantity, country, eventTime)
+REPLACE INTO tbl_sale_export_info(corporation, categories, types, quantity, country, eventTime)
 VALUES ('特斯拉', 1, 1, 100, '中国', UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 100, '中国', UNIX_TIMESTAMP('2022-08-01')),
        ('特斯拉', 1, 1, 100, '中国', UNIX_TIMESTAMP('2022-08-01')),
