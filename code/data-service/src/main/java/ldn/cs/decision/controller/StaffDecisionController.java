@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -48,8 +49,8 @@ public class StaffDecisionController {
      * @return 预警数据
      */
     @GetMapping("/warning/query")
-    public Map<String, List<StaffWarningInfo>> getStaffWarningInfo(long time, int granularity, int types) {
-        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, types);
+    public Map<String, List<StaffWarningInfo>> getStaffWarningInfo(long time, int granularity, int categories, String attributes) {
+        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, categories, attributes);
 
         return warningInfos.stream()
                 .collect(Collectors.groupingBy(StaffWarningInfo::getCorporation));
@@ -63,8 +64,8 @@ public class StaffDecisionController {
      * @return 决策数据
      */
     @GetMapping("/measure/query")
-    public Map<String, List<StaffMeasureInfo>> getStaffMeasureInfo(long time, int granularity, int types) {
-        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, types);
+    public Map<String, List<StaffMeasureInfo>> getStaffMeasureInfo(long time, int granularity, int categories, String attributes) {
+        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, categories, attributes);
 
         // 1 --> 一般, 2 --> 严重
         Map<Integer, String> levelToMeasureMapForUpperThreshold = new HashMap<Integer, String>() {{
@@ -92,17 +93,9 @@ public class StaffDecisionController {
     }
 
 
-    private List<StaffWarningInfo> getStaffWarningInfos(long time, int granularity, int types) {
+    private List<StaffWarningInfo> getStaffWarningInfos(long time, int granularity, int categories, String attributes) {
         List<Staff> staffs = staffDecisionService.getStaffWarningInfos(time, granularity);
-        List<DecisionThreshold> thresholds = decisionThresholdService.getDecisionThreshold(1);
-
-        Map<String, DecisionThreshold> categoryToThresholdMap = new HashMap<>();
-        for (DecisionThreshold threshold : thresholds) {
-            String attributes = DecisionThresholdEnum.getThresholdAttributes(types);
-            if (attributes != null && attributes.equals(threshold.getAttributes())) {
-                categoryToThresholdMap.put(threshold.getAttributes(), threshold);
-            }
-        }
+        List<DecisionThreshold> thresholds = decisionThresholdService.getDecisionThreshold(1, attributes);
 
         Map<Integer, String> levelToCauseMapForUpperThreshold = new HashMap<Integer, String>() {{
             put(1, "人员扩招"); // 人员扩招
@@ -116,27 +109,33 @@ public class StaffDecisionController {
         List<StaffWarningInfo> warningInfos = new ArrayList<>();
 
         for (Staff staff : staffs) {
-            DecisionThreshold threshold = categoryToThresholdMap.get(DecisionThresholdEnum.getThresholdAttributes(types));
+            if (thresholds == null || thresholds.size() <= 0) {
+                continue;
+            }
+            DecisionThreshold threshold = thresholds.get(0);
             if (threshold != null) {
                 StaffWarningInfo warningInfo = new StaffWarningInfo();
                 BeanUtils.copyProperties(staff, warningInfo);
 
-                long difference = Math.abs(staff.getAmount() - threshold.getAttributesValue());
+                BigDecimal difference = BigDecimal.valueOf(staff.getAmount()).subtract(threshold.getAttributesValue()).abs();
                 int alarmType, level;
 
-                if (staff.getAmount() > threshold.getAttributesValue()) {
+                int comparisonThreshold = threshold.getAttributesValue().compareTo(BigDecimal.valueOf(staff.getAmount()));
+                if (comparisonThreshold < 0) {
                     alarmType = 1; // 高于阈值
-                } else if (staff.getAmount() < threshold.getAttributesValue()) {
+                } else if (comparisonThreshold > 0) {
                     alarmType = 0; // 低于阈值
                 } else {
                     continue;
                 }
 
                 // Check the level of difference
-                if (difference > 0.5 * threshold.getAttributesValue()) {
-                    level = 2; // 严重
-                } else if (difference > 0.25 * threshold.getAttributesValue()) {
-                    level = 1; // 一般
+                int severityLevel = difference.compareTo(BigDecimal.valueOf(0.5).multiply(threshold.getAttributesValue()));
+                int generalLevel = difference.compareTo(BigDecimal.valueOf(0.25).multiply(threshold.getAttributesValue()));
+                if (severityLevel > 0) {
+                    level = 2;
+                } else if (severityLevel < 0 && generalLevel > 0) {
+                    level = 1;
                 } else {
                     continue;
                 }
