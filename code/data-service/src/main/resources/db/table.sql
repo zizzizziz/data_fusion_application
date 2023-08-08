@@ -304,7 +304,7 @@ create table if not exists tbl_decision_threshold_info(
     attributesValue decimal(20, 2),     -- 阈值
     updateTime bigint,                  -- 更新时间
     PRIMARY KEY (id)
-    ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 -- 人力链预测报表数据
 create table if not exists tbl_staff_prediction_info(
