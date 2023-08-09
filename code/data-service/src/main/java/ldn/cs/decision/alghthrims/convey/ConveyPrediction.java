@@ -1,7 +1,7 @@
 package ldn.cs.decision.alghthrims.convey;
 
 import ldn.cs.decision.alghthrims.Predictor;
-import ldn.cs.fusion.pojo.convey.Convey;
+import ldn.cs.decision.pojo.convey.Convey;
 
 import java.math.BigDecimal;
 import java.util.*;

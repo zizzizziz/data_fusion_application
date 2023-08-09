@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.decision.dao.ConveyDecisionDao">
+
+    <!-- 新增物流链预测数据 -->
+    <insert id="addConveyPredictionInfos" parameterType="ldn.cs.decision.pojo.convey.Convey">
+        INSERT INTO tbl_convey_prediction_info(corporation, categories, types, quantity, inventory, mileage, cost, eventTime, updateTime)
+        VALUES
+        <foreach collection="conveys" item="convey" separator=",">
+            (#{convey.corporation}, #{convey.categories}, #{convey.types}, #{convey.quantity}, #{convey.inventory},
+             #{convey.mileage}, #{convey.cost}, #{convey.eventTime}, #{convey.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询物流链预测数据 -->
+    <select id="getConveyPredictionInfos" resultType="ldn.cs.decision.pojo.convey.Convey">
+        select * from tbl_convey_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) BETWEEN YEAR(FROM_UNIXTIME(#{time})) - 4
+                        AND YEAR(FROM_UNIXTIME(#{time})) + 4
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        order by updateTime DESC
+        <if test="limit >= 0 and offset >= 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <select id="getConveyWarningInfos" resultType="ldn.cs.decision.pojo.convey.Convey">
+        select * from tbl_convey_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND QUARTER(FROM_UNIXTIME(eventTime)) = QUARTER(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                        AND MONTH(FROM_UNIXTIME(eventTime)) = MONTH(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+        order by updateTime DESC
+        <if test="limit >= 0 and offset >= 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <!-- 查询物流链返回总数  -->
+    <select id="getTotalPredictionConvey" resultType="int">
+        select count(1) from tbl_convey_prediction_info
+        <where>
+            1=1
+            <if test="granularity != null and granularity != ''">
+                <choose>
+                    <when test="granularity == 1">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) BETWEEN YEAR(FROM_UNIXTIME(#{time})) - 4
+                        AND YEAR(FROM_UNIXTIME(#{time})) + 4
+                    </when>
+                    <when test="granularity == 2">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                    <when test="granularity == 3">
+                        AND YEAR(FROM_UNIXTIME(eventTime)) = YEAR(FROM_UNIXTIME(#{time}))
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+</mapper>

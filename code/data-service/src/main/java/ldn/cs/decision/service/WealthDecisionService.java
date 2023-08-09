@@ -20,7 +20,7 @@ public class WealthDecisionService {
      * @param granularity 1-->年 2-->季度 3-->月
      * @param limit       单页限制 这里要让前台记得乘以limit 要不然会重复
      * @param offset      偏移量
-     * @return 人力链报表数据WealthInfo
+     * @return 财务链报表数据WealthInfo
      */
     public WealthInfo getWealthPredictionInfos(long time, int granularity, int limit, int offset) {
         return new WealthInfo(wealthDecisionDao.getWealthPredictionInfos(time, granularity, limit, offset),
