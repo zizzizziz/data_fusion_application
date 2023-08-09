@@ -1,8 +1,3 @@
--- Device
-REPLACE INTO tbl_device_info(ip, port, updateTime)
-VALUES ('192.168.110.1',8888,1690185315),
-       ('192.168.110.2',8889,1690185315);
-
 -- Staff
 REPLACE INTO tbl_staff_info(corporation, categories, positions, skill, amount, eventTime, updateTime)
 VALUES ('一汽', 1, 1, '车机系统开发', 100, 1690185315, 1690185315),-- 2023-07-24
