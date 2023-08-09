@@ -61,6 +61,7 @@ public class SalePrediction {
         predictedSale.setCategories(nowSale.getCategories());
         predictedSale.setTypes(nowSale.getTypes());
         predictedSale.setQuantity(BigDecimal.valueOf(quantityPredictor.predict(nextTime) > 0 ? quantityPredictor.predict(nextTime) : 0));
+        predictedSale.setCost(BigDecimal.valueOf(costPredictor.predict(nextTime) > 0 ? costPredictor.predict(nextTime) : 0));
         predictedSale.setIncome(BigDecimal.valueOf(incomePredictor.predict(nextTime) > 0 ? incomePredictor.predict(nextTime) : 0));
         predictedSale.setProvince(nowSale.getProvince());
         predictedSale.setCountry(nowSale.getCountry());

@@ -27,7 +27,7 @@ public class StaffConsumer {
         historyData.add(new Staff(1, "小丫家电", 1, 2, "后台开发", 3, 1659410777, 1659410777));
     }
 
-    @KafkaListener(topics = "topic_staff_message_info", groupId = "topic_staff_message_group")
+    @KafkaListener(topics = "topic_staff_message", groupId = "topic_staff_message_group")
     public void consumeStaff(String message) {
         Staff staff = JSONObject.parseObject(message, Staff.class);
         List<Staff> predictionResult = new ArrayList<>();
