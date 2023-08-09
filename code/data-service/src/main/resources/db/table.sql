@@ -300,7 +300,7 @@ create table if not exists tbl_sale_profit_info(
     INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
-决策元阈值管理模块
+-- 决策元阈值管理模块
 create table if not exists tbl_decision_threshold_info(
     id int(11) NOT NULL AUTO_INCREMENT,
     categories tinyint,                 -- 类型, 1-5分别对应人财物产销
