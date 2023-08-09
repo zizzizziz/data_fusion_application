@@ -2,35 +2,59 @@ package ldn.cs.access.service;
 
 import ldn.cs.access.dao.DeviceDao;
 import ldn.cs.access.Socket.SocketClient;
+import ldn.cs.access.kafaka.KafkaTopicConfig;
 import ldn.cs.access.pojo.Device;
 import ldn.cs.access.pojo.DeviceInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DeviceService {
     @Autowired
     private DeviceDao deviceDao;
 
+    @Autowired
+    private SocketClient socketClient;
+
+
     /**
      * 数据接入 -- 设备数据新增
      *
      * @param devices 设备信息
-     * @return 新增条数
+     * @return 成功返回新增条数，失败则返回-1
      */
-    public int addDeviceInfos(List<Device> devices) {
-        long updateTime = System.currentTimeMillis();
-        devices.forEach(device -> device.setUpdateTime(updateTime));
-        // 1. 入库
-        int count = deviceDao.addDevices(devices);
-        // 2. 启动对应的Socket连接
-        if (count != 0) {
-            devices.forEach(req -> SocketClient.getInstance().connectAndListen(req.getIp(), req.getPort()));
-        }
+    public int addDevices(List<Device> devices) {
+        devices.forEach(req -> socketClient.connectAndListen(req.getIp(), req.getPort()));
 
-        return count;
+        Map<String, Socket> ipPorts = socketClient.getIpPort();
+        List<Device> successDevices = new ArrayList<>();
+
+        for (String ipPort : ipPorts.keySet()) {
+            String[] parts = ipPort.split(":");
+            if (parts.length != 2) {
+                // 处理无效的 ipPort 格式
+                continue;
+            }
+
+            String ip = parts[0];
+            int port;
+            try {
+                port = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                continue;
+            }
+
+            successDevices.add(new Device(ip, port));
+        }
+        long updateTime = System.currentTimeMillis() / 1000;
+        successDevices.forEach(device -> device.setUpdateTime(updateTime));
+
+        return !successDevices.isEmpty() ? deviceDao.addDevices(successDevices) : -1;
     }
 
     /**
@@ -44,7 +68,7 @@ public class DeviceService {
         int count = deviceDao.deleteDevices(devices);
         // 2. 关闭对应的Socket连接
         if (count != 0) {
-            devices.forEach(req -> SocketClient.getInstance().closeConnection(req.getIp(), req.getPort()));
+            devices.forEach(req -> socketClient.closeConnection(req.getIp(), req.getPort()));
         }
         return count;
     }

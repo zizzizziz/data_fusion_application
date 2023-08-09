@@ -21,7 +21,7 @@ public class ProductionService {
      * @return 新增条数
      */
     public int addProductionInfos(List<Production> productions) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         productions.forEach(production -> production.setUpdateTime(updateTime));
         return productionDao.addProductionInfos(productions);
     }
@@ -52,6 +52,8 @@ public class ProductionService {
      * @return 新增条数
      */
     public int addTrendInfos(List<Trend> trends) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        trends.forEach(trend -> trend.setUpdateTime(updateTime));
         return productionDao.addTrendInfos(trends);
     }
 
@@ -72,6 +74,8 @@ public class ProductionService {
      * @return 新增条数
      */
     public int addBirthInfos(List<Birth> births) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        births.forEach(birth -> birth.setUpdateTime(updateTime));
         return productionDao.addBirthInfos(births);
     }
 
@@ -93,6 +97,8 @@ public class ProductionService {
      * @return 新增条数
      */
     public int addYieldInfos(List<Yield> yields) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        yields.forEach(yield -> yield.setUpdateTime(updateTime));
         return productionDao.addYieldInfos(yields);
     }
 

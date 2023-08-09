@@ -15,4 +15,9 @@ public class Device {
     private int port;       // 端口号
 
     private long updateTime;// 更新时间
+
+    public Device(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
+    }
 }

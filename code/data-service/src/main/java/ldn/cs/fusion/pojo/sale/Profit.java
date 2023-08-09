@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +18,9 @@ public class Profit {
 
     private int types;
 
-    private long income;
+    private BigDecimal income;
 
     private long eventTime;
+
+    private long updateTime;
 }

@@ -21,7 +21,7 @@ public class ConveyService {
      * @return 新增条数
      */
     public int addConveyInfos(List<Convey> conveys) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         conveys.forEach(convey -> convey.setUpdateTime(updateTime));
         return conveyDao.addConveyInfos(conveys);
     }
@@ -52,6 +52,8 @@ public class ConveyService {
      * @return 新增条数
      */
     public int addTrafficInfos(List<Traffic> traffics) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        traffics.forEach(traffic -> traffic.setUpdateTime(updateTime));
         return conveyDao.addTrafficInfos(traffics);
     }
 
@@ -73,6 +75,8 @@ public class ConveyService {
      * @return 新增条数
      */
     public int addInventoryInfos(List<Inventory> inventories) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        inventories.forEach(inventory -> inventory.setUpdateTime(updateTime));
         return conveyDao.addInventoryInfos(inventories);
     }
 

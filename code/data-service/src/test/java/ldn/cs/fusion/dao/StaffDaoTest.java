@@ -1,6 +1,6 @@
 package ldn.cs.fusion.dao;
 
-import ldn.cs.fusion.BaseTest;
+import ldn.cs.BaseTest;
 import ldn.cs.fusion.pojo.staff.*;
 
 import org.junit.Assert;
@@ -91,20 +91,20 @@ public class StaffDaoTest extends BaseTest {
     public void getPositionInfos() {
         List<Position> positions = staffDao.getPositionInfos(1640966400L,3);//2022-01-01 00:00:00
         Map<String, List<Position>> collect = positions.stream().collect(Collectors.groupingBy(Position::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 
     @Test
     public void getPersonInfos() {
         List<Person> persons = staffDao.getPersonInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Person>> collect = persons.stream().collect(Collectors.groupingBy(Person::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 
     @Test
     public void getSkillInfos() {
         List<Skill> skills = staffDao.getSkillInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Skill>> collect = skills.stream().collect(Collectors.groupingBy(Skill::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 }

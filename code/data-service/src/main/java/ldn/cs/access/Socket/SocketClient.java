@@ -1,6 +1,10 @@
 package ldn.cs.access.Socket;
 
 import ldn.cs.access.kafaka.KafkaProducer;
+import ldn.cs.access.kafaka.KafkaTopicConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,18 +13,12 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class SocketClient {
-    public static SocketClient instance = new SocketClient();
+    @Autowired
+    private KafkaProducer producer;
 
-    private final String TOPIC = "mygroup";
-
-    private SocketClient() {
-
-    }
-
-    public static SocketClient getInstance() {
-        return instance;
-    }
+    private final String TOPIC = "topic_data_service_original_message";
 
     // 使用静态Map存储已连接的Socket对象
     private static final Map<String, Socket> socketObject = new HashMap<>();
@@ -38,7 +36,8 @@ public class SocketClient {
                 try {
                     String message;
                     while ((message = reader.readLine()) != null) {
-                        KafkaProducer.getInstance().sendMessage(TOPIC, message);
+                        System.out.println(message);
+                        producer.sendMessage(TOPIC, message);
                     }
                 } catch (IOException e) {
                     System.err.println("Error while reading from server: " + e.getMessage());
@@ -54,12 +53,15 @@ public class SocketClient {
     }
 
     public void closeConnection(String serverIP, int serverPort) {
-        String key = serverIP + ":" + serverPort;
-        Socket socket = socketObject.get(key);
+        String ipPort = serverIP + ":" + serverPort;
+        if (!socketObject.containsKey(ipPort)) {
+            return;
+        }
+        Socket socket = socketObject.get(ipPort);
         if (socket != null && !socket.isClosed()) {
             try {
                 socket.close();
-                socketObject.remove(key);
+                socketObject.remove(ipPort);
                 System.out.println("Connection to server " + serverIP + ":" + serverPort + " closed.");
             } catch (IOException e) {
                 System.err.println("Error while closing connection to server " + serverIP + ":" + serverPort + ": " + e.getMessage());
@@ -67,5 +69,9 @@ public class SocketClient {
         } else {
             System.out.println("No active connection to server " + serverIP + ":" + serverPort);
         }
+    }
+
+    public Map<String, Socket> getIpPort() {
+        return socketObject;
     }
 }

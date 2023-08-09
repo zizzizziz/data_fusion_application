@@ -52,10 +52,10 @@
 
     <!-- 新增Trend数据 -->
     <insert id="addTrendInfos" parameterType="ldn.cs.fusion.pojo.production.Trend">
-        INSERT INTO tbl_production_trend_info(corporation, categories, types, quantity, eventTime)
+        INSERT INTO tbl_production_trend_info(corporation, categories, types, quantity, eventTime, updateTime)
         VALUES
         <foreach collection="trends" item="trend" separator=",">
-            (#{trend.corporation}, #{trend.categories}, #{trend.types}, #{trend.quantity}, #{trend.eventTime})
+            (#{trend.corporation}, #{trend.categories}, #{trend.types}, #{trend.quantity}, #{trend.eventTime}, #{trend.updateTime})
         </foreach>
     </insert>
 
@@ -74,19 +74,19 @@
 
     <!-- 新增Yield数据 -->
     <insert id="addYieldInfos" parameterType="ldn.cs.fusion.pojo.production.Yield">
-        INSERT INTO tbl_production_yield_info(corporation, categories, types, quantity, eventTime)
+        INSERT INTO tbl_production_yield_info(corporation, categories, types, quantity, eventTime, updateTime)
         VALUES
         <foreach collection="yields" item="yield" separator=",">
-            (#{yield.corporation}, #{yield.categories}, #{yield.types}, #{yield.quantity}, #{yield.eventTime})
+            (#{yield.corporation}, #{yield.categories}, #{yield.types}, #{yield.quantity}, #{yield.eventTime}, #{yield.updateTime})
         </foreach>
     </insert>
 
     <!-- 新增Birth数据 -->
     <insert id="addBirthInfos" parameterType="ldn.cs.fusion.pojo.production.Birth">
-        INSERT INTO tbl_production_birth_info(corporation, categories, types, quantity, province, country, eventTime)
+        INSERT INTO tbl_production_birth_info(corporation, categories, types, quantity, province, country, eventTime, updateTime)
         VALUES
         <foreach collection="births" item="birth" separator=",">
-            (#{birth.corporation}, #{birth.categories}, #{birth.types}, #{birth.quantity}, #{birth.province},#{birth.country}, #{birth.eventTime})
+            (#{birth.corporation}, #{birth.categories}, #{birth.types}, #{birth.quantity}, #{birth.province},#{birth.country}, #{birth.eventTime}, #{birth.updateTime})
         </foreach>
     </insert>
 

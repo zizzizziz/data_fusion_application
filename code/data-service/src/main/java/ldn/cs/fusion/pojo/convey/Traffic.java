@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,10 +14,11 @@ public class Traffic {
 
     private int categories;
 
-    private long mileage;
+    private BigDecimal mileage;
 
-    private long cost;
+    private BigDecimal cost;
 
     private long eventTime;
 
+    private long updateTime;
 }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +18,9 @@ public class Production {
 
     private int types;
 
-    private long quantity;
+    private BigDecimal quantity;
 
-    private long cost;
+    private BigDecimal cost;
 
     private String province;
 

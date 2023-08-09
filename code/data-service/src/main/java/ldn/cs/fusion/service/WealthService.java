@@ -21,7 +21,7 @@ public class WealthService {
      * @return 新增条数
      */
     public int addWealthInfos(List<Wealth> wealths) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         wealths.forEach(wealth -> wealth.setUpdateTime(updateTime));
         return wealth.addWealthInfos(wealths);
     }
@@ -52,7 +52,7 @@ public class WealthService {
      * @return 新增条数
      */
     public int addAssetInfos(List<Asset> assets) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         assets.forEach(asset -> asset.setUpdateTime(updateTime));
         return wealth.addAssetInfos(assets);
     }
@@ -75,7 +75,7 @@ public class WealthService {
      * @return 新增条数
      */
     public int addFinanceInfos(List<Finance> finances) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         finances.forEach(finance -> finance.setUpdateTime(updateTime));
         return wealth.addFinanceInfos(finances);
     }

@@ -1,4 +1,4 @@
-package ldn.cs.fusion;
+package ldn.cs;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

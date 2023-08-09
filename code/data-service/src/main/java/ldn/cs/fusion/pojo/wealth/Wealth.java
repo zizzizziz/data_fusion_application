@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,29 +14,29 @@ public class Wealth {
 
     private String corporation;
 
-    private long research;
+    private BigDecimal research;
 
-    private long device;
+    private BigDecimal device;
 
-    private long production;
+    private BigDecimal production;
 
-    private long storage;
+    private BigDecimal storage;
 
-    private long materiel;
+    private BigDecimal materiel;
 
-    private long transportation;
+    private BigDecimal transportation;
 
-    private long salary;
+    private BigDecimal salary;
 
-    private long revenue;
+    private BigDecimal revenue;
 
-    private long profit;
+    private BigDecimal profit;
 
-    private long fixedAssets;
+    private BigDecimal fixedAssets;
 
-    private long cashAssets;
+    private BigDecimal cashAssets;
 
-    private long finance;
+    private BigDecimal finance;
 
     private long eventTime;
 
