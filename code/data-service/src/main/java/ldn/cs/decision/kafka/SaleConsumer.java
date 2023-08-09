@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,9 @@ public class SaleConsumer {
     // 历史数据, 等待生成
     private static final List<Sale> historyData = new ArrayList<>();
     static {
-        historyData.add(new Sale(1,"特斯拉", 1, 1, 100, 10000, 1000, "广东", "中国", 10, 95, 1688268377, 1690946779));
-        historyData.add(new Sale(2,"特斯拉", 2, 1, 100, 10000, 1000, "广东", "中国", 10, 95, 1688268377, 1690946779));
-        historyData.add(new Sale(3,"特斯拉", 3, 1, 100, 10000, 1000, "广东", "中国", 10, 95, 1688268377, 1690946779));
+        historyData.add(new Sale(1,"特斯拉", 1, 1, BigDecimal.valueOf(100), BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), "广东", "中国", BigDecimal.valueOf(10), 95, 1688268377, 1690946779));
+        historyData.add(new Sale(2,"特斯拉", 2, 1, BigDecimal.valueOf(100), BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), "广东", "中国", BigDecimal.valueOf(10), 95, 1688268377, 1690946779));
+        historyData.add(new Sale(3,"特斯拉", 3, 1, BigDecimal.valueOf(100), BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), "广东", "中国", BigDecimal.valueOf(10), 95, 1688268377, 1690946779));
     }
 
     @KafkaListener(topics = "topic_sale_message", groupId = "topic_sale_message_group")

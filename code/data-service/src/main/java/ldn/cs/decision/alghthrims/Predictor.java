@@ -5,11 +5,11 @@ import java.util.List;
 public class Predictor {
     private RegressionResult result;
 
-    public void fit(List<Long> eventTimes, List<Long> values) {
+    public void fit(List<Long> eventTimes, List<Double> values) {
         result = LinearRegression.fit(eventTimes, values);
     }
 
-    public long predict(long nextEventTime) {
+    public double predict(long nextEventTime) {
         return LinearRegression.predict(result, nextEventTime);
     }
 }

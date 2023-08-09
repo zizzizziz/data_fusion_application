@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,17 +14,17 @@ public class Convey {
 
     private String corporation;
 
+    private int categories;
+
     private int types;
 
-    private String goods;
+    private BigDecimal quantity;
 
-    private long quantity;
+    private BigDecimal inventory;
 
-    private long inventory;
+    private BigDecimal mileage;
 
-    private long mileage;
-
-    private long cost;
+    private BigDecimal cost;
 
     private long eventTime;
 
