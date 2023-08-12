@@ -26,6 +26,25 @@ public class StaffDecisionController {
     @Autowired
     private DecisionThresholdService decisionThresholdService;
 
+    private static final Map<Integer, String> upperThresholdReason = new HashMap<Integer, String>() {{
+        put(1, "人员扩招"); // 人员扩招
+        put(2, "人员过剩"); // 人员过剩
+    }};
+    private static final Map<Integer, String> lowerThresholdReason = new HashMap<Integer, String>() {{
+        put(1, "人员缩招"); // 人员缩招
+        put(2, "人员流失"); // 人员流失
+    }};
+
+    // 1 --> 一般, 2 --> 严重
+    private static final Map<Integer, String> upperThresholdMeasure = new HashMap<Integer, String>() {{
+        put(1, "灵活用工"); // 灵活用工
+        put(2, "发展新业务，开拓新航道"); // 发展新业务，开拓新航道
+    }};
+    private static final Map<Integer, String> lowerThresholdMeasure = new HashMap<Integer, String>() {{
+        put(1, "灵活用工"); // 灵活用工
+        put(2, "集中人员发展业务"); // 集中人员发展新业务
+    }};
+
     /**
      * 决策元 -- 人力链查询
      *
@@ -48,8 +67,8 @@ public class StaffDecisionController {
      * @return 预警数据
      */
     @GetMapping("/warning/query")
-    public Map<String, List<StaffWarningInfo>> getStaffWarningInfo(long time, int granularity, int categories, String attributes) {
-        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, categories, attributes);
+    public Map<String, List<StaffWarningInfo>> getStaffWarningInfos(long time, int granularity, int categories, String attributes) {
+        List<StaffWarningInfo> warningInfos = getWarningInfos(time, granularity, categories, attributes);
 
         return warningInfos.stream()
                 .collect(Collectors.groupingBy(StaffWarningInfo::getCorporation));
@@ -63,27 +82,16 @@ public class StaffDecisionController {
      * @return 决策数据
      */
     @GetMapping("/measure/query")
-    public Map<String, List<StaffMeasureInfo>> getStaffMeasureInfo(long time, int granularity, int categories, String attributes) {
-        List<StaffWarningInfo> warningInfos = getStaffWarningInfos(time, granularity, categories, attributes);
-
-        // 1 --> 一般, 2 --> 严重
-        Map<Integer, String> levelToMeasureMapForUpperThreshold = new HashMap<Integer, String>() {{
-            put(1, "灵活用工"); // 灵活用工
-            put(2, "发展新业务，开拓新航道"); // 发展新业务，开拓新航道
-        }};
-        Map<Integer, String> levelToMeasureMapForLowerThreshold = new HashMap<Integer, String>() {{
-            put(1, "灵活用工"); // 灵活用工
-            put(2, "集中人员发展业务"); // 集中人员发展新业务
-        }};
-
+    public Map<String, List<StaffMeasureInfo>> getStaffMeasureInfos(long time, int granularity, int categories, String attributes) {
+        List<StaffWarningInfo> warningInfos = getWarningInfos(time, granularity, categories, attributes);
         List<StaffMeasureInfo> staffMeasureInfos = new ArrayList<>();
         for (StaffWarningInfo warningInfo : warningInfos) {
             StaffMeasureInfo measureInfo = new StaffMeasureInfo();
             BeanUtils.copyProperties(warningInfo, measureInfo);
 
             String measure = warningInfo.getAlarmType() == 1 ?
-                    levelToMeasureMapForUpperThreshold.get(warningInfo.getLevel()) :
-                    levelToMeasureMapForLowerThreshold.get(warningInfo.getLevel());
+                    upperThresholdMeasure.get(warningInfo.getLevel()) :
+                    lowerThresholdMeasure.get(warningInfo.getLevel());
 
             measureInfo.setMeasure(measure);
             staffMeasureInfos.add(measureInfo);
@@ -92,21 +100,10 @@ public class StaffDecisionController {
     }
 
 
-    private List<StaffWarningInfo> getStaffWarningInfos(long time, int granularity, int categories, String attributes) {
+    private List<StaffWarningInfo> getWarningInfos(long time, int granularity, int categories, String attributes) {
         List<Staff> staffs = staffDecisionService.getStaffWarningInfos(time, granularity);
         List<DecisionThreshold> thresholds = decisionThresholdService.getDecisionThreshold(categories, attributes);
-
-        Map<Integer, String> levelToCauseMapForUpperThreshold = new HashMap<Integer, String>() {{
-            put(1, "人员扩招"); // 人员扩招
-            put(2, "人员过剩"); // 人员过剩
-        }};
-        Map<Integer, String> levelToCauseMapForLowerThreshold = new HashMap<Integer, String>() {{
-            put(1, "人员缩招"); // 人员缩招
-            put(2, "人员流失"); // 人员流失
-        }};
-
         List<StaffWarningInfo> warningInfos = new ArrayList<>();
-
         for (Staff staff : staffs) {
             if (thresholds == null || thresholds.size() <= 0) {
                 continue;
@@ -141,7 +138,7 @@ public class StaffDecisionController {
 
                 warningInfo.setAlarmType(alarmType);
                 warningInfo.setLevel(level);
-                warningInfo.setCauseType(alarmType == 1 ? levelToCauseMapForUpperThreshold.get(level) : levelToCauseMapForLowerThreshold.get(level));
+                warningInfo.setCauseType(alarmType == 1 ? upperThresholdReason.get(level) : lowerThresholdReason.get(level));
 
                 warningInfos.add(warningInfo);
             }
