@@ -3,7 +3,7 @@ package ldn.cs.decision.alghthrims;
 import java.util.List;
 
 public class LinearRegression {
-    public static RegressionResult fit(List<Long> x, List<Long> y) {
+    public static RegressionResult fit(List<Long> x, List<Double> y) {
         int n = x.size();
         if (n != y.size() || n < 1) {
             throw new IllegalArgumentException("Input data size mismatch or too small.");
@@ -16,7 +16,7 @@ public class LinearRegression {
 
         for (int i = 0; i < n; i++) {
             long xi = x.get(i);
-            long yi = y.get(i);
+            double yi = y.get(i);
             sumX += xi;
             sumY += yi;
             sumXY += xi * yi;
@@ -32,7 +32,7 @@ public class LinearRegression {
         return new RegressionResult(intercept, slope);
     }
 
-    public static long predict(RegressionResult result, long x) {
+    public static double predict(RegressionResult result, long x) {
         return Math.round(result.getIntercept() + result.getSlope() * x);
     }
 }

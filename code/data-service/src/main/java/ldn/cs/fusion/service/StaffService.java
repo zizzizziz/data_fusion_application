@@ -20,7 +20,7 @@ public class StaffService {
      * @return 新增条数
      */
     public int addStaffInfos(List<Staff> staffs) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         staffs.forEach(staff -> staff.setUpdateTime(updateTime));
         return staffDao.addStaffInfos(staffs);
     }
@@ -50,8 +50,8 @@ public class StaffService {
      * @return 新增条数
      */
     public int addPersonInfos(List<Person> persons) {
-        long updateTime = System.currentTimeMillis();
-        persons.forEach(staff -> staff.setUpdateTime(updateTime));
+        long updateTime = System.currentTimeMillis() / 1000;
+        persons.forEach(person -> person.setUpdateTime(updateTime));
         return staffDao.addPersonInfos(persons);
     }
 
@@ -72,7 +72,7 @@ public class StaffService {
      * @return 新增条数
      */
     public int addPositionInfos(List<Position> positions) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         positions.forEach(position -> position.setUpdateTime(updateTime));
         return staffDao.addPositionInfos(positions);
     }
@@ -93,7 +93,7 @@ public class StaffService {
      * @return 新增条数
      */
     public int addSkillInfos(List<Skill> skills) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         skills.forEach(skill -> skill.setUpdateTime(updateTime));
         return staffDao.addSkillInfos(skills);
     }

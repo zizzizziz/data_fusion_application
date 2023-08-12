@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,17 +18,17 @@ public class Sale {
 
     private int types;
 
-    private long quantity;
+    private BigDecimal quantity;
 
-    private long income;
+    private BigDecimal income;
 
-    private long cost;
+    private BigDecimal cost;
 
     private String province;
 
     private String country;
 
-    private long inventory;
+    private BigDecimal inventory;
 
     private int score;
 

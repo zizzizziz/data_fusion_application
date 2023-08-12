@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.apache.ibatis.annotations.AutomapConstructor;
 
 import java.beans.Transient;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Trend {
 
     private int types;
 
-    private long quantity;
+    private BigDecimal quantity;
 
     private int months;
 

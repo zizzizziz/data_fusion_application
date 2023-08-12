@@ -22,7 +22,7 @@ public class SaleService {
      * @return 新增条数
      */
     public int addSaleInfos(List<Sale> sales) {
-        long updateTime = System.currentTimeMillis();
+        long updateTime = System.currentTimeMillis() / 1000;
         sales.forEach(sale -> sale.setUpdateTime(updateTime));
         return saleDao.addSaleInfos(sales);
     }
@@ -53,6 +53,8 @@ public class SaleService {
      * @return 新增条数
      */
     public int addSaleTrendInfos(List<SaleTrend> saleTrends) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        saleTrends.forEach(saleTrend -> saleTrend.setUpdateTime(updateTime));
         return saleDao.addSaleTrendInfos(saleTrends);
     }
 
@@ -73,6 +75,8 @@ public class SaleService {
      * @return 新增条数
      */
     public int addSaleCountInfos(List<SaleCount> saleCounts) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        saleCounts.forEach(saleCount -> saleCount.setUpdateTime(updateTime));
         return saleDao.addSaleCountInfos(saleCounts);
     }
 
@@ -94,6 +98,8 @@ public class SaleService {
      * @return 新增条数
      */
     public int addSaleBirthInfos(List<SaleBirth> saleBirths) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        saleBirths.forEach(saleBirth -> saleBirth.setUpdateTime(updateTime));
         return saleDao.addSaleBirthInfos(saleBirths);
     }
 
@@ -115,6 +121,8 @@ public class SaleService {
      * @return 新增条数
      */
     public int addExportInfos(List<Export> exports) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        exports.forEach(export -> export.setUpdateTime(updateTime));
         return saleDao.addExportInfos(exports);
     }
 
@@ -136,6 +144,8 @@ public class SaleService {
      * @return 新增条数
      */
     public int addProfitInfos(List<Profit> profits) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        profits.forEach(profit -> profit.setUpdateTime(updateTime));
         return saleDao.addProfitInfos(profits);
     }
 

@@ -1,10 +1,11 @@
 package ldn.cs.fusion.dao;
 
-import ldn.cs.fusion.BaseTest;
+import ldn.cs.BaseTest;
 import ldn.cs.fusion.pojo.wealth.Asset;
 import ldn.cs.fusion.pojo.wealth.Finance;
 import ldn.cs.fusion.pojo.wealth.Wealth;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class WealthDaoTest extends BaseTest {
     @Autowired
@@ -29,7 +28,7 @@ class WealthDaoTest extends BaseTest {
         finances.add(finance);
 
         int count = wealthDao.addFinanceInfos(finances);
-        Assert.assertEquals(1, count);
+        Assertions.assertEquals(1, count);
     }
 
     @Test
@@ -42,7 +41,7 @@ class WealthDaoTest extends BaseTest {
         assets.add(asset);
 
         int count = wealthDao.addAssetInfos(assets);
-        Assert.assertEquals(1, count);
+        Assertions.assertEquals(1, count);
     }
 
     @Test
@@ -55,7 +54,7 @@ class WealthDaoTest extends BaseTest {
         wealths.add(wealth);
 
         int count = wealthDao.addWealthInfos(wealths);
-        Assert.assertEquals(1, count);
+        Assertions.assertEquals(1, count);
         System.out.println(wealthDao.getWealthInfos("test",1,5,0));
 
     }
@@ -78,13 +77,13 @@ class WealthDaoTest extends BaseTest {
     void getAssetInfos() {
         List<Asset> assets = wealthDao.getAssetInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Asset>> collect = assets.stream().collect(Collectors.groupingBy(Asset::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 
     @Test
     void getFinanceInfos() {
         List<Finance> finances = wealthDao.getFinanceInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Finance>> collect = finances.stream().collect(Collectors.groupingBy(Finance::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 }

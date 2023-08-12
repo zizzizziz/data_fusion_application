@@ -9,7 +9,7 @@
         INSERT INTO tbl_sale_info(corporation, categories, types, quantity, income, cost, province, country, inventory, score, eventTime, updateTime)
         VALUES
         <foreach collection="sales" item="sale" separator=",">
-            (#{sale.corporation}, #{sale.types}, #{convey.quantity},#{sale.income}, #{sale.cost}, #{sale.province},  #{sale.country}, #{sale.inventory}, #{sale.score}, #{sale.eventTime}, #{sale.updateTime})
+            (#{sale.corporation}, #{sale.categories}, #{sale.types}, #{sale.quantity},#{sale.income}, #{sale.cost}, #{sale.province},  #{sale.country}, #{sale.inventory}, #{sale.score}, #{sale.eventTime}, #{sale.updateTime})
         </foreach>
     </insert>
 
@@ -49,21 +49,21 @@
 
     <!-- 新增Trend数据 -->
     <insert id="addSaleTrendInfos" parameterType="ldn.cs.fusion.pojo.sale.SaleTrend">
-        INSERT INTO tbl_sale_trend_info(corporation, categories, types, quantity, eventTime)
+        INSERT INTO tbl_sale_trend_info(corporation, categories, types, quantity, income, eventTime, updateTime)
         VALUES
         <foreach collection="saleTrends" item="saleTrend" separator=",">
-            (#{saleTrend.corporation}, #{saleTrend.categories}, #{saleTrend.types}, #{saleTrend.quantity}, #{saleTrend.eventTime})
+            (#{saleTrend.corporation}, #{saleTrend.categories}, #{saleTrend.types}, #{saleTrend.quantity}, #{saleTrend.income}, #{saleTrend.eventTime}, #{saleTrend.updateTime})
         </foreach>
     </insert>
 
     <!-- 查询Trend数据 -->
     <select id="getSaleTrendInfos" resultType="ldn.cs.fusion.pojo.sale.SaleTrend">
-        select corporation, categories, types, sum(quantity) as quantity ,MONTH(FROM_UNIXTIME(eventTime / 1000)) as months
+        select corporation, categories, types, sum(quantity) as quantity ,sum(income) as income, MONTH(FROM_UNIXTIME(eventTime)) as months
         from tbl_sale_trend_info
         <where>
             1=1
             <if test="time != null and time != ''">
-                AND YEAR(FROM_UNIXTIME(eventTime / 1000)) = #{time}
+                AND YEAR(FROM_UNIXTIME(eventTime)) = #{time}
             </if>
         </where>
         group by corporation, categories, types ,months
@@ -71,10 +71,10 @@
 
     <!-- 新增SaleCount数据 -->
     <insert id="addSaleCountInfos" parameterType="ldn.cs.fusion.pojo.sale.SaleCount">
-        INSERT INTO tbl_sale_count_info(corporation, categories, types, quantity, eventTime)
+        INSERT INTO tbl_sale_count_info(corporation, categories, types, quantity, eventTime, updateTime)
         VALUES
         <foreach collection="saleCounts" item="saleCount" separator=",">
-            (#{saleCount.corporation}, #{saleCount.categories}, #{saleCount.types}, #{saleCount.quantity}, #{saleCount.eventTime})
+            (#{saleCount.corporation}, #{saleCount.categories}, #{saleCount.types}, #{saleCount.quantity}, #{saleCount.eventTime}, #{saleCount.updateTime})
         </foreach>
     </insert>
 
@@ -105,10 +105,10 @@
 
     <!-- 新增SaleBirth数据 -->
     <insert id="addSaleBirthInfos" parameterType="ldn.cs.fusion.pojo.sale.SaleBirth">
-        INSERT INTO tbl_sale_birth_info(corporation, categories, types, quantity, province, country, eventTime)
+        INSERT INTO tbl_sale_birth_info(corporation, categories, types, quantity, province, country, eventTime, updateTime)
         VALUES
         <foreach collection="saleBirths" item="saleBirth" separator=",">
-            (#{saleBirth.corporation}, #{saleBirth.categories}, #{saleBirth.types}, #{saleBirth.quantity}, #{saleBirth.province},#{saleBirth.country}, #{saleBirth.eventTime})
+            (#{saleBirth.corporation}, #{saleBirth.categories}, #{saleBirth.types}, #{saleBirth.quantity}, #{saleBirth.province},#{saleBirth.country}, #{saleBirth.eventTime}, #{saleBirth.updateTime})
         </foreach>
     </insert>
 
@@ -139,10 +139,10 @@
 
     <!-- 新增Profit数据 -->
     <insert id="addProfitInfos" parameterType="ldn.cs.fusion.pojo.sale.Profit">
-        INSERT INTO tbl_sale_profit_info(corporation, categories, types, income, eventTime)
+        INSERT INTO tbl_sale_profit_info(corporation, categories, types, income, eventTime, updateTime)
         VALUES
         <foreach collection="profits" item="profit" separator=",">
-            (#{profit.corporation}, #{profit.categories}, #{profit.types}, #{profit.income}, #{profit.eventTime})
+            (#{profit.corporation}, #{profit.categories}, #{profit.types}, #{profit.income}, #{profit.eventTime}, #{profit.updateTime})
         </foreach>
     </insert>
 
@@ -173,10 +173,10 @@
 
     <!-- 新增Export数据 -->
     <insert id="addExportInfos" parameterType="ldn.cs.fusion.pojo.sale.Export">
-        INSERT INTO tbl_sale_export_info(corporation, categories, types, quantity, country, eventTime)
+        INSERT INTO tbl_sale_export_info(corporation, categories, types, quantity, country, eventTime, updateTime)
         VALUES
         <foreach collection="exports" item="export" separator=",">
-            (#{export.corporation}, #{export.categories}, #{export.types}, #{export.quantity}, #{export.country}, #{export.eventTime})
+            (#{export.corporation}, #{export.categories}, #{export.types}, #{export.quantity}, #{export.country}, #{export.eventTime}, #{export.updateTime})
         </foreach>
     </insert>
 

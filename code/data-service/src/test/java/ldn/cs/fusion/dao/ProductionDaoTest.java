@@ -1,6 +1,6 @@
 package ldn.cs.fusion.dao;
 
-import ldn.cs.fusion.BaseTest;
+import ldn.cs.BaseTest;
 import ldn.cs.fusion.pojo.production.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.junit.Assert.*;
 
 public class ProductionDaoTest extends BaseTest {
     @Autowired
@@ -47,7 +45,6 @@ public class ProductionDaoTest extends BaseTest {
     public void addTrendInfos() {
         Trend trend = new Trend();
         trend.setCorporation("test");
-        trend.setQuantity(1000);
         trend.setEventTime(20231112001L);
         List<Trend> trends = new ArrayList<>();
         trends.add(trend);
@@ -87,20 +84,20 @@ public class ProductionDaoTest extends BaseTest {
     public void getTrendInfos() {
         List<Trend> trends = productionDao.getTrendInfos(2022);//2022-01-01 00:00:00
         Map<String, List<Trend>> collect = trends.stream().collect(Collectors.groupingBy(Trend::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 
     @Test
     public void getBirthInfos() {
         List<Birth> births = productionDao.getBirthInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Birth>> collect = births.stream().collect(Collectors.groupingBy(Birth::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 
     @Test
     public void getYieldInfos() {
         List<Yield> yields = productionDao.getYieldInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Yield>> collect = yields.stream().collect(Collectors.groupingBy(Yield::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 }

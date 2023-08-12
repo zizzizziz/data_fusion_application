@@ -1,14 +1,13 @@
 package ldn.cs.decision.dao;
 
 
+import ldn.cs.BaseTest;
 import ldn.cs.decision.pojo.threshold.DecisionThreshold;
-import ldn.cs.fusion.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class DecisionThresholdDaoTest extends BaseTest {

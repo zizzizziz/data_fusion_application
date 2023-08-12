@@ -3,6 +3,7 @@ package ldn.cs.decision.alghthrims.production;
 import ldn.cs.decision.alghthrims.Predictor;
 import ldn.cs.decision.pojo.production.Production;
 
+import java.math.BigDecimal;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.*;
@@ -18,11 +19,15 @@ public class ProductionPrediction {
         return instance;
     }
 
-    private static final List<BiConsumer<Production, Long>> SETTERS = Arrays.asList(
-            Production::setQuantity, Production::setCost);
+    private static final List<BiConsumer<Production, Double>> SETTERS = Arrays.asList(
+            (production, value) -> production.setQuantity(BigDecimal.valueOf(value)),
+            (production, value) -> production.setCost(BigDecimal.valueOf(value))
+    );
 
-    private static final List<Function<Production, Long>> GETTERS = Arrays.asList(
-            Production::getQuantity, Production::getCost);
+    private static final List<Function<Production, Double>> GETTERS = Arrays.asList(
+            production -> production.getQuantity().doubleValue(),
+            production -> production.getCost().doubleValue()
+    );
 
     public Production getNextProduction(List<Production> historyProduction, Production nowProduction, long nextTime) {
         List<Long> eventTimes = historyProduction.stream()
@@ -38,7 +43,7 @@ public class ProductionPrediction {
         predictedProduction.setCountry(nowProduction.getCountry());
 
         for (int i = 0; i < GETTERS.size(); i++) {
-            List<Long> values = historyProduction.stream()
+            List<Double> values = historyProduction.stream()
                     .map(GETTERS.get(i))
                     .collect(Collectors.toList());
             values.add(GETTERS.get(i).apply(nowProduction));
@@ -46,7 +51,7 @@ public class ProductionPrediction {
             Predictor predictor = new Predictor();
             predictor.fit(eventTimes, values);
 
-            SETTERS.get(i).accept(predictedProduction, predictor.predict(nextTime));
+            SETTERS.get(i).accept(predictedProduction, predictor.predict(nextTime) > 0 ? predictor.predict(nextTime) : 0);
         }
 
         predictedProduction.setEventTime(nextTime);

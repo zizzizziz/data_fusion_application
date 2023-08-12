@@ -6,7 +6,7 @@
 
     <!-- 新增Device数据 -->
     <insert id="addDevices" parameterType="ldn.cs.access.pojo.Device">
-        INSERT INTO tbl_device_info(ip, port, updateTime)
+        REPLACE INTO tbl_device_info(ip, port, updateTime)
         VALUES
         <foreach collection="devices" item="device" separator=",">
             (#{device.ip}, #{device.port}, #{device.updateTime})
@@ -14,11 +14,11 @@
     </insert>
 
     <!-- 删除Device数据 -->
-    <delete id="deleteDevices">
+    <delete id="deleteDevices" parameterType="java.util.List">
         DELETE FROM tbl_device_info
         WHERE (ip, port) IN
-        <foreach collection="devices" item="device" separator=",">
-            #{device.ip}, #{device.port}
+        <foreach collection="devices" item="device" open="(" separator="," close=")">
+            (#{device.ip}, #{device.port})
         </foreach>
     </delete>
 

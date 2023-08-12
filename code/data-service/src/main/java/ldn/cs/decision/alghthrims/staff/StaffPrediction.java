@@ -20,11 +20,13 @@ public class StaffPrediction {
         return instance;
     }
 
-    private static final List<BiConsumer<Staff, Long>> SETTERS = Collections.singletonList(
-            Staff::setAmount);
+    private static final List<BiConsumer<Staff, Double>> SETTERS = Collections.singletonList(
+            (staff, doubleValue) -> staff.setAmount(Math.round(doubleValue))
+    );
 
-    private static final List<Function<Staff, Long>> GETTERS = Collections.singletonList(
-            Staff::getAmount);
+    private static final List<Function<Staff, Double>> GETTERS = Collections.singletonList(
+            staff -> (double) staff.getAmount()
+    );
 
     public Staff getNextStaff(List<Staff> historyStaff, Staff nowStaff, long nextTime) {
         List<Long> eventTimes = historyStaff.stream()
@@ -39,7 +41,7 @@ public class StaffPrediction {
         predictedStaff.setSkill(nowStaff.getSkill());
 
         for (int i = 0; i < GETTERS.size(); i++) {
-            List<Long> values = historyStaff.stream()
+            List<Double> values = historyStaff.stream()
                     .map(GETTERS.get(i))
                     .collect(Collectors.toList());
             values.add(GETTERS.get(i).apply(nowStaff));
@@ -47,7 +49,7 @@ public class StaffPrediction {
             Predictor predictor = new Predictor();
             predictor.fit(eventTimes, values);
 
-            SETTERS.get(i).accept(predictedStaff, predictor.predict(nextTime));
+            SETTERS.get(i).accept(predictedStaff, predictor.predict(nextTime) < 0 ? 0 : predictor.predict(nextTime));
         }
 
         predictedStaff.setEventTime(nextTime);

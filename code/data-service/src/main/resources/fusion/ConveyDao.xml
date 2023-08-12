@@ -49,19 +49,19 @@
 
     <!-- 新增Traffic数据 -->
     <insert id="addTrafficInfos" parameterType="ldn.cs.fusion.pojo.convey.Traffic">
-        INSERT INTO tbl_convey_traffic_info(corporation, categories, mileage, cost, eventTime)
+        INSERT INTO tbl_convey_traffic_info(corporation, categories, mileage, cost, eventTime, updateTime)
         VALUES
         <foreach collection="traffics" item="traffic" separator=",">
-            (#{traffic.corporation}, #{traffic.categories}, #{traffic.mileage}, #{traffic.cost}, #{traffic.eventTime})
+            (#{traffic.corporation}, #{traffic.categories}, #{traffic.mileage}, #{traffic.cost}, #{traffic.eventTime}, #{traffic.updateTime})
         </foreach>
     </insert>
 
     <!-- 新增Inventory数据 -->
     <insert id="addInventoryInfos" parameterType="ldn.cs.fusion.pojo.convey.Inventory">
-        INSERT INTO tbl_convey_inventory_info(corporation, types, quantity, inventory, eventTime)
+        INSERT INTO tbl_convey_inventory_info(corporation, types, quantity, inventory, eventTime, updateTime)
         VALUES
         <foreach collection="inventories" item="inventory" separator=",">
-            (#{inventory.corporation}, #{inventory.types}, #{inventory.quantity}, #{inventory.inventory}, #{inventory.eventTime})
+            (#{inventory.corporation}, #{inventory.types}, #{inventory.quantity}, #{inventory.inventory}, #{inventory.eventTime}, #{inventory.updateTime})
         </foreach>
     </insert>
 

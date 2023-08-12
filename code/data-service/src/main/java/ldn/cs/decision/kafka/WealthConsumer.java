@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,9 @@ public class WealthConsumer {
     // 历史数据, 等待生成
     private static final List<Wealth> historyData = new ArrayList<>();
     static {
-        historyData.add(new Wealth(1, "比亚迪", 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 1688268377, 1688268377));
-        historyData.add(new Wealth(1, "比亚迪", 3000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 1688268577, 1688268577));
-        historyData.add(new Wealth(1, "比亚迪", 4000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 1688268677, 1688268677));
+        historyData.add(new Wealth(1, "比亚迪", BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), 1688268377, 1688268377));
+        historyData.add(new Wealth(1, "比亚迪", BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), 1688268577, 1688268577));
+        historyData.add(new Wealth(1, "比亚迪", BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), 1688268677, 1688268677));
     }
 
     @KafkaListener(topics = "topic_wealth_message", groupId = "topic_wealth_message_group")

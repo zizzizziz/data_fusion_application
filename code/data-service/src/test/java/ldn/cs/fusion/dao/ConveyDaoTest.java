@@ -1,11 +1,9 @@
 package ldn.cs.fusion.dao;
 
-import ldn.cs.fusion.BaseTest;
+import ldn.cs.BaseTest;
 import ldn.cs.fusion.pojo.convey.Convey;
 import ldn.cs.fusion.pojo.convey.Inventory;
 import ldn.cs.fusion.pojo.convey.Traffic;
-import ldn.cs.fusion.pojo.staff.Position;
-import ldn.cs.fusion.pojo.wealth.Finance;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.junit.Assert.*;
 
 public class ConveyDaoTest extends BaseTest {
     @Autowired
@@ -27,8 +23,6 @@ public class ConveyDaoTest extends BaseTest {
         convey.setCorporation("test");
         convey.setCategories(1);
         convey.setTypes(1);
-        convey.setQuantity(100);
-        convey.setMileage(50000L);
         convey.setEventTime(20231112001L);
         convey.setUpdateTime(202307172250L);
         List<Convey> conveys = new ArrayList<>();
@@ -42,7 +36,6 @@ public class ConveyDaoTest extends BaseTest {
     public void addTrafficInfos() {
         Traffic traffic = new Traffic();
         traffic.setCorporation("test");
-        traffic.setCost(10000);
         traffic.setEventTime(1690185315000L);
         List<Traffic> traffics = new ArrayList<>();
         traffics.add(traffic);
@@ -82,13 +75,13 @@ public class ConveyDaoTest extends BaseTest {
     public void getTrafficInfos() {
         List<Traffic> traffics = conveyDao.getTrafficInfos(1640966400L,2);//2022-01-01 00:00:00
         Map<String, List<Traffic>> collect = traffics.stream().collect(Collectors.groupingBy(Traffic::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 
     @Test
     public void getInventoryInfos() {
         List<Inventory> inventories = conveyDao.getInventoryInfos(1640966400L,3);//2022-01-01 00:00:00
         Map<String, List<Inventory>> collect = inventories.stream().collect(Collectors.groupingBy(Inventory::getCorporation));
-        System.out.println("");
+        System.out.println(collect);
     }
 }

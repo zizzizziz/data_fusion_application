@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,14 +14,13 @@ public class Asset {
 
     private String corporation;
 
+    private BigDecimal profit;
 
-    private long profit;
+    private BigDecimal fixedAssets;
 
-    private long fixedAssets;
+    private BigDecimal cashAssets;
 
-    private long cashAssets;
-
-    private long finance;
+    private BigDecimal finance;
 
     private long eventTime;
 
