@@ -222,6 +222,9 @@ public class SaleDecisionController {
                     if (propertyValue instanceof BigDecimal) {
                         targetValue = (BigDecimal) propertyValue;
                     }
+                    if (propertyValue instanceof Integer) {
+                        targetValue = BigDecimal.valueOf((int) propertyValue);
+                    }
                     if (targetValue == null) {
                         break;
                     }
