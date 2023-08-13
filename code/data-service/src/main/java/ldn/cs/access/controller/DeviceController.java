@@ -1,14 +1,11 @@
 package ldn.cs.access.controller;
 
-import ldn.cs.access.dao.DeviceDao;
-import ldn.cs.access.kafaka.KafkaProducer;
 import ldn.cs.access.pojo.Device;
 import ldn.cs.access.pojo.DeviceInfo;
 import ldn.cs.access.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,9 +13,6 @@ import java.util.List;
 public class DeviceController {
     @Autowired
     private DeviceService deviceService;
-
-    @Autowired
-    private KafkaProducer producer;
 
     @PostMapping("/action/add")
     public int add(@RequestBody List<Device> devices){

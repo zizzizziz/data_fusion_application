@@ -1,8 +1,5 @@
 package ldn.cs.fusion.common;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class DataAttribute {
     public static final String corporation = "企业名称";
     public static final String staffCategories = "员工类型";
