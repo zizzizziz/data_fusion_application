@@ -27,22 +27,22 @@ public class StaffDecisionController {
     private DecisionThresholdService decisionThresholdService;
 
     private static final Map<Integer, String> upperThresholdReason = new HashMap<Integer, String>() {{
-        put(1, "人员扩招"); // 人员扩招
-        put(2, "人员过剩"); // 人员过剩
+        put(1, "公司业务扩张，需求增加，为了满足业务增长，招聘了更多的员工");
+        put(2, "公司战略调整，扩大规模，导致大量员工招聘，超出了实际需求");
     }};
     private static final Map<Integer, String> lowerThresholdReason = new HashMap<Integer, String>() {{
-        put(1, "人员缩招"); // 人员缩招
-        put(2, "人员流失"); // 人员流失
+        put(1, "公司业务扩张速度较慢，未能及时增加员工来适应业务发展");
+        put(2, "公司遭遇经济衰退或市场变化，导致业务下滑，员工数量减少");
     }};
 
     // 1 --> 一般, 2 --> 严重
     private static final Map<Integer, String> upperThresholdMeasure = new HashMap<Integer, String>() {{
-        put(1, "灵活用工"); // 灵活用工
-        put(2, "发展新业务，开拓新航道"); // 发展新业务，开拓新航道
+        put(1, "优化招聘流程，加强人才筛选，确保新员工符合公司需求，避免过度招聘");
+        put(2, "重新评估公司战略，调整招聘计划，确保员工数量与业务需求匹配");
     }};
     private static final Map<Integer, String> lowerThresholdMeasure = new HashMap<Integer, String>() {{
-        put(1, "灵活用工"); // 灵活用工
-        put(2, "集中人员发展业务"); // 集中人员发展新业务
+        put(1, "重新评估业务增长预期，建立合理的人力规划，适时招聘新员工");
+        put(2, "采取紧急措施，如减少非必要支出，暂时冻结招聘，确保公司稳定度过难关");
     }};
 
     /**
