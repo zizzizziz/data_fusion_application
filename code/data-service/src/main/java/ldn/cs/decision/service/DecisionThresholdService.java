@@ -17,6 +17,8 @@ public class DecisionThresholdService {
     }
 
     public int updateDecisionThreshold(List<DecisionThreshold> thresholds) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        thresholds.forEach(req -> req.setUpdateTime(updateTime));
         return decisionThresholdDao.updateDecisionThreshold(thresholds);
     }
 }

@@ -6,15 +6,14 @@
     <select id="getDecisionThreshold" resultType="ldn.cs.decision.pojo.threshold.DecisionThreshold">
         SELECT id, categories, attributes, attributesValue, updateTime FROM tbl_decision_threshold_info
         WHERE categories = #{categories} and attributes = #{attributes}
+        ORDER BY updateTime desc limit 1
     </select>
 
-    <update id="updateDecisionThreshold" parameterType="java.util.List">
-        <foreach collection="thresholds" item="threshold" separator=";">
-            UPDATE tbl_decision_threshold_info
-            SET
-            attributesValue = #{threshold.attributesValue}
-            WHERE
-            categories = #{threshold.categories} AND attributes = #{threshold.attributes}
+    <insert id="updateDecisionThreshold" parameterType="ldn.cs.decision.pojo.threshold.DecisionThreshold">
+        REPLACE INTO tbl_decision_threshold_info(id, categories, attributes, attributesValue, updateTime)
+        VALUES
+        <foreach collection="thresholds" item="threshold" separator=",">
+            (#{threshold.id}, #{threshold.categories}, #{threshold.attributes}, #{threshold.attributesValue}, #{threshold.updateTime})
         </foreach>
-    </update>
+    </insert>
 </mapper>
