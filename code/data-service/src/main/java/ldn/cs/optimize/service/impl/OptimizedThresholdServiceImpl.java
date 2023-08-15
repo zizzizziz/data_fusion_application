@@ -48,7 +48,6 @@ public class OptimizedThresholdServiceImpl implements OptimizedThresholdService 
         staffDao.refreshStaffTable();
     }
 
-
     // 初始化所有公司表中公司的阈值
     // begin
     private List<OptimizedThreshold> createDefaultThresholdDataForCorporation(String corporation) {
@@ -92,9 +91,6 @@ public class OptimizedThresholdServiceImpl implements OptimizedThresholdService 
         }
     }
 
-
-    // end
-
     // 根据公司名获取更新的阈值
     @Override
     public int updateThreshold(List<OptimizedThreshold> thresholds) {
@@ -104,7 +100,6 @@ public class OptimizedThresholdServiceImpl implements OptimizedThresholdService 
         }
         return updatedRecords;
     }
-
 
     //前台根据公司名属性类型更新阈值
     @Override
@@ -174,13 +169,8 @@ public class OptimizedThresholdServiceImpl implements OptimizedThresholdService 
         List<OptimizedStaff> staffList = staffDao.selectAll();
         companyData.setStaffMap(staffList.stream().collect(Collectors.groupingBy(OptimizedStaff::getCorporation)));
 
-        System.out.println(companyData);
-
         return companyData;
     }
-
-
-    //普通方法
 
     @Override
     public int insertThreshold(OptimizedThreshold threshold) {

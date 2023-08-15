@@ -26,7 +26,7 @@ public interface OptimizedThresholdDao {
 
     // 删除所有记录
     @Delete("DELETE FROM tbl_optimized_threshold_info")
-    int deleteAll();
+    void deleteAll();
 
     // 初始化阈值表
     // begin
@@ -53,15 +53,11 @@ public interface OptimizedThresholdDao {
         }
     }
 
-    // end
-
     // 更新阈值字段，根据公司名和属性名和类型
     @Update("UPDATE tbl_optimized_threshold_info SET attributeValue = #{attributeValue}, updateTime = #{updateTime} WHERE corporation = #{corporation} AND attribute = #{attribute} AND optimizationType = #{optimizationType}")
-    int updateThresholdByCorporationAttributeAndType(OptimizedThreshold record);
+    void updateThresholdByCorporationAttributeAndType(OptimizedThreshold record);
 
     // 提取阈值字段，根据公司名和属性名和类型
     @Select("SELECT * FROM tbl_optimized_threshold_info WHERE corporation = #{corporation} AND attribute = #{attribute} AND optimizationType = #{optimizationType}")
     List<OptimizedThreshold> selectThresholdsByCorporationAttributeAndType(String corporation, String attribute, int optimizationType);
-
-
 }

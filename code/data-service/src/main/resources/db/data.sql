@@ -1101,7 +1101,6 @@ VALUES (1, '人员数量', 100, 1690946777),
        (5, '销售服务', 100, 1690946777);
 
 -- 知识元Begin
-
 -- 公司表
 REPLACE INTO tbl_optimized_corporation_info (corporation)
 SELECT corporation FROM tbl_staff_skill_info GROUP BY corporation;

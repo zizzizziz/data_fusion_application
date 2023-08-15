@@ -398,9 +398,6 @@ create table if not exists tbl_sale_prediction_info(
     INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
-
--- 知识元部分Begin
-
 -- 阈值信息表
 create table if not exists tbl_optimized_threshold_info(
     id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
@@ -472,6 +469,3 @@ CREATE TABLE IF NOT EXISTS tbl_optimized_convey_info (
     key (id),
     PRIMARY KEY (corporation, types)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='物流表';
-
-
--- 知识元部分End

@@ -12,15 +12,12 @@ public interface OptimizedProductDao {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int insert(OptimizedProduct record);
 
-    @Select("SELECT * FROM tbl_optimized_product_info WHERE id = #{id}")
-    OptimizedProduct selectById(Integer id);
-
     @Select("SELECT * FROM tbl_optimized_product_info")
     List<OptimizedProduct> selectAll();
 
     // 刷新提取表格
     @Update("REPLACE INTO tbl_optimized_product_info (corporation, types, cost, province, quantity, updateTime) SELECT corporation, types, SUM(cost) AS cost, province, SUM(quantity) AS quantity, MAX(updateTime) AS updateTime FROM tbl_production_info GROUP BY corporation, types, province")
-    int refreshProductTable();
+    void refreshProductTable();
 
     //算法更新
     @Update("UPDATE tbl_optimized_product_info SET cost = cost * #{costFactor}, quantity = quantity * #{quantityFactor} WHERE corporation = #{corporationName}")
