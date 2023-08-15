@@ -70,12 +70,5 @@ public class ProductionConsumer {
         }
         return result;
     }
-
-    //Test
-    public static void main(String[] args) {
-        for (int i = 0; i < historyData.size(); i++) {
-            System.out.println(JSONObject.toJSONString(historyData.get(i)));
-        }
-    }
 }
 
