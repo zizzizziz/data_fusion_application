@@ -7,4 +7,14 @@
         SELECT id, categories, attributes, attributesValue, updateTime FROM tbl_decision_threshold_info
         WHERE categories = #{categories} and attributes = #{attributes}
     </select>
+
+    <update id="updateDecisionThreshold" parameterType="java.util.List">
+        <foreach collection="thresholds" item="threshold" separator=";">
+            UPDATE tbl_decision_threshold_info
+            SET
+            attributesValue = #{threshold.attributesValue}
+            WHERE
+            categories = #{threshold.categories} AND attributes = #{threshold.attributes}
+        </foreach>
+    </update>
 </mapper>
