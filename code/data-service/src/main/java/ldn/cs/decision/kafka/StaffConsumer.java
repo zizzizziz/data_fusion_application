@@ -1,6 +1,7 @@
 package ldn.cs.decision.kafka;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import ldn.cs.decision.alghthrims.staff.StaffPrediction;
 import ldn.cs.decision.dao.StaffDecisionDao;
@@ -10,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +25,23 @@ public class StaffConsumer {
     private StaffDecisionDao staffDecisionDao;
 
     // 历史数据, 等待生成
-    private static final List<Staff> historyData = new ArrayList<>();
-    static {
-        historyData.add(new Staff(1, "小丫家电", 1, 2, "后台开发", 1, 1688268377, 1688268377));
-        historyData.add(new Staff(1, "小丫家电", 1, 2, "后台开发", 2, 1685676377, 1685676377));
-        historyData.add(new Staff(1, "小丫家电", 1, 2, "后台开发", 3, 1659410777, 1659410777));
+    private static final List<Staff> historyData = loadHistoryDataFromResource();
+    private static List<Staff> loadHistoryDataFromResource() {
+        List<Staff> historyData = new ArrayList<>();
+        try {
+            InputStream inputStream = StaffConsumer.class.getResourceAsStream("/train/staff.txt");
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Staff staff = JSON.parseObject(line, Staff.class);
+                    historyData.add(staff);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return historyData;
     }
 
     @KafkaListener(topics = "topic_staff_message", groupId = "topic_staff_message_group")
@@ -52,6 +69,13 @@ public class StaffConsumer {
             result.add(nextStaff);
         }
         return result;
+    }
+
+    //Test
+    public static void main(String[] args) {
+        for (int i = 0; i < historyData.size(); i++) {
+            System.out.println(JSONObject.toJSONString(historyData.get(i)));
+        }
     }
 }
 

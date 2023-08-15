@@ -1,6 +1,7 @@
 package ldn.cs.decision.kafka;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import ldn.cs.decision.alghthrims.production.ProductionPrediction;
 import ldn.cs.decision.dao.ProductionDecisionDao;
@@ -10,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +25,23 @@ public class ProductionConsumer {
     private ProductionDecisionDao productionDecisionDao;
 
     // 历史数据, 等待生成
-    private static final List<Production> historyData = new ArrayList<>();
-    static {
-        historyData.add(new Production(1,"小丫家电", 1, 1, BigDecimal.valueOf(200), BigDecimal.valueOf(2000), "中国", "广东", 1, 1666945270, 1666945270));
-        historyData.add(new Production(2,"小丫家电", 1, 2, BigDecimal.valueOf(203), BigDecimal.valueOf(2000), "中国", "上海", 1, 1666945270, 1666945270));
-        historyData.add(new Production(3,"小丫家电", 1, 3, BigDecimal.valueOf(100), BigDecimal.valueOf(2000), "中国", "福建", 1, 1666945270, 1666945270));
+    private static final List<Production> historyData = loadHistoryDataFromResource();
+    private static List<Production> loadHistoryDataFromResource() {
+        List<Production> historyData = new ArrayList<>();
+        try {
+            InputStream inputStream = ProductionConsumer.class.getResourceAsStream("/train/production.txt");
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Production production = JSON.parseObject(line, Production.class);
+                    historyData.add(production);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return historyData;
     }
 
     @KafkaListener(topics = "topic_production_message", groupId = "topic_production_message_group")
@@ -53,6 +69,13 @@ public class ProductionConsumer {
             result.add(nextProduction);
         }
         return result;
+    }
+
+    //Test
+    public static void main(String[] args) {
+        for (int i = 0; i < historyData.size(); i++) {
+            System.out.println(JSONObject.toJSONString(historyData.get(i)));
+        }
     }
 }
 

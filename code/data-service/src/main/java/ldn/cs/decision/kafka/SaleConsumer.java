@@ -1,6 +1,6 @@
 package ldn.cs.decision.kafka;
 
-
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import ldn.cs.decision.alghthrims.sale.SalePrediction;
 import ldn.cs.decision.dao.SaleDecisionDao;
@@ -10,23 +10,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-
 @Service
 public class SaleConsumer {
     @Autowired
     private SaleDecisionDao saleDecisionDao;
 
     // 历史数据, 等待生成
-    private static final List<Sale> historyData = new ArrayList<>();
-    static {
-        historyData.add(new Sale(1,"特斯拉", 1, 1, BigDecimal.valueOf(100), BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), "广东", "中国", BigDecimal.valueOf(10), 95, 1688268377, 1690946779));
-        historyData.add(new Sale(2,"特斯拉", 2, 1, BigDecimal.valueOf(100), BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), "广东", "中国", BigDecimal.valueOf(10), 95, 1688268377, 1690946779));
-        historyData.add(new Sale(3,"特斯拉", 3, 1, BigDecimal.valueOf(100), BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), "广东", "中国", BigDecimal.valueOf(10), 95, 1688268377, 1690946779));
+    private static final List<Sale> historyData = loadHistoryDataFromResource();
+    private static List<Sale> loadHistoryDataFromResource() {
+        List<Sale> historyData = new ArrayList<>();
+        try {
+            InputStream inputStream = SaleConsumer.class.getResourceAsStream("/train/sale.txt");
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Sale sale = JSON.parseObject(line, Sale.class);
+                    historyData.add(sale);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return historyData;
     }
 
     @KafkaListener(topics = "topic_sale_message", groupId = "topic_sale_message_group")
@@ -54,6 +67,13 @@ public class SaleConsumer {
             result.add(nextSale);
         }
         return result;
+    }
+
+    //Test
+    public static void main(String[] args) {
+        for (int i = 0; i < historyData.size(); i++) {
+            System.out.println(JSONObject.toJSONString(historyData.get(i)));
+        }
     }
 }
 

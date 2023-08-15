@@ -1,6 +1,7 @@
 package ldn.cs.decision.kafka;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import ldn.cs.decision.alghthrims.wealth.WealthPrediction;
 import ldn.cs.decision.dao.WealthDecisionDao;
@@ -10,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +25,23 @@ public class WealthConsumer {
     private WealthDecisionDao wealthDecisionDao;
 
     // 历史数据, 等待生成
-    private static final List<Wealth> historyData = new ArrayList<>();
-    static {
-        historyData.add(new Wealth(1, "比亚迪", BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), 1688268377, 1688268377));
-        historyData.add(new Wealth(1, "比亚迪", BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), 1688268577, 1688268577));
-        historyData.add(new Wealth(1, "比亚迪", BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), BigDecimal.valueOf(2000), 1688268677, 1688268677));
+    private static final List<Wealth> historyData = loadHistoryDataFromResource();
+    private static List<Wealth> loadHistoryDataFromResource() {
+        List<Wealth> historyData = new ArrayList<>();
+        try {
+            InputStream inputStream = WealthConsumer.class.getResourceAsStream("/train/wealth.txt");
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Wealth wealth = JSON.parseObject(line, Wealth.class);
+                    historyData.add(wealth);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return historyData;
     }
 
     @KafkaListener(topics = "topic_wealth_message", groupId = "topic_wealth_message_group")
@@ -53,6 +69,13 @@ public class WealthConsumer {
             result.add(nextWealth);
         }
         return result;
+    }
+
+    //Test
+    public static void main(String[] args) {
+        for (int i = 0; i < historyData.size(); i++) {
+            System.out.println(JSONObject.toJSONString(historyData.get(i)));
+        }
     }
 }
 
