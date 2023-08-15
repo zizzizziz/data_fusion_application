@@ -397,3 +397,81 @@ create table if not exists tbl_sale_prediction_info(
     PRIMARY KEY (id),
     INDEX (corporation)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+
+-- 知识元部分Begin
+
+-- 阈值信息表
+create table if not exists tbl_optimized_threshold_info(
+    id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    corporation VARCHAR(255) COMMENT '企业名称',
+    attribute varchar(20) COMMENT '属性',
+    attributeValue double COMMENT '属性值',
+    optimizationType tinyint COMMENT '优化类型 1:成本优先 2:质量优先 3:服务优先 4：效率优先',
+    updateTime bigint DEFAULT null COMMENT '更新时间',
+    KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- 优化公司表
+CREATE TABLE tbl_optimized_corporation_info (
+    id INT AUTO_INCREMENT,
+    corporation VARCHAR(255),
+    updateTime BIGINT,
+    KEY (id),
+    PRIMARY KEY (corporation)
+);
+
+-- 优化员工技能表
+CREATE TABLE tbl_optimized_staff_info (
+    id INT AUTO_INCREMENT,
+    corporation VARCHAR(255),
+    skill VARCHAR(255),
+    amount BIGINT,
+    updateTime BIGINT,
+    KEY (id),
+    PRIMARY KEY (corporation, skill)
+);
+
+-- 优化产品表Product
+CREATE TABLE IF NOT EXISTS tbl_optimized_product_info (
+    id INT(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    corporation VARCHAR(255) COMMENT '企业名称',
+    types TINYINT COMMENT '产品类型',
+    cost decimal(20,2) COMMENT '生产产品费用',
+    province VARCHAR(255) COMMENT '生产产品省份',
+    quantity decimal(20,2) COMMENT '产品产量',
+    updateTime BIGINT COMMENT '更新时间',
+    key (id),
+    PRIMARY KEY (corporation, types, province),
+    INDEX (corporation)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8 COMMENT='产品信息表';
+
+-- 销售表
+CREATE TABLE IF NOT EXISTS tbl_optimized_sales_detail_info (
+    id INT(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    corporation VARCHAR(255) COMMENT '企业名称',
+    types TINYINT COMMENT '产品类型',
+    quantity decimal(20,2) COMMENT '产品销量',
+    income decimal(20,2) COMMENT '销售营收',
+    province VARCHAR(255) COMMENT '销售省份',
+    inventory decimal(20,2) COMMENT '销售库存',
+    updateTime BIGINT DEFAULT NULL COMMENT '更新时间',
+    key (id),
+    PRIMARY KEY (corporation, types, province)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='销售详情表';
+
+-- 物流表
+CREATE TABLE IF NOT EXISTS tbl_optimized_convey_info (
+    id INT(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    corporation VARCHAR(255) COMMENT '企业名称',
+    types TINYINT COMMENT '运输货物',
+    categories TINYINT COMMENT '产品运输工具',
+    cost decimal(20,2) COMMENT '产品运输费用',
+    transportVolume decimal(20,2) COMMENT '产品运输量',
+    updateTime BIGINT DEFAULT NULL COMMENT '更新时间',
+    key (id),
+    PRIMARY KEY (corporation, types)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='物流表';
+
+
+-- 知识元部分End
