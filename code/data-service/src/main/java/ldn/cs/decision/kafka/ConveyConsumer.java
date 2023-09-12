@@ -1,7 +1,7 @@
 package ldn.cs.decision.kafka;
 
-
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import ldn.cs.decision.alghthrims.convey.ConveyPrediction;
 import ldn.cs.decision.dao.ConveyDecisionDao;
 import ldn.cs.decision.pojo.convey.Convey;
@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +24,23 @@ public class ConveyConsumer {
     private ConveyDecisionDao conveyDecisionDao;
 
     // 历史数据, 等待生成
-    private static final List<Convey> historyData = new ArrayList<>();
-    static {
-        historyData.add(new Convey(1, "小丫家电", 1, 1, BigDecimal.valueOf(200), BigDecimal.valueOf(500), BigDecimal.valueOf(1000), BigDecimal.valueOf(50000), 1666945270, 1666945270));
-        historyData.add(new Convey(2, "小丫家电", 1, 1, BigDecimal.valueOf(200), BigDecimal.valueOf(500), BigDecimal.valueOf(1000), BigDecimal.valueOf(50000), 1666945270, 1666945270));
-        historyData.add(new Convey(3, "小丫家电", 1, 1, BigDecimal.valueOf(200), BigDecimal.valueOf(500), BigDecimal.valueOf(1000), BigDecimal.valueOf(50000), 1666945270, 1666945270));
+    private static final List<Convey> historyData = loadHistoryDataFromResource();
+    private static List<Convey> loadHistoryDataFromResource() {
+        List<Convey> historyData = new ArrayList<>();
+        try {
+            InputStream inputStream = ConveyConsumer.class.getResourceAsStream("/train/convey.txt");
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Convey convey = JSON.parseObject(line, Convey.class);
+                    historyData.add(convey);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return historyData;
     }
 
     @KafkaListener(topics = "topic_convey_message", groupId = "topic_convey_message_group")
@@ -55,5 +70,7 @@ public class ConveyConsumer {
         return result;
     }
 }
+
+
 
 

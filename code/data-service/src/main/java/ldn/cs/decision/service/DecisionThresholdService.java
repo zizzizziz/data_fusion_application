@@ -12,9 +12,13 @@ public class DecisionThresholdService {
     @Autowired
     private DecisionThresholdDao decisionThresholdDao;
 
-    // 差一个补充更新阈值的方法
-
     public List<DecisionThreshold> getDecisionThreshold(int categories, String attributes) {
         return decisionThresholdDao.getDecisionThreshold(categories, attributes);
+    }
+
+    public int updateDecisionThreshold(List<DecisionThreshold> thresholds) {
+        long updateTime = System.currentTimeMillis() / 1000;
+        thresholds.forEach(req -> req.setUpdateTime(updateTime));
+        return decisionThresholdDao.updateDecisionThreshold(thresholds);
     }
 }

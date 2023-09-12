@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.optimize.dao.OptimizeThresholdDao">
+    <resultMap id="ThresholdResult" type="ldn.cs.optimize.pojo.OptimizedThreshold">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="attribute" jdbcType="VARCHAR" property="attribute" />
+        <result column="attributeValue" jdbcType="VARCHAR" property="attributeValue" />
+        <result column="optimizationType" jdbcType="TINYINT" property="optimizationType" />
+        <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    </resultMap>
+
+    <insert id="addThreshold" parameterType="ldn.cs.optimize.pojo.OptimizedThreshold" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tbl_optimized_threshold_info (attribute, attributeValue, optimizationType, updateTime)
+        VALUES (#{optimizedThreshold.attribute,jdbcType=VARCHAR}, #{optimizedThreshold.attributeValue,jdbcType=VARCHAR}, #{optimizedThreshold.optimizationType,jdbcType=TINYINT}, #{optimizedThreshold.updateTime,jdbcType=BIGINT})
+    </insert>
+
+    <select id="getThreshold" resultType="ldn.cs.optimize.pojo.OptimizedThreshold">
+        SELECT id, attribute, attributeValue, optimizationType, updateTime
+        FROM tbl_optimized_threshold_info
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateThreshold">
+        UPDATE tbl_optimized_threshold_info
+        SET attribute = #{optimizedThreshold.attribute,jdbcType=VARCHAR}, attributeValue = #{optimizedThreshold.attributeValue,jdbcType=VARCHAR}, optimizationType = #{optimizedThreshold.optimizationType,jdbcType=TINYINT}, updateTime = #{optimizedThreshold.updateTime,jdbcType=BIGINT}
+        WHERE id = #{optimizedThreshold.id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteThreshold">
+        DELETE FROM tbl_optimized_threshold_info
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="getAllThresholds" resultType="ldn.cs.optimize.pojo.OptimizedThreshold">
+        SELECT id, attribute, attributeValue, optimizationType, updateTime
+        FROM tbl_optimized_threshold_info
+    </select>
+</mapper>

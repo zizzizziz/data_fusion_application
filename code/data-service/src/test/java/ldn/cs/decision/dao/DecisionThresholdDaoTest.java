@@ -8,15 +8,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DecisionThresholdDaoTest extends BaseTest {
     @Autowired
     private DecisionThresholdDao decisionThresholdDao;
-
-    @Test
-    public void updateDecisionThreshold() {
-    }
 
     @Test
     public void getDecisionThreshold() {
