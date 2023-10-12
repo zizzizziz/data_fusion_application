@@ -24,7 +24,7 @@ public class FusionConsumer {
         if (!StringUtils.hasLength(message)) {
             return;
         }
-        // 1. 将Message转化为Map对象
+        // 将Message转化为Map对象
         Map<String, Object> fusionObject = JSON.parseObject(message, new TypeReference<Map<String, Object>>() {});
         dataFusion.fusion(fusionObject);
 

@@ -86,6 +86,6 @@ public class SaleController {
      */
     @GetMapping("/perception/profit/query")
     public Map<String, List<Profit>> getProfitInfos(long time, int granularity) {
-        return saleService.getProfitInfos(time / 1000, granularity);
+        return saleService.getProfitInfos(time, granularity);
     }
 }
