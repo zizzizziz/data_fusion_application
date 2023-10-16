@@ -8,6 +8,54 @@ create table if not exists tbl_device_info(
     PRIMARY KEY (ip, port)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
+-- 原始数据
+create table if not exists tbl_original_info(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    corporation varchar(255),   -- 企业名称
+    staffCategories tinyint,    -- 员工类型
+    positions tinyint,          -- 员工职位
+    skill varchar(255),         -- 员工技能
+    amount bigint,              -- 员工数量
+    research decimal(20,2),            -- 研发支出
+    device decimal(20,2),              -- 设备支出
+    production decimal(20,2),          -- 生产支出
+    storage decimal(20,2),             -- 仓储支出
+    materiel decimal(20,2),            -- 物料支出
+    transportation decimal(20,2),      -- 运输支出
+    salary decimal(20,2),              -- 人员工资支出
+    revenue decimal(20,2),             -- 总收入
+    profit decimal(20,2),              -- 利润
+    fixedAssets decimal(20,2),         -- 固定资产
+    cashAssets decimal(20,2),          -- 流动资产
+    finance decimal(20,2),             -- 融资
+    conveyCategories tinyint,       -- 运输工具
+    conveyTypes tinyint,            -- 运输货物
+    conveyQuantity decimal(20,2),   -- 运输量
+    conveyInventory decimal(20,2),  -- 运输剩余库存
+    mileage decimal(20,2),          -- 运输里程数
+    conveyCost decimal(20,2),       -- 运输费用
+    saleCategories tinyint,       -- 产品类型
+    saleTypes tinyint,            -- 销售产品
+    saleQuantity decimal(20,2),   -- 销量
+    income decimal(20,2),         -- 销售营收
+    saleCost decimal(20,2),       -- 销售支出
+    saleProvince varchar(255),    -- 销售省份
+    saleCountry varchar(255),     -- 销售国家
+    saleInventory decimal(20,2),  -- 销售库存
+    score int,                    -- 服务评价
+    productionCategories tinyint,       -- 产品类型
+    productionTypes tinyint,            -- 生产产品
+    productionQuantity decimal(20,2),   -- 生产产品产量
+    productionCost decimal(20,2),       -- 生产产品费用
+    productionProvince varchar(255),    -- 生产产品省份
+    productionCountry varchar(255),     -- 生产产品国家
+    quality int,                        -- 生产产品质量
+    eventTime bigint,           -- 事件时间
+    updateTime bigint,          -- 更新时间
+    PRIMARY KEY (id),
+    INDEX (corporation)
+    ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
 -- 人力链报表
 create table if not exists tbl_staff_info(
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -119,7 +167,7 @@ create table if not exists tbl_convey_info(
     categories tinyint,         -- 运输工具
     types tinyint,              -- 运输货物
     quantity decimal(20,2),     -- 运输量
-    inventory decimal(20,2),           -- 运输剩余库存
+    inventory decimal(20,2),    -- 运输剩余库存
     mileage decimal(20,2),      -- 运输里程数
     cost decimal(20,2),         -- 运输费用
     eventTime bigint,           -- 事件时间
@@ -410,7 +458,7 @@ create table if not exists tbl_optimized_threshold_info(
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 -- 优化公司表
-CREATE TABLE tbl_optimized_corporation_info (
+CREATE TABLE IF NOT EXISTS tbl_optimized_corporation_info (
     id INT AUTO_INCREMENT,
     corporation VARCHAR(255),
     updateTime BIGINT,
@@ -419,7 +467,7 @@ CREATE TABLE tbl_optimized_corporation_info (
 );
 
 -- 优化员工技能表
-CREATE TABLE tbl_optimized_staff_info (
+CREATE TABLE IF NOT EXISTS tbl_optimized_staff_info (
     id INT AUTO_INCREMENT,
     corporation VARCHAR(255),
     skill VARCHAR(255),
