@@ -23,8 +23,6 @@ public class DeviceController {
     public int delete(@RequestBody List<Device> devices) {
         return deviceService.deleteDevices(devices);
     }
-
-
     @GetMapping("/query")
     public DeviceInfo query(String statement, int types, int limit, int offset) {
         return deviceService.getDeviceInfos(statement, types, limit, offset);

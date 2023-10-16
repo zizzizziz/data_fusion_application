@@ -83,7 +83,12 @@ public class DeviceService {
      * @return 设备信息列表及设备总数
      */
     public DeviceInfo getDeviceInfos(String statement, int types, int limit, int offset) {
-        return new DeviceInfo(deviceDao.getDevices(statement, types, limit, offset),
-                deviceDao.getTotalDevices(statement, types));
+        DeviceInfo deviceInfo = new DeviceInfo();
+        List<Device> devices = deviceDao.getDevices(statement, types, limit, offset);
+        int total = deviceDao.getTotalDevices(statement, types);
+
+        deviceInfo.setDevices(devices);
+        deviceInfo.setTotal(total);
+        return deviceInfo;
     }
 }

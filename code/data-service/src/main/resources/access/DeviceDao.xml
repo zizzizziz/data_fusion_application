@@ -41,7 +41,7 @@
     </select>
 
     <!-- 查询DeviceInfos报表Total -->
-    <select id="getTotalDevice" resultType="int">
+    <select id="getTotalDevices" resultType="int">
         select count(1) from tbl_device_info
         <where>
             1=1

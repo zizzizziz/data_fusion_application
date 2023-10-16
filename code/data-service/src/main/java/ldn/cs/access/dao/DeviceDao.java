@@ -19,4 +19,6 @@ public interface DeviceDao {
     List<Device> getDevices(@Param("statement") String statement, @Param("types") int types, @Param("limit") int limit, @Param("offset") int offset);
 
     int getTotalDevices(@Param("statement") String statement, @Param("types") int types);
+
+    int addOriginalInfos(@Param("devices") List<Device> devices);
 }
