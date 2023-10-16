@@ -9,7 +9,7 @@ import javax.servlet.MultipartConfigElement;
 
 @Configuration
 public class UploadConfig {
-    public static final String Path = "E:\\temp";   //上传文件保存地址
+    public static final String Path = "/opt/files";   //上传文件保存地址
 
     @Bean
     public MultipartConfigElement getMultipartConfig() {
