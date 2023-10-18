@@ -18,6 +18,9 @@ public class UploadService {
     @Autowired
     private DataFusion dataFusion;
 
+    @Autowired
+    private OriginalService originalService;
+
     /**
      * 上传文件名修改
      *
@@ -57,6 +60,7 @@ public class UploadService {
                 }
                 System.out.println(dataMap);//输出数据
                 dataFusion.fusion(dataMap);
+                originalService.addOriginalInfos(dataMap);
             }
         }
     }

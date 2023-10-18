@@ -10,7 +10,7 @@ create table if not exists tbl_device_info(
 
 -- 原始数据
 create table if not exists tbl_original_info(
-    id int(11) NOT NULL AUTO_INCREMENT,
+    id bigint NOT NULL AUTO_INCREMENT,
     corporation varchar(255),   -- 企业名称
     staffCategories tinyint,    -- 员工类型
     positions tinyint,          -- 员工职位
@@ -454,7 +454,7 @@ create table if not exists tbl_optimized_threshold_info(
     attributeValue double COMMENT '属性值',
     optimizationType tinyint COMMENT '优化类型 1:成本优先 2:质量优先 3:服务优先 4：效率优先',
     updateTime bigint DEFAULT null COMMENT '更新时间',
-    KEY (id)
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 -- 优化公司表

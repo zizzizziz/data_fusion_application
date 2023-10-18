@@ -74,7 +74,7 @@ public class DataFusionService {
             e.printStackTrace();
         }
         staffService.addStaffInfos(staffs);
-        staffs.forEach(req -> producer.sendMessage("topic_staff_message", JSON.toJSONString(req)));
+        staffs.forEach(req -> producer. sendMessage("topic_staff_message", JSON.toJSONString(req)));
     }
 
     public void WealthFusion(Map<String, Object> fusionObject) {
@@ -294,4 +294,5 @@ public class DataFusionService {
         saleService.addSaleInfos(sales);
         sales.forEach(req -> producer.sendMessage("topic_sale_message", JSON.toJSONString(req)));
     }
+
 }
