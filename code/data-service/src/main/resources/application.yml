@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.134.59.53:3306/data_fusion?serverTimezone=GMT%2B8&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/data_fusion?serverTimezone=GMT%2B8&characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
 
@@ -16,7 +16,7 @@ spring:
       mode: always
 
   kafka:
-    bootstrap-servers: 8.134.59.53:9092
+    bootstrap-servers: localhost:9092
     consumer:
       group-id: topic_data_service_original_message_group
       auto-offset-reset: latest
