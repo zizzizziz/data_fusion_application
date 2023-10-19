@@ -464,7 +464,7 @@ CREATE TABLE IF NOT EXISTS tbl_optimized_corporation_info (
     updateTime BIGINT,
     KEY (id),
     PRIMARY KEY (corporation)
-);
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 -- 优化员工技能表
 CREATE TABLE IF NOT EXISTS tbl_optimized_staff_info (
@@ -475,7 +475,7 @@ CREATE TABLE IF NOT EXISTS tbl_optimized_staff_info (
     updateTime BIGINT,
     KEY (id),
     PRIMARY KEY (corporation, skill)
-);
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 -- 优化产品表Product
 CREATE TABLE IF NOT EXISTS tbl_optimized_product_info (
