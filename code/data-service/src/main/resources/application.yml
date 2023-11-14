@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/data_fusion?serverTimezone=GMT%2B8&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3518/data_fusion?serverTimezone=GMT%2B8&characterEncoding=utf8&useSSL=false
     username: root
-    password: 123456
+    password: ldnCS@518
 
   mvc:
     servlet:
