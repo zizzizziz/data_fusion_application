@@ -40,5 +40,4 @@ public class DataFusion {
         dataFusionService.ProductionFusion(fusionObject);
         dataFusionService.SaleFusion(fusionObject);
     }
-
 }

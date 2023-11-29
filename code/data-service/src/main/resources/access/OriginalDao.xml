@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldn.cs.access.dao.OriginalDao">
+
+    <!-- 新增Original据 -->
+    <insert id="addOriginalInfos" parameterType="ldn.cs.access.pojo.Original">
+        REPLACE INTO tbl_original_info(corporation, staffCategories, positions, skill, amount, research, device, production, storage, materiel, transportation,
+                                        salary, revenue, profit, fixedAssets, cashAssets, finance, conveyCategories, conveyTypes, conveyQuantity, conveyInventory,
+                                        mileage, conveyCost, saleCategories, saleTypes, saleQuantity, income, saleCost, saleProvince, saleCountry, saleInventory,
+                                        score, productionCategories, productionTypes, productionQuantity, productionCost, productionProvince, productionCountry,
+                                        quality, eventTime, updateTime)
+        VALUES
+        <foreach collection="originals" item="original" separator=",">
+            (#{original.corporation}, #{original.staffCategories}, #{original.positions}, #{original.skill}, #{original.amount},
+            #{original.research}, #{original.device}, #{original.production}, #{original.storage}, #{original.materiel}, #{original.transportation},
+            #{original.salary}, #{original.revenue}, #{original.profit}, #{original.fixedAssets}, #{original.cashAssets}, #{original.finance},
+            #{original.conveyCategories}, #{original.conveyTypes}, #{original.conveyQuantity}, #{original.conveyInventory}, #{original.mileage}, #{original.conveyCost},
+            #{original.saleCategories}, #{original.saleTypes}, #{original.saleQuantity}, #{original.income}, #{original.saleCost}, #{original.saleProvince},
+            #{original.saleCountry}, #{original.saleInventory}, #{original.score}, #{original.productionCategories}, #{original.productionTypes}, #{original.productionQuantity},
+            #{original.productionCost}, #{original.productionProvince}, #{original.productionCountry}, #{original.quality}, #{original.eventTime}, #{original.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- 查询Original报表 -->
+    <select id="getOriginal" resultType="ldn.cs.access.pojo.Original">
+        select * from tbl_original_info
+        order by updateTime DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 查询Original报表Total -->
+    <select id="getTotalOriginal" resultType="int">
+        select count(1) from tbl_original_info
+    </select>
+</mapper>
