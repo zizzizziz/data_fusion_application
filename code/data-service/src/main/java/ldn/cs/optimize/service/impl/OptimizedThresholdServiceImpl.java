@@ -114,6 +114,10 @@ public class OptimizedThresholdServiceImpl implements OptimizedThresholdService 
         // 获取当前时间戳
         long timestamp = System.currentTimeMillis() / 1000;
 
+        if (timestamp == 0) {
+            timestamp = 1700550635L; // 默认时间戳值
+        }
+
         // 遍历新的阈值列表
         for (OptimizedThreshold newThreshold : newThresholds) {
             // 设置新的时间戳
@@ -125,9 +129,6 @@ public class OptimizedThresholdServiceImpl implements OptimizedThresholdService 
 
             // 使用新阈值更新数据库中的记录
             for (OptimizedThreshold retrievedThreshold : retrievedThresholds) {
-                if (newThreshold.getUpdateTime() <= retrievedThreshold.getUpdateTime()) {
-                    throw new IllegalArgumentException("Timestamp is not valid!");
-                }
                 newThreshold.setId(retrievedThreshold.getId()); // 设置ID，假设ID是主键
                 thresholdDao.updateThresholdByCorporationAttributeAndType(newThreshold);
             }
@@ -136,6 +137,7 @@ public class OptimizedThresholdServiceImpl implements OptimizedThresholdService 
         optimizationAlgorithm.performOptimization(newThresholds, originalThresholds);
         // 你可以将原始阈值存储在其他地方
     }
+
 
     //验证更新阈值总和是否为1
     private boolean isValidThresholdSum(List<OptimizedThreshold> thresholds) {

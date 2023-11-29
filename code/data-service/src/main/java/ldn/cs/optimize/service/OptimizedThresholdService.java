@@ -11,7 +11,7 @@ public interface OptimizedThresholdService {
     // 初始化所有公司的阈值
     void initThresholdForAllCorporations();
 
-    void refreshAllTables();
+    void refreshAllTables ();
 
     void initOptimizedThreshold();
 
