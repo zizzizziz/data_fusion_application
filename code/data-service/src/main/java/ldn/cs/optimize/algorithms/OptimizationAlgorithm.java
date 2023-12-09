@@ -55,7 +55,14 @@ public class OptimizationAlgorithm {
         for (OptimizedThreshold original : originalThresholds) {
             for (OptimizedThreshold updated : newThresholds) {
                 if (original.getAttribute().equals(updated.getAttribute())) {
-                    BigDecimal factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    BigDecimal factor;
+                    if (BigDecimal.valueOf(original.getAttributeValue()).signum() == 0) {
+                        BigDecimal number = new BigDecimal("1");
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(number, 2, RoundingMode.HALF_UP);
+                    } else {
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    }
+
                     Random rand = new Random();
                     factor = factor.add(BigDecimal.valueOf((rand.nextDouble() * 0.06) - 0.03)); // 添加随机震荡
 
@@ -63,7 +70,7 @@ public class OptimizationAlgorithm {
 
                     switch (original.getAttribute()) {
                         case "人力费用":
-                            staffDao.updateStaffAmount(factor.doubleValue()* 9 / 10, updated.getCorporation());
+                            staffDao.updateStaffAmount(factor.doubleValue() * 9 / 10, updated.getCorporation());
                             break;
                         case "生产费用":
                             productDao.updateProductCostAndQuantity(factor.multiply(BigDecimal.valueOf(0.9)), factor.multiply(BigDecimal.valueOf(0.9)), updated.getCorporation());
@@ -86,14 +93,21 @@ public class OptimizationAlgorithm {
         for (OptimizedThreshold original : originalThresholds) {
             for (OptimizedThreshold updated : newThresholds) {
                 if (original.getAttribute().equals(updated.getAttribute())) {
-                    BigDecimal factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    // BigDecimal factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    BigDecimal factor;
+                    if (BigDecimal.valueOf(original.getAttributeValue()).signum() == 0) {
+                        BigDecimal number = new BigDecimal("1");
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(number, 2, RoundingMode.HALF_UP);
+                    } else {
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    }
 
                     Random rand = new Random();
                     factor = factor.add(BigDecimal.valueOf((rand.nextDouble() * 0.06) - 0.03));
 
                     switch (original.getAttribute()) {
                         case "人力费用":
-                            staffDao.updateStaffAmount(factor.doubleValue()* 11 / 10, updated.getCorporation());
+                            staffDao.updateStaffAmount(factor.doubleValue() * 11 / 10, updated.getCorporation());
                             break;
                         case "生产费用":
                             productDao.updateProductCostAndQuantity(factor.multiply(BigDecimal.valueOf(1.1)), factor.multiply(BigDecimal.valueOf(1.1)), updated.getCorporation());
@@ -113,22 +127,29 @@ public class OptimizationAlgorithm {
         for (OptimizedThreshold original : originalThresholds) {
             for (OptimizedThreshold updated : newThresholds) {
                 if (original.getAttribute().equals(updated.getAttribute())) {
-                    BigDecimal factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    // BigDecimal factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    BigDecimal factor;
+                    if (BigDecimal.valueOf(original.getAttributeValue()).signum() == 0) {
+                        BigDecimal number = new BigDecimal("1");
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(number, 2, RoundingMode.HALF_UP);
+                    } else {
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    }
                     Random rand = new Random();
                     factor = factor.add(BigDecimal.valueOf((rand.nextDouble() * 0.06) - 0.03));
 
                     switch (original.getAttribute()) {
                         case "正常":
-                            staffDao.updateStaffAmount(factor.doubleValue()* 11 / 10, updated.getCorporation());
+                            staffDao.updateStaffAmount(factor.doubleValue() * 11 / 10, updated.getCorporation());
                             salesDetailDao.updateSalesVolumeAndRevenue(factor.multiply(BigDecimal.valueOf(1.2)), factor.multiply(BigDecimal.valueOf(1.2)), updated.getCorporation());
                             break;
                         case "退货产品":
-                            staffDao.updateStaffAmount(factor.doubleValue()* 7 / 10, updated.getCorporation());
+                            staffDao.updateStaffAmount(factor.doubleValue() * 7 / 10, updated.getCorporation());
                             salesDetailDao.updateSalesVolumeAndRevenue(factor.multiply(BigDecimal.valueOf(0.7)), factor.multiply(BigDecimal.valueOf(0.7)), updated.getCorporation());
                             salesDetailDao.updateSalesInventory(factor.multiply(BigDecimal.valueOf(1.2)), updated.getCorporation());
                             break;
                         case "维修产品":
-                            staffDao.updateStaffAmount(factor.doubleValue()* 8 / 10, updated.getCorporation());
+                            staffDao.updateStaffAmount(factor.doubleValue() * 8 / 10, updated.getCorporation());
                             salesDetailDao.updateSalesVolumeAndRevenue(factor.multiply(BigDecimal.valueOf(0.8)), factor.multiply(BigDecimal.valueOf(0.8)), updated.getCorporation());
                             salesDetailDao.updateSalesInventory(factor.multiply(BigDecimal.valueOf(1.1)), updated.getCorporation());
                             break;
@@ -143,7 +164,14 @@ public class OptimizationAlgorithm {
         for (OptimizedThreshold original : originalThresholds) {
             for (OptimizedThreshold updated : newThresholds) {
                 if (original.getAttribute().equals(updated.getAttribute())) {
-                    BigDecimal factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    // BigDecimal factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    BigDecimal factor;
+                    if (BigDecimal.valueOf(original.getAttributeValue()).signum() == 0) {
+                        BigDecimal number = new BigDecimal("1");
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(number, 2, RoundingMode.HALF_UP);
+                    } else {
+                        factor = BigDecimal.valueOf(updated.getAttributeValue()).divide(BigDecimal.valueOf(original.getAttributeValue()), 2, RoundingMode.HALF_UP);
+                    }
                     Random rand = new Random();
                     factor = factor.add(BigDecimal.valueOf((rand.nextDouble() * 0.06) - 0.03));
 
